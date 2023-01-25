@@ -1,0 +1,100 @@
+{
+  "Article": [
+    {
+      "ArticleInformation_Id": 1,
+      "ArticleStats_Id": 1,
+      "Article_DateCreated": "2022-09-23",
+      "Article_DateEdited": "2022-09-23",
+      "User_Id": 1,
+      "Article_Id": 1
+    },
+    {
+      "Article_Id": 2,
+      "ArticleInformation_Id": 2,
+      "ArticleStats_Id": 2,
+      "Article_DateCreated": "2022-09-28",
+      "Article_DateEdited": "2022-09-28",
+      "User_Id": 1
+    }
+  ],
+  "ArticleStats": [
+    {
+      "ArticleStats_Id": 1,
+      "ArticleStats_Upvotes": 0,
+      "ArticleStats_Clicks": 0,
+      "ArticleStats_Downloads": 0
+    },
+    {
+      "ArticleStats_Upvotes": 2,
+      "ArticleStats_Clicks": 3,
+      "ArticleStats_Downloads": 4,
+      "ArticleStats_Id": 2
+    }
+  ],
+  "ArticleInformation": [
+    {
+      "ArticleInformation_Name": "Name 1",
+      "ArticleTopic_Id": 2,
+      "ArticleInformation_Description": "Description 1",
+      "ArticleInformation_Url": "www.tbz.com",
+      "ArticleInformation_PublishedBy": "LSY",
+      "ArticleInformation_Image": "www.imgrlsy.com",
+      "ArticleInformation_Id": 1
+    },
+    {
+      "ArticleInformation_Name": "Name 2",
+      "ArticleTopic_Id": 2,
+      "ArticleInformation_Description": "Description 2",
+      "ArticleInformation_Url": "www.svt.com",
+      "ArticleInformation_PublishedBy": "CSC",
+      "ArticleInformation_Image": "www.imgrlsc.com",
+      "ArticleInformation_Id": 2
+    }
+  ],
+  "ArticleTopic": [
+    {
+      "ArticleTopic_Id": 1,
+      "ArticleTopic_Name": "topic1",
+      "ArticleTopic_Description": "topic description 1"
+    },
+    {
+      "ArticleTopic_Name": "topic2",
+      "ArticleTopic_Description": "topic description 2",
+      "ArticleTopic_Id": 2
+    }
+  ],
+  "AwarenessTest": [
+    {
+      "Test_Name": "New test name",
+      "Test_Content": "New content 111",
+      "TestType_Id": 1,
+      "TestStats_Id": 1,
+      "Test_Id": 1
+    }
+  ],
+  "AwarenessTestResults": [
+    {
+      "Test_Id": 1,
+      "User_Id": 1,
+      "TestResult_Description": "Result description2",
+      "TestResult_Maximum": 10,
+      "TestResult_Score": 5,
+      "TestResult_Feedback": "Failed",
+      "TestResult_Id": 1
+    }
+  ],
+  "AwarenessTestStats": [
+    {
+      "TestStats_Id": 1,
+      "TestStats_TakersTotal": 15,
+      "TestStats_AverageResults": 9
+    }
+  ],
+  "AwarenessTestType": [
+    {
+      "TestType_Id": 1,
+      "TestType_Name": "Name of type",
+      "TestType_Description": "Test type desc"
+    }
+  ]
+}

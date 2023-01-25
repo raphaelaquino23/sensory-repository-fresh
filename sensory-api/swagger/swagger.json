@@ -1,0 +1,294 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Post Forum NodeJS API Project",
+    "version": "1.0.0",
+    "title": "Post API",
+    "contact": {
+      "email": "email@yahoo.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+
+  "schemes": ["http"],
+  "host": "localhost:3081",
+  "basePath": "/api",
+  "paths": {
+    "/posts" : {
+      "get" : {
+        "summary": "Get ALL the posts",
+        "description": "Get ALL the posts",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/todosResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    },
+    "/postsinformation" : {
+      "get" : {
+        "summary": "Get ALL the post information",
+        "description": "Get ALL the post information",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/todosResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    },
+    "/post": {
+      "post": {
+        "summary": "Save the post",
+        "description": "Saves post",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "post object",
+            "required": true, 
+            "schema": {
+              "type": "object",
+              "properties": {
+                "post" : {
+                  "type": "object",
+                  "$ref": "#/definitions/Post"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description" :"successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/todosResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    },
+
+    "/postinformation": {
+      "post": {
+        "summary": "Save the post information",
+        "description": "Saves post information",
+        "produces": ["application/json"],
+        "consumes": ["application/json"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "post object",
+            "required": true, 
+            "schema": {
+              "type": "object",
+              "properties": {
+                "post" : {
+                  "type": "object",
+                  "$ref": "#/definitions/Post"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description" :"successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/todosResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    },
+    "/posts/": {
+      "put": {
+        "summary": "Update the Post",
+        "description": "Update the posts",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "post id that needs to be deleted",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "post object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "post": {
+                  "type": "object",
+                  "$ref": "#/definitions/Post"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description" :"successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/todosResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    },
+    "/post/{id}" : {
+      "delete": {
+        "summary": "Delete post",
+        "description": "Deletes the post",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "post id that needs to be deleted",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description" :"successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/todosResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value",
+            "schema": {
+              "$ref": "#/definitions/InvalidResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "todosResponse": {
+      "type": "object",
+      "properties": {
+        "_id": {
+          "type": "integer"
+        },
+        "PostInformation": {
+          "type": "string"
+        },
+        "PostCategory": {
+          "type": "string"
+        },
+        "PostStats": {
+            "type": "integer"
+        },
+        "Post_DateCreated": {
+            "type": "string"
+        },
+        "Post_DateEdited": {
+            "type": "string"
+        },
+        "Post_DeactivatedStatus": {
+            "type": "boolean"
+        }
+      }
+    },
+    "Post": {
+      "type": "object",
+      "properties": {
+        "post": {
+          "type": {
+            "PostInformation": {
+              "type": "string"
+            },
+            "PostCategory": {
+              "type": "string"
+            },
+            "PostStats": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    },
+    "InvalidResponse": {
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
