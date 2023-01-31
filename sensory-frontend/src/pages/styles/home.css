@@ -1,0 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap");
+
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Oxygen, sans-serif;
+}
+
+link:link { text-decoration: none; }
+link:visited { text-decoration: none; }
+link:hover { text-decoration: none; }
+link:active { text-decoration: none; }
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 16rem));
+  gap: 2rem;
+  justify-content: center;
+	margin-top: 30px;
+}
+
+.card {
+  overflow: hidden;
+  box-shadow: 0 2px 5px;
+  border-radius: 0.2 rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 200ms ease-in;
+	width: 270px;
+}
+
+.cards {
+  overflow: hidden;
+  box-shadow: 0 2px 5px;
+  border-radius: 1 rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+  /* transition: transform 200ms ease-in; */
+	width: 500px;
+	/* margin-top:-50px;
+	margin: 0 auto; */
+	margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+}
+
+.card__image {
+    height: 12rem;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card__title {
+    padding: 1rem;
+  }
+
+.card__description {
+    padding: 0 1rem;
+  }
+
+.card__btn {
+    padding: 1rem;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 1rem;
+    border: 2px solid #8eb572;
+    background: transparent;
+    color: #8eb572;
+    border-radius: 0.2rem;
+    transition: background 200ms ease-in, color 200ms ease-in;
+		width: 240px;
+  }
+
+  .card :hover {
+    transform: scale(1.02);
+  }
+
+  .card__btn :hover {
+    background: #d50000;
+    color: white;
+  }

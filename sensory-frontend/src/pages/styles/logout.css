@@ -1,0 +1,48 @@
+.container-logout {
+  display: flex;
+  align-items: center;
+}
+
+.container-logout h1 {
+	margin-left: 50px;
+}
+
+.container-logout h6 {
+	margin-top: 180px;
+}
+
+.landing-text {
+	margin: 3%;
+  display: inline-block;
+}
+
+.landing-text h1 {
+	white-space: nowrap;
+	text-align: center;
+	margin-left: 120px;
+	display: flex;
+}
+
+.landing-text h5 {
+	margin-top: -30px;
+	text-align: center;
+	margin-left: 50px;
+}
+
+.landing-text p {
+	margin-top: 1px;
+	text-align: center;
+	margin-left: 50px;
+}
+
+.landing-btn {
+	margin-left: 280px;
+	text-align: center;
+	border-radius: 9px;
+	background: #8eb572;
+	color: #fff;
+	padding: 10px 22px;
+	outline: none;
+  border: none;
+	margin-top: 10px;
+}

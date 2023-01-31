@@ -1,0 +1,98 @@
+*{
+  font-family: 'Poppins', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+ 
+.container {
+  width: 100vw;
+  height: 130vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+}
+ 
+.card-checklist {
+  width: 55rem;
+  background-color: #fff;
+  border-radius: 0rem;
+  border: 2px solid #F6F6F6;
+  overflow: hidden;
+  margin: 0 0.5rem;
+	margin-top: 20px;
+}
+ 
+.card-header{
+	margin-top: 0px;
+  border-bottom: 1px solid #F6F6F6;
+  padding: 1rem 1.2rem;
+  background-color: #8eb572;
+}
+
+/* moderator and therapist application */
+.card_header{ 
+	margin-top: 0px;
+  border-bottom: 1px solid #F6F6F6;
+  padding: 1rem 1.2rem;
+  background-color: #8eb572;
+	height: 60px;
+}
+
+.card-header .toddler {
+ text-align: right;
+ margin-top: -25px;
+}
+ 
+button {
+	border-radius: 4px; 
+  background: #8eb572;
+  padding: 10px 22px;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out; 
+  text-decoration: none;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #fff;
+  margin: 0;
+}
+ 
+.card-body{
+  padding: 1rem 1.2rem
+}
+ 
+.checkbox-container {
+  padding: 0.2rem;
+}
+ 
+label{
+  font-size: 0.8rem;
+  color: #343434;
+  margin-left: 0.5rem;
+}
+ 
+.list-container{
+  padding: 0.5rem 1rem 0 1rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+ 
+.chip {
+  padding: 0.3rem 1rem;
+  background-color: #f5f5f5;
+  border-radius: 0.2rem;
+  margin: 0.2rem;
+}
+ 
+.chip-label {
+  font-size: 0.7rem;
+  color:#000
+}

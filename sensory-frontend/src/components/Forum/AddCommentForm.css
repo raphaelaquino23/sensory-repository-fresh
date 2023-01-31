@@ -1,0 +1,18 @@
+.commentContainer {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #4E9BB9;
+}
+
+.textField {
+    background-color: whitesmoke;
+}
+
+.addCommentBtn {
+    margin-top: 15px;
+    margin-left: 950px;
+    max-width: 200px;
+    justify-content: center;
+    margin-bottom: 15px;
+    padding-bottom: 25px
+}
