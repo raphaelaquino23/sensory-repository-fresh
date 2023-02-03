@@ -9,7 +9,7 @@ import FacebookLogin from 'react-facebook-login';
 import FBRegisterService from '../services/FBRegisterService';
 
 const Login2 = () =>{
-  interface IFacebook {
+  interface IFacebook { 
 		name: string;
 		email: string;
 	}
@@ -123,7 +123,7 @@ const Login2 = () =>{
           </p>
         </section>
       ) : (
-        <section style={{ marginTop: "30px", borderRadius: "20px" }}>
+        <section style={{ marginTop: "40px", borderRadius: "5px", backgroundColor: "white", border: "solid", borderColor: "#B2BEB5"}}>
           <p
             ref={errRef}
             className={errMsg ? "errmsg" : "offscreen"}
@@ -131,51 +131,61 @@ const Login2 = () =>{
           >
             {errMsg}
           </p>
-          <h1>Log In</h1>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group>
+          <h1 style={{fontSize: "30px", textAlign: "center"}}><b>Log In</b></h1>
+          <Form onSubmit={handleSubmit} style={{backgroundColor: "white"}}>
+            <Form.Group style={{backgroundColor: "white"}}>
               <Form.Control
                 type="text"
                 placeholder="User Name *"
                 name="UserInformation_Name"
                 value={UserInformation_Name}
                 onChange={(e) => onInputChange(e)}
+								style={{marginTop: "10px"}}
                 required
               />
             </Form.Group>
             <Form.Group>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                placeholder="Password *"
                 name="UserInformation_Password"
                 value={UserInformation_Password}
                 onChange={(e) => onInputChange(e)}
+								style={{marginTop: "10px"}}
                 required
               />
             </Form.Group>
-            <Button variant="success" type="submit">
-              Login
-            </Button>
-          </Form>
-          <p>
-            Need An Account? <br />
-            <span className="line">
-              <a href="register">Sign Up</a>
-            </span>
-          </p>
-        </section>
-      )}
-      {!success || !captchaSuccess ? (
+						{!success || !captchaSuccess ? (
         <div>
           <div style={centered}>
+            <ReCAPTCHA
+              onSubmit={verify}
+              sitekey="6Lehx-8iAAAAALhAhjl6R1wnedHo0XNtS2IhFUdn"
+              data-theme="dark"
+              onChange={verify}
+							style={{marginTop: "10px"}}
+            />
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
+            <Button variant="success" type="submit" style={{marginTop: "10px"}}>
+              Login
+            </Button>
+						
+						<div style={centered}>
             <FacebookLogin
               buttonStyle={{
-                width: "390px",
+                width: "380px",
                 height: "43px",
                 alignItems: "center",
                 display: "inline-flex",
+								marginTop: "-100px"
               }}
-              appId="468886398448206"
+              // appId="468886398448206"
+							// appId="717585733227340"
+							appId="839713883737549"
               textButton="Login with Facebook"
               fields="name,email,picture"
               scope="public_profile,user_friends"
@@ -183,17 +193,14 @@ const Login2 = () =>{
               icon="fa-facebook"
             />
           </div>
-          <div style={centered}>
-            <ReCAPTCHA
-              onSubmit={verify}
-              sitekey="6Lehx-8iAAAAALhAhjl6R1wnedHo0XNtS2IhFUdn"
-              data-theme="dark"
-              onChange={verify}
-            />
-          </div>
-        </div>
-      ) : (
-        <div></div>
+          </Form>
+          <p>
+            Need An Account? &nbsp;
+            <span className="line">
+              <a href="register" style={{color: "black"}}><u>Sign Up</u></a>
+            </span>
+          </p>
+        </section>
       )}
     </>
   );
