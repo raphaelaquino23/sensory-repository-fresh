@@ -5,6 +5,7 @@ import {
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Form, Button } from "react-bootstrap"
 import './styles//Register.css';
 import axios from '../api/axios';
 import RegisterService from '../services/RegisterService';
@@ -110,7 +111,7 @@ const Register = () => {
           </p>
         </section>
       ) : (
-        <section style={{ marginTop: '30px', borderRadius: '20px' }}>
+        <section style={{ marginTop: '50px', borderRadius: '5px', backgroundColor: "white", border: "solid", borderColor: "#B2BEB5" }}>
           <p
             ref={errRef}
             className={errMsg ? 'errmsg' : 'offscreen'}
@@ -118,10 +119,10 @@ const Register = () => {
           >
             {errMsg}
           </p>
-          <h1 style={{textAlign: "center", fontSize: "15px"}}>Register</h1>
-          <form onSubmit={handleSubmit}>
+          <h1 style={{fontSize: "30px", textAlign: "center"}}>Register</h1>
+          <Form onSubmit={handleSubmit}>
+						<Form.Group style={{backgroundColor: "white"}}>
             <label htmlFor='username'>
-              Username:
               <FontAwesomeIcon
                 icon={faCheck}
                 className={validName ? 'valid' : 'hide'}
@@ -131,9 +132,22 @@ const Register = () => {
                 className={validName || !user ? 'hide' : 'invalid'}
               />
             </label>
-            <input
+						{/* <Form.Control
+                type="text"
+                placeholder="Username *"
+                name="UserInformation_Name"
+                value={user}
+								ref={userRef}
+                onChange={(e) => setUser(e.target.value)}
+								style={{marginTop: "10px"}}
+                required
+								onFocus={() => setUserFocus(true)}
+              	onBlur={() => setUserFocus(false)}
+            /> */}
+            <Form.Control
               type='text'
               id='username'
+							placeholder='User Name*'
               ref={userRef}
               autoComplete='off'
               onChange={(e) => setUser(e.target.value)}
@@ -157,9 +171,8 @@ const Register = () => {
               <br />
               Letters, numbers, underscores, hyphens allowed.
             </p>
-
+						</Form.Group>
             <label htmlFor='password'>
-              Password:
               <FontAwesomeIcon
                 icon={faCheck}
                 className={validPwd ? 'valid' : 'hide'}
@@ -169,9 +182,10 @@ const Register = () => {
                 className={validPwd || !pwd ? 'hide' : 'invalid'}
               />
             </label>
-            <input
+            <Form.Control
               type='password'
               id='password'
+							placeholder='Password*'
               onChange={(e) => setPwd(e.target.value)}
               value={pwd}
               required
@@ -198,7 +212,6 @@ const Register = () => {
               <span aria-label='percent'>%</span>
             </p>
             <label htmlFor='confirm_pwd'>
-              Confirm Password:
               <FontAwesomeIcon
                 icon={faCheck}
                 className={validMatch && matchPwd ? 'valid' : 'hide'}
@@ -208,9 +221,10 @@ const Register = () => {
                 className={validMatch || !matchPwd ? 'hide' : 'invalid'}
               />
             </label>
-            <input
+            <Form.Control
               type='password'
               id='confirm_pwd'
+							placeholder='Confirm Password*'
               onChange={(e) => setMatchPwd(e.target.value)}
               value={matchPwd}
               required
@@ -230,7 +244,6 @@ const Register = () => {
             </p>
 
             <label htmlFor='email'>
-              Email:
               <FontAwesomeIcon
                 icon={faCheck}
                 className={validEmail ? 'valid' : 'hide'}
@@ -240,9 +253,10 @@ const Register = () => {
                 className={validEmail || !email ? 'hide' : 'invalid'}
               />
             </label>
-            <input
+            <Form.Control
               type='text'
               id='email'
+							placeholder='Email Address*'
               ref={emailRef} //not sure if emailRef is needed
               autoComplete='off'
               onChange={(e) => setEmail(e.target.value)}
@@ -278,19 +292,21 @@ const Register = () => {
               or{' '}
             </p> */}
  
-            <button
+            {/* <button
               style={{ backgroundColor: '#003959' }}
               disabled={!validName || !validPwd || !validMatch ? true : false}
             >
               Sign Up
-            </button>
-          </form>
+            </button> */}
+						<Button variant="success" type="submit" style={{marginTop: "10px"}} disabled={!validName || !validPwd || !validMatch ? true : false}>
+              Sign Up
+            </Button>
+          </Form>
           <p>
-            Already registered?
-            <br />
+            Already registered? &nbsp;
             <span className='line'>
               {/*put router link here*/}
-              <a href='/login'>Sign In</a>
+              <a href='/login' style={{color: "black"}}><u>Log In</u></a>
             </span>
           </p>
         </section>
@@ -299,4 +315,5 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default Register; 
+
