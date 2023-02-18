@@ -1,7 +1,7 @@
 import { Modal, Button, Alert} from 'react-bootstrap';
 import { Key, useContext, useEffect, useState } from 'react';
 import {ActivityContext} from '../../contexts/ActivityContext';
-import Activity from './Activity';
+import Activity from './ActivityAdmin';
 import AddActivity from './AddActivity';
 import ActivityPagination from './ActivityPagination';
 import axios from 'axios';
@@ -58,7 +58,7 @@ const ActivityList = () => {
 						<h2>Campaign <b>Activities</b></h2>
 					</div>
 					<div className="col-sm-6">
-						<input className="inpt" placeholder="Search" value={search} onChange={handleSearchActivity}></input>
+						<input className="inpt" placeholder="Search" style={{color: "black"}} value={search} onChange={handleSearchActivity}></input>
 						<Button onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Activity</span></Button>					
 					</div>
 				</div>

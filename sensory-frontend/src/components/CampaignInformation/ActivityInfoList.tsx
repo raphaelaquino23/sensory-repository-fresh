@@ -63,6 +63,7 @@ const ActivityList = () => {
             <input
               className="inpt"
               placeholder="Search"
+			  style={{color: "black"}}
               value={search}
               onChange={handleSearchActivity}
             ></input>

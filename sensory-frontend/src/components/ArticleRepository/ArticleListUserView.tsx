@@ -69,6 +69,7 @@ const ArticleList = () => {
             <input
               className="inpt"
               placeholder="Search"
+              style={{color: "black"}}
               value={search}
               onChange={handleSearchArticle}
             ></input>

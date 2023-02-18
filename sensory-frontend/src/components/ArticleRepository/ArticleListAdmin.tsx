@@ -71,6 +71,7 @@ const ArticleList = () => {
               <span>Submit New Article</span>
             </Button>
             <input
+              style={{color: "black"}}
               className="input"
               placeholder="Search"
               value={search}
