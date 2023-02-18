@@ -90,22 +90,24 @@ const ArticleList = () => {
           <tr>
             <th>Name</th>
             <th>Description</th>
-            <th>Publisher</th>
+            <th>Published By</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {listArticleInformation
-            .filter((article: { ArticleInformation_Name: string }) => {
-							if(article){
-								if (search === "") {
-									return article;
-								} else if (
-									article.ArticleInformation_Name.toLowerCase().includes(search.toLowerCase())
-								) {
-									return article;
-								}
-							}
+        {listArticleInformation
+            .filter((article: { ArticleInformation_Name: string, ArticleInformation_Description: string, ArticleInformation_PublishedBy: string }) => {
+              if(article){
+                if (search === "") {
+                  return article;
+                } else if (
+                  article.ArticleInformation_Name.toLowerCase().includes(search.toLowerCase()) ||
+                  article.ArticleInformation_Description.toLowerCase().includes(search.toLowerCase()) ||
+                  article.ArticleInformation_PublishedBy.toLowerCase().includes(search.toLowerCase())
+                ) {
+                  return article;
+                }
+              }
             })
             .map(
               (
