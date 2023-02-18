@@ -82,6 +82,7 @@ const AddForm = () => {
           formEncType="multipart/form-data"
           placeholder="file"
           name="file"
+          accept=".pdf"
           onChange={(e) => onFileChange(e)}
           required
         />

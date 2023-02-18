@@ -79,7 +79,8 @@ const AddActivity = () => {
           formEncType="multipart/form-data"
           placeholder="file"
           name="file"
-					onChange = { (e) => onFileChange(e)}
+		  accept=".jpg, .png"
+		  onChange = { (e) => onFileChange(e)}
         />
       </Form.Group>
 				<Button variant="success" type="submit">
