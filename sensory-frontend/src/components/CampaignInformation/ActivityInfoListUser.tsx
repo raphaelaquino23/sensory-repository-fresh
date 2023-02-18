@@ -330,7 +330,6 @@ const ActivityList = () => {
 					<tr>
 					<th>Activity Name</th>
 						<th>Description</th>
-						<th> File </th>
 						<th>Actions</th>
 					</tr>
 				</thead>

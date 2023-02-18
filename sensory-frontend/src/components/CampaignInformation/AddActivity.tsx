@@ -10,7 +10,7 @@ const AddActivity = () => {
 	const [newActivity, setNewActivity] = useState({
 		name: "",
 		description: "",
-		url: ""
+		url: "",
 	});
 	
 	const onInputChange = (e: any) => { 

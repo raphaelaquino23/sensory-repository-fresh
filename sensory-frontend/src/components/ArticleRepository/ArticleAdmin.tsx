@@ -59,20 +59,6 @@ const Article = ({article} : { article: any}) => {
           </Button>
         </Modal.Footer>
   	  </Modal>
-      
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Upload</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <UploadFile />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close Button
-          </Button>
-        </Modal.Footer>
-      </Modal>
   	</>
   )
 }
