@@ -38,7 +38,7 @@ const onClickChange = (e:any) => {
 			</td> 
       <td>{article.ArticleInformation_Description}</td>
       <td>{article.ArticleInformation_PublishedBy}</td>
-			<td>{article.topic}</td>
+			{/* <td>{article.topic}</td> */}
 			<td><Button onClick={(e)=>onClickChange(e)}>Download</Button></td>
 
         <Modal show={show} onHide={handleClose}>

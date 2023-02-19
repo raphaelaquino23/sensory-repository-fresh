@@ -1,7 +1,6 @@
 import { Modal, Button, Alert} from 'react-bootstrap';
 import { Key, useContext, useEffect, useState } from 'react';
 import {ActivityContext} from '../../contexts/ActivityContext';
-// import Activity from './Activity';
 import ActivityInfo from './ActivityInfo'
 import AddActivity from './AddActivity';
 import ActivityPagination from './ActivityPagination';
@@ -63,6 +62,7 @@ const ActivityList = () => {
             <input
               className="inpt"
               placeholder="Search"
+			  style={{color: "black"}}
               value={search}
               onChange={handleSearchActivity}
             ></input>
@@ -75,16 +75,16 @@ const ActivityList = () => {
 					<tr>
 					<th>Activity Name</th>
 						<th>Description</th>
-						<th> File </th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
-					{
-						listActivities.filter((activity: { topic: string; }) => { //quick fix
+				{
+						listActivities.filter((activity: { CampaignInformation_Name: string; CampaignInformation_Description: string; }) => { //quick fix
 							if (search === "") {
 								return activity
-						} else if (activity.topic.toLowerCase().includes(search.toLowerCase())){
+						} else if (activity.CampaignInformation_Name.toLowerCase().includes(search.toLowerCase()) ||
+									activity.CampaignInformation_Description.toLowerCase().includes(search.toLowerCase())){
 								return activity
 						}
 						}).map((activity: { CampaignInformation_Id: Key | null | undefined; }) => ( //quick fix
@@ -121,3 +121,4 @@ const ActivityList = () => {
 }
 
 export default ActivityList;
+

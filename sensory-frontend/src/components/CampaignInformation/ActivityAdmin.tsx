@@ -22,8 +22,6 @@ const Activity = ({activity} : { activity: any}) => {
 			</td> 
 			<td>{activity.CampaignInformation_Description}</td>
 			<td>{activity.CampaignInformation_Url}</td>
-			<td>{activity.CampaignInformation_Image}</td>
-			<td>{activity.partner}</td>
       <td>
         <OverlayTrigger
           overlay={

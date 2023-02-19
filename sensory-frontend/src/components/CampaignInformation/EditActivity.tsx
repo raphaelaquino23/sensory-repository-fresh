@@ -6,19 +6,37 @@ const EditActivity = ({theActivity} : { theActivity: any}) =>{
 
 	const CampaignInformation_Id = theActivity.CampaignInformation_Id;
 
+	const [selectedFile, setSelectedFile] = useState();
 	const [name, setName] = useState(theActivity.name);
 	const [description, setDescription] = useState(theActivity.description);
-	const [date, setDate] = useState(theActivity.date);
-	const [topic, setTopic] = useState(theActivity.topic);
-	const [partner, setPartner] = useState(theActivity.partner);
+	const [url, setUrl] = useState(theActivity.url);
 
 	const {updateActivity} = useContext(ActivityContext);
 
-	const updatedActivity = {CampaignInformation_Id, name, description, date, topic, partner}
+	const updatedActivity = {CampaignInformation_Id, name, description, url}
+	const onFileChange = (e:any) => {
+		setSelectedFile(e.target.files[0]);
+	};
 
 	const handleSubmit = (e: React.ChangeEvent<any>) => {
 			e.preventDefault();
 			updateActivity(CampaignInformation_Id, updatedActivity)
+	}
+
+	const formData = new FormData();
+    // formData.append("file", selectedFile);
+
+	const activityObject = {
+		campaign: {},
+		campaignInformation:{
+			CampaignInformation_Name: name,
+			CampaignInformation_Description: description,
+			// CampaignInformation_Url: selectedFile.name
+		},
+		campaignStats:{
+			CampaignStats_Clicks: 0
+		},
+		// fileName: selectedFile.name
 	}
 
 	return (
@@ -46,34 +64,14 @@ const EditActivity = ({theActivity} : { theActivity: any}) =>{
 			</Form.Group>
 			<Form.Group>
         <Form.Control
-          type="text"
-          placeholder="Date"
-          name="date"
-          value={date}
-          onChange = { (e) => setDate(e.target.value)}
-          required
+          type="file"
+          formEncType="multipart/form-data"
+          placeholder="file"
+          name="file"
+		  accept=".jpg, .png"
+		  onChange = { (e) => onFileChange(e)}
         />
       </Form.Group>
-			<Form.Group>
-        <Form.Control
-          type="text"
-          placeholder="Topic *"
-          name="topic"
-          value={topic}
-          onChange = { (e) => setTopic(e.target.value)}
-          required
-        />
-      </Form.Group>
-			<Form.Group>
-				<Form.Control
-					type="text"
-					placeholder="Activity Partner *"
-					name="partner"
-					value={partner}
-					onChange = { (e) => setPartner(e.target.value)}
-					required
-				/>
-			</Form.Group>
 			<Button variant="success" type="submit">
 				Edit Activity
 			</Button>
