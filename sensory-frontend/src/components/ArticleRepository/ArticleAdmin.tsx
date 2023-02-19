@@ -23,6 +23,7 @@ const Article = ({article} : { article: any}) => {
 			</td> 
       <td>{article.ArticleInformation_Description}</td>
       <td>{article.ArticleInformation_PublishedBy}</td>
+      <td>{article.ArticleInformation_Url}</td>
 			{/* <td>{article.ArticleStats_Downloads}</td> */}
       <td>
         <OverlayTrigger

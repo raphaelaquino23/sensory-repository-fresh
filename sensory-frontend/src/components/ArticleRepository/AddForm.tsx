@@ -10,6 +10,7 @@ const AddForm = () => {
     description: "",
     category: "",
     publishedBy: "",
+    url: "",
   });
   //File is to be placed here
 	const [selectedFile, setSelectedFile] = useState();
@@ -23,7 +24,7 @@ const AddForm = () => {
     setSelectedFile(e.target.files[0]);
   };
 
-  const { name, description, category, publishedBy } = newArticle;
+  const { name, description, category, publishedBy, url } = newArticle;
 
   //this sends the file out
   const handleSubmit = async (e:any) => {
@@ -38,7 +39,8 @@ const AddForm = () => {
           ArticleInformation_Name: name,
           ArticleTopic_Id: 1, 
           ArticleInformation_Description: description,
-          ArticleInformation_PublishedBy: publishedBy
+          ArticleInformation_PublishedBy: publishedBy,
+          ArticleInformation_Url: url
         },
         articleStats:{
           ArticleStats_Upvotes: 0,

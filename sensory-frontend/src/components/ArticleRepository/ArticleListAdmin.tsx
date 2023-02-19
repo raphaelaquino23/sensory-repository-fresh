@@ -91,6 +91,7 @@ const ArticleList = () => {
             <th>Name</th>
             <th>Description</th>
             <th>Published By</th>
+            <th>File</th>
             <th>Actions</th>
           </tr>
         </thead>
