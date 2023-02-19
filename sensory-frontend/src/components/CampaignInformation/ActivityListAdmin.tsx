@@ -81,10 +81,12 @@ const ActivityList = () => {
 				</thead>
 				<tbody>
 					{
-						listActivities.filter((activity: { CampaignInformation_Name: string; }) => { //quick fix
+						listActivities.filter((activity: { CampaignInformation_Name: string; CampaignInformation_Description: string; CampaignInformation_Url: string;}) => { //quick fix
 							if (search === "") {
 								return activity
-						} else if (activity.CampaignInformation_Name.toLowerCase().includes(search.toLowerCase())){
+						} else if (activity.CampaignInformation_Name.toLowerCase().includes(search.toLowerCase()) ||
+									activity.CampaignInformation_Description.toLowerCase().includes(search.toLowerCase()) ||
+									activity.CampaignInformation_Url.toLowerCase().includes(search.toLowerCase())){
 								return activity
 						}
 						}).map((activity: { CampaignInformation_Id: Key | null | undefined; }) => ( //quick fix
