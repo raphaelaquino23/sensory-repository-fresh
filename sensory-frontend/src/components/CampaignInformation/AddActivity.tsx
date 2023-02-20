@@ -11,6 +11,7 @@ const AddActivity = () => {
 		name: "",
 		description: "",
 		url: "",
+		date:""
 	});
 	
 	const onInputChange = (e: any) => { 
@@ -22,7 +23,7 @@ const AddActivity = () => {
 		setSelectedFile(e.target.files[0]);
 	};
 
-	const { name, description, url } = newActivity;
+	const { name, description, url, date } = newActivity;
 
 	const handleSubmit = async (e:any) => {
     e.preventDefault();
@@ -38,7 +39,8 @@ const AddActivity = () => {
 			campaignInformation:{
 				CampaignInformation_Name: name,
 				CampaignInformation_Description: description,
-				CampaignInformation_Url: selectedFile.name
+				CampaignInformation_Url: selectedFile.name,
+				CampaignInformation_Date: date
 			},
 			campaignStats:{
 				CampaignStats_Clicks: 0
@@ -69,6 +71,16 @@ const AddActivity = () => {
 					rows={3} //changed row to rows
 					name="description"
 					value={description}
+					onChange = { (e) => onInputChange(e)}
+					required
+				/>
+			</Form.Group>
+			<Form.Group>
+				<Form.Control
+					type="date"
+					placeholder="Date"
+					name="date"
+					value={date}
 					onChange = { (e) => onInputChange(e)}
 					required
 				/>

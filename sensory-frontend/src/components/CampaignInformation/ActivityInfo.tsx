@@ -54,9 +54,10 @@ const ActivityInfo = ({activity}: {activity : any}) => {
 	return (
 		<>
     	<td>
-				<a href={'/activityinfo'} target="_blank" rel="noopener noreferrer">{activity.CampaignInformation_Name}</a>
+				<a href={activity.CampaignInformation_Url} target="_blank" rel="noopener noreferrer">{activity.CampaignInformation_Name}</a>
 			</td> 
 			<td>{activity.CampaignInformation_Description}</td>
+      <td>{activity.CampaignInformation_Date}</td>
       <td><Button onClick={(e)=>onClickChange(e)}>Download</Button></td>
 			<td><p onClick={displayAlert} style={{cursor: 'pointer', color: 'blue'}}>Join Event</p></td>
 

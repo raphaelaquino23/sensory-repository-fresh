@@ -26,7 +26,7 @@ const ArticleContextProvider = (props: any) => {
     localStorage.setItem('articles', JSON.stringify(articles));
   });
 
-  const sortedArticles = articles.sort((a, b) => (a.name < b.name ? -1 : 1)); //https://stackoverflow.com/questions/44147937/property-does-not-exist-on-type-never
+  const sortedArticles = articles.sort((a, b) => (a.ArticleInformation_Name < b.ArticleInformation_Name ? -1 : 1)); //https://stackoverflow.com/questions/44147937/property-does-not-exist-on-type-never
 
   const addArticle = (
     ArticleInformation_Name: string,

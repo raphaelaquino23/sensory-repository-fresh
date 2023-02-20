@@ -21,6 +21,7 @@ const Activity = ({activity} : { activity: any}) => {
 				<a href={'/activityinfo'} target="_blank" rel="noopener noreferrer">{activity.CampaignInformation_Name}</a>
 			</td> 
 			<td>{activity.CampaignInformation_Description}</td>
+      <td>{activity.CampaignInformation_Date}</td>
 			<td>{activity.CampaignInformation_Url}</td>
       <td>
         <OverlayTrigger

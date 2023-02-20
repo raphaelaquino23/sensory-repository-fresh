@@ -24,7 +24,7 @@ const ActivityContextProvider = (props: any) => {
   });
 
   const sortedActivities = activities.sort((a, b) =>
-    a.name < b.name ? -1 : 1
+    a.CampaignInformation_Name < b.CampaignInformation_Name ? -1 : 1
   ); //https://stackoverflow.com/questions/44147937/property-does-not-exist-on-type-never
 
   const addActivity = (

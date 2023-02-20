@@ -50,6 +50,9 @@ export class CampaignInformation extends Model{
   CampaignInformation_Description: string
 
   @Column
+  CampaignInformation_Date: Date
+
+  @Column
   CampaignInformation_Url: string
   
   @Column
