@@ -1,4 +1,4 @@
-import ActivityInfoList from '../components/CampaignInformation/ActivityInfoList';
+import ActivityInfoList from '../components/CampaignInformation/ActivityInfoListUser';
 import ActivityContextProvider from '../contexts/ActivityContext';
 
 function ActivityInfo() {

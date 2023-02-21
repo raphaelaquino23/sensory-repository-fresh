@@ -53,35 +53,12 @@ const ActivityInfo = ({activity}: {activity : any}) => {
 		
 	return (
 		<>
-			{/* <Link to={'/activityinfo'}> */}
     	<td>
 				<a href={'/activityinfo'} target="_blank" rel="noopener noreferrer">{activity.CampaignInformation_Name}</a>
 			</td> 
 			<td>{activity.CampaignInformation_Description}</td>
-			<td>{activity.CampaignInformation_Url}</td>
-			<td>{activity.CampaignInformation_Image}</td>
-			<td>{activity.partner}</td>
       <td><Button onClick={(e)=>onClickChange(e)}>Download</Button></td>
 			<td><p onClick={displayAlert} style={{cursor: 'pointer', color: 'blue'}}>Join Event</p></td>
-			{/* <td>
-			<OverlayTrigger
-          overlay={
-            <Tooltip id={`tooltip-top`}>
-              Edit
-            </Tooltip>
-          }>
-            <button onClick={handleShow}  className="btn text-warning btn-act" data-toggle="modal"><i className="material-icons">&#xE254;</i></button>
-        </OverlayTrigger>
-        <OverlayTrigger
-          overlay={
-            <Tooltip id={`tooltip-top`}>
-              Delete
-          	</Tooltip>
-          }>
-            <button onClick={() => deleteActivity(activity.CampaignInformation_Id)}  className="btn text-danger btn-act" data-toggle="modal"><i className="material-icons">&#xE872;</i></button>
-        </OverlayTrigger>
-                
-      </td> */}
 
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
