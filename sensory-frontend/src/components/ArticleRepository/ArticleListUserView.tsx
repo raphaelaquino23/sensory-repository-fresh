@@ -69,6 +69,7 @@ const ArticleList = () => {
             <input
               className="inpt"
               placeholder="Search"
+              style={{color: "black"}}
               value={search}
               onChange={handleSearchArticle}
             ></input>
@@ -85,20 +86,22 @@ const ArticleList = () => {
           <tr>
             <th>Name</th>
             <th>Description</th>
+            <th>Published By</th>
             <th>Actions</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
-          {listArticleInformation
-            .filter((article: { ArticleInformation_Name: string }) => {
+        {listArticleInformation
+            .filter((article: { ArticleInformation_Name: string, ArticleInformation_Description: string, ArticleInformation_PublishedBy: string }) => {
               if (article) {
                 if (search === "") {
                   return article;
                 } else if (
                   article.ArticleInformation_Name.toLowerCase().includes(
                     search.toLowerCase()
-                  )
+                  ) ||
+                  article.ArticleInformation_Description.toLowerCase().includes(search.toLowerCase()) ||
+                  article.ArticleInformation_PublishedBy.toLowerCase().includes(search.toLowerCase())
                 ) {
                   return article;
                 }

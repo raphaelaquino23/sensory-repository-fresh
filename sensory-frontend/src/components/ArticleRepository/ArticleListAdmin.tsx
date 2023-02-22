@@ -61,22 +61,10 @@ const ArticleList = () => {
               Article <b>Repository</b>
             </h2>
           </div>
-          <div>
-            <Button
-              onClick={handleShow}
-              className="btn btn-success"
-              data-toggle="modal"
-            >
-              <i className="material-icons">&#xE147;</i>{" "}
-              <span>Submit New Article</span>
-            </Button>
-            <input
-              className="input"
-              placeholder="Search"
-              value={search}
-              onChange={handleSearchArticle}
-            ></input>
-          </div>
+          <div className="col-sm-6">
+						<input className="inpt" placeholder="Search" style={{color: "black"}} value={search} onChange={handleSearchArticle}></input>
+						<Button onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Activity</span></Button>					
+					</div>
         </div>
       </div>
 
@@ -89,22 +77,25 @@ const ArticleList = () => {
           <tr>
             <th>Name</th>
             <th>Description</th>
-            <th>Publisher</th>
+            <th>Published By</th>
+            <th>File</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {listArticleInformation
-            .filter((article: { ArticleInformation_Name: string }) => {
-							if(article){
-								if (search === "") {
-									return article;
-								} else if (
-									article.ArticleInformation_Name.toLowerCase().includes(search.toLowerCase())
-								) {
-									return article;
-								}
-							}
+        {listArticleInformation
+            .filter((article: { ArticleInformation_Name: string, ArticleInformation_Description: string, ArticleInformation_PublishedBy: string }) => {
+              if(article){
+                if (search === "") {
+                  return article;
+                } else if (
+                  article.ArticleInformation_Name.toLowerCase().includes(search.toLowerCase()) ||
+                  article.ArticleInformation_Description.toLowerCase().includes(search.toLowerCase()) ||
+                  article.ArticleInformation_PublishedBy.toLowerCase().includes(search.toLowerCase())
+                ) {
+                  return article;
+                }
+              }
             })
             .map(
               (

@@ -1,7 +1,7 @@
 import { Modal, Button, Alert} from 'react-bootstrap';
 import { Key, useContext, useEffect, useState } from 'react';
 import {ActivityContext} from '../../contexts/ActivityContext';
-import Activity from './Activity';
+import Activity from './ActivityAdmin';
 import AddActivity from './AddActivity';
 import ActivityPagination from './ActivityPagination';
 import axios from 'axios';
@@ -58,7 +58,7 @@ const ActivityList = () => {
 						<h2>Campaign <b>Activities</b></h2>
 					</div>
 					<div className="col-sm-6">
-						<input className="inpt" placeholder="Search" value={search} onChange={handleSearchActivity}></input>
+						<input className="inpt" placeholder="Search" style={{color: "black"}} value={search} onChange={handleSearchActivity}></input>
 						<Button onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Activity</span></Button>					
 					</div>
 				</div>
@@ -75,16 +75,18 @@ const ActivityList = () => {
 					<tr>
 						<th>Activity Name</th>
 						<th>Description</th>
-						<th>Partner</th>
+						<th>File</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
 					{
-						listActivities.filter((activity: { CampaignInformation_Name: string; }) => { //quick fix
+						listActivities.filter((activity: { CampaignInformation_Name: string; CampaignInformation_Description: string; CampaignInformation_Url: string;}) => { //quick fix
 							if (search === "") {
 								return activity
-						} else if (activity.CampaignInformation_Name.toLowerCase().includes(search.toLowerCase())){
+						} else if (activity.CampaignInformation_Name.toLowerCase().includes(search.toLowerCase()) ||
+									activity.CampaignInformation_Description.toLowerCase().includes(search.toLowerCase()) ||
+									activity.CampaignInformation_Url.toLowerCase().includes(search.toLowerCase())){
 								return activity
 						}
 						}).map((activity: { CampaignInformation_Id: Key | null | undefined; }) => ( //quick fix
