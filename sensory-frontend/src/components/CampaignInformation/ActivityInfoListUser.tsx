@@ -5,7 +5,9 @@ import ActivityInfo from './ActivityInfo'
 import AddActivity from './AddActivity';
 import ActivityPagination from './ActivityPagination';
 import axios from 'axios';
-
+import { DateRangePicker } from 'react-date-range';
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 
 const ActivityList = () => {
     const {sortedActivities} = useContext(ActivityContext);
@@ -17,6 +19,12 @@ const ActivityList = () => {
     const [show, setShow] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [activitiesPerPage] = useState(5)
+
+    const [allListActivities, setAllListActivities] = useState([]);
+	const [startDate,setStartDate]= useState(new Date());
+	const [endDate,setEndDate]= useState(new Date());
+    const [open, setOpen] = useState(false)
+    const [calendar, setCalendar] = useState("Select a date")
 
 
     const handleShow = () => setShow(true);
@@ -49,6 +57,7 @@ const ActivityList = () => {
     useEffect(() => {
         axios.get(`http://localhost:3081/api/campaigninformation`).then((response) => {
             setListActivities(response.data);
+            setAllListActivities(response.data);
         });
     }, []);
 
@@ -58,6 +67,23 @@ const ActivityList = () => {
     const currentActivities = sortedActivities.slice(indexOfFirstActivity, indexOfLastActivity);
     const totalPagesNum = Math.ceil(sortedActivities.length / activitiesPerPage);
 
+    const handleSelect = (date: any) =>{
+        const filtered = allListActivities.filter((activity) => {
+			const activityDate = new Date(activity["CampaignInformation_Date"]);
+			return(activityDate>= date.selection.startDate &&
+				activityDate<= date.selection.endDate);
+		})
+		setStartDate(date.selection.startDate);
+		setEndDate(date.selection.endDate);
+		setListActivities(filtered);
+    };
+
+    const selectionRange = {
+        startDate: startDate,
+        endDate: endDate,
+		// dateFormat: "yyyy-mm-dd",
+        key: 'selection',
+    }
 
     return (
     <>
@@ -68,18 +94,30 @@ const ActivityList = () => {
               Campaign <b>Activities</b>
             </h2>
           </div>
-          <div className="col-sm-6">
-            <input
-              className="inpt"
-              placeholder="Search"
-              style={{color: "black"}}
-              value={search}
-              onChange={handleSearchActivity}
-            ></input>
-          </div>
         </div>
       </div>
 
+      <div style={{display: "flex", justifyContent: "center"}}>
+        <input 
+            className="inpt" 
+            placeholder="Search" 
+            style={{border: "2px solid black"}} 
+            value={search} 
+            onChange={handleSearchActivity}
+        /> &nbsp;
+        <input
+            value={ calendar }
+            readOnly
+            onClick={ () => setOpen (open => !open)}
+            style={{border: "2px solid black"}}
+        />
+        {open &&
+            <DateRangePicker
+                ranges={[selectionRange]}
+                onChange={handleSelect}
+            />
+        }
+        </div>
 
             <table className="table table-striped table-hover">
                 <thead>
