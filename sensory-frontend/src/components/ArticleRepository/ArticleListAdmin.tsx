@@ -73,13 +73,18 @@ const ArticleList = () => {
             </h2>
           </div>
           <div className="col-sm-6">
-            <input className="inpt" placeholder="Search" style={{color: "black"}} value={search} onChange={handleSearchArticle}></input>
             <Button onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Activity</span></Button>          
           </div>
         </div>
       </div>
 
-
+      <input 
+                className="inpt" 
+                placeholder="Search" 
+                style={{border: "2px solid black"}} 
+                value={search} 
+                onChange={handleSearchArticle}
+      />
       <Alert show={showAlert} variant="success">
         Article Repository Updated Successfully!
       </Alert>
