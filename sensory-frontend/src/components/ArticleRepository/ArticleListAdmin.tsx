@@ -72,7 +72,7 @@ const ArticleList = () => {
               Article <b>Repository</b>
             </h2>
           </div>
-          <div className="col-sm-6">
+          <div>
             <Button onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Activity</span></Button>          
           </div>
         </div>
