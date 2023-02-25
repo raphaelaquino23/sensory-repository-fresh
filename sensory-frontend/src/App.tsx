@@ -41,12 +41,12 @@ function App() {
 			{thisToken? <Navbar /> : <NotNavbar/>}
       <Routes>
         <Route path='/'  element={<Logout/>} />
-        <Route path='/article' element={thisToken && (thisUserType === "2")? <Article/>: <LogIn/>} />
-				<Route path='/article-user' element={thisToken && (thisUserType === "2")? <ArticleUser/>: <Article/>} />
+        <Route path='/article' element={thisToken && (thisUserType === "2")? <Article/>: <ArticleUser/>} />
+				<Route path='/article-user' element={thisToken && (thisUserType === "2")? <Article/>: <ArticleUser/>} />
         <Route path='/campaign' element={thisToken? <Campaign/> : <LogIn/>} />
         <Route path='/post' element={thisToken? <Post/>: <LogIn/>} />
         <Route path='/postdetail' element={<PostDetailPage/>} />
-        <Route path='/activity' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <LogIn/>} /> 
+        <Route path='/activity' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <ActivityInfo/>} /> 
 				<Route path='/activityinfo' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <ActivityInfo/>} /> 
 				<Route path='/home' element={<Home/>} />
 				<Route path='/pastactivities' element={thisToken? <PastActivities/>: <LogIn/>} />
