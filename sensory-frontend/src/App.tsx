@@ -42,12 +42,14 @@ function App() {
       <Routes>
         <Route path='/'  element={<Logout/>} />
         <Route path='/article' element={thisToken && (thisUserType === "2")? <Article/>: <LogIn/>} />
-				<Route path='/article-user' element={thisToken && (thisUserType === "4")? <ArticleUser/>: <LogIn/>} />
+				<div /* the route will go to article-user if the user type is not 2. If the user type is 2, it will go to article *//>
+				<Route path='/article-user' element={thisToken && (thisUserType === "2")? <Article/>: <ArticleUser/>} />
         <Route path='/campaign' element={thisToken? <Campaign/> : <LogIn/>} />
         <Route path='/post' element={thisToken? <Post/>: <LogIn/>} />
         <Route path='/postdetail' element={<PostDetailPage/>} />
         <Route path='/activity' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <LogIn/>} /> 
-				<Route path='/activityinfo' element={thisToken && (thisUserType === "4")? <ActivityInfo/>: <LogIn/>} /> 
+				<div /* the route will go to CampaignActivityPage if the user type is not 2. If the user type is 2, it will go to ActivityInfo *//>
+				<Route path='/activityinfo' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <ActivityInfo/>} /> 
 				<Route path='/home' element={<Home/>} />
 				<Route path='/pastactivities' element={thisToken? <PastActivities/>: <LogIn/>} />
 				<Route path='/checklist-toddler' element={thisToken? <ChecklistToddler/>: <LogIn/>} />
