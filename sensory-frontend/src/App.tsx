@@ -42,7 +42,7 @@ function App() {
       <Routes>
         <Route path='/'  element={<Logout/>} />
         <Route path='/article' element={thisToken && (thisUserType === "2")? <Article/>: <LogIn/>} />
-				<Route path='/article-user' element={thisToken && (thisUserType === "2")? <Article/>: <ArticleUser/>} />
+				<Route path='/article-user' element={thisToken && (thisUserType === "2")? <ArticleUser/>: <Article/>} />
         <Route path='/campaign' element={thisToken? <Campaign/> : <LogIn/>} />
         <Route path='/post' element={thisToken? <Post/>: <LogIn/>} />
         <Route path='/postdetail' element={<PostDetailPage/>} />
