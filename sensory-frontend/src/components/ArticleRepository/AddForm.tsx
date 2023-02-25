@@ -26,6 +26,16 @@ const AddForm = () => {
 
   const { name, description, category, publishedBy, url } = newArticle;
 
+  // const handleClick = event => {
+  //   event.preventDefault();
+
+  //   if (newArticle.trim().length !== 0) {
+  //     console.log('input value is NOT empty');
+  //   } else {
+  //     console.log('input value is empty');
+  //   }
+  // };
+
   //this sends the file out
   const handleSubmit = async (e:any) => {
     e.preventDefault();
@@ -99,7 +109,7 @@ const AddForm = () => {
           required
         />
       </Form.Group>
-      <Button variant="success" type="submit">
+      <Button onClick={handleClick} variant="success" type="submit">
         Add New Article
       </Button>
     </Form>
