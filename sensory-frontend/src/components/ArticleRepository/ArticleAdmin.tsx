@@ -18,9 +18,10 @@ const Article = ({article} : { article: any}) => {
 
   return (
     <>
-    	<td>
+    	{/* <td>
 				<a href={article.ArticleInformation_Url} target="_blank" rel="noopener noreferrer" >{article.ArticleInformation_Name}</a>
-			</td> 
+			</td>  */}
+      <td>{article.ArticleInformation_Name}</td>
       <td>{article.ArticleInformation_Description}</td>
       <td>{article.ArticleInformation_PublishedBy}</td>
       <td>{article.ArticleInformation_Url}</td>

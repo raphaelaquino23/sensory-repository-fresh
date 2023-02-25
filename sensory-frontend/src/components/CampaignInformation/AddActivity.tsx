@@ -3,6 +3,16 @@ import { Form, Button } from "react-bootstrap"
 import {useState} from 'react';
 import ActivityService from "../../services/ActivityService";
 import ArticleService from "../../services/ArticleService";
+import {
+	faCheck,
+	faTimes,
+	faInfoCircle,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+const SPACE_REGEX = /^[A-z][A-z0-9-_ ]{3,50}$/;
+const SPACE2_REGEX = /^[A-z][A-z0-9-.,?!'_ ]{3,150}$/;
+const SPACE3_REGEX = /^[A-z][A-z0-9-.,_ ]{3,50}$/;
 
 const AddActivity = () => {
 
@@ -12,7 +22,11 @@ const AddActivity = () => {
 		description: "",
 		url: "",
 	});
-	
+	const [validName, setValidName] = useState(false);
+  	const [validDescription, setValidDescription] = useState(false);
+  	const [validPublished, setValidPublished] = useState(false);
+  	const [articleFocus, setArticleFocus] = useState(false);
+
 	const onInputChange = (e: any) => { 
 		setNewActivity({...newActivity,[e.target.name]: e.target.value})
 	};
