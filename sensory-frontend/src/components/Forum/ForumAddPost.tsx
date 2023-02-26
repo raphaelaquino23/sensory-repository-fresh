@@ -43,7 +43,7 @@ const AddPost = () => {
 			<Form.Group>
 				<Form.Control
 					type="text"
-					placeholder="Post Title *"
+					placeholder="Post Title"
 					name="PostInformation_Title"
 					value={PostInformation_Title}
 					onChange = { (e) => onInputChange(e)}
@@ -53,7 +53,7 @@ const AddPost = () => {
 			<Form.Group>
 				<Form.Control
 					as="textarea"
-					placeholder="Post Content *"
+					placeholder="Post Content"
 					rows={3} //changed row to rows
 					name="PostInformation_Content"
 					value={PostInformation_Content}

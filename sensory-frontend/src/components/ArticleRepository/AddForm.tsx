@@ -2,6 +2,7 @@
 import { Form, Button } from "react-bootstrap";
 import { useState } from "react";
 import ArticleService from "../../services/ArticleService";
+import Filter from 'bad-words';
 
 const AddForm = () => {
 
@@ -14,6 +15,7 @@ const AddForm = () => {
   });
   //File is to be placed here
 	const [selectedFile, setSelectedFile] = useState();
+  const filter = new Filter();
 
   const onInputChange = (e:any) => {
     setNewArticle({ ...newArticle, [e.target.name]: e.target.value });
