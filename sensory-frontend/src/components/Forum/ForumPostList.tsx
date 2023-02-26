@@ -59,13 +59,19 @@ const PostList = () => {
 					<div className="col-sm-6">
 						<h2>Post <b>Repository</b></h2>
 					</div>
-					<div className="col-sm-6">
-						<input className="inpt" placeholder="Search" value={search} onChange={handleSearchPost}></input>
+					<div>
 						<Button onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Post</span></Button>					
 					</div>
 				</div>
 			</div>
 
+			<input 
+                className="inpt" 
+                placeholder="Search" 
+                style={{border: "2px solid black"}} 
+                value={search} 
+                onChange={handleSearchPost}
+      		/>
 			<Alert show={showAlert} variant="success">
 				Post Repository Updated Successfully!
 			</Alert>

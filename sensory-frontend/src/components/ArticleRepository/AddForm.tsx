@@ -67,30 +67,7 @@ const AddForm = () => {
     setValidPublished(result);
   }, [publishedBy]);
 
-  // useEffect(() => {
-  //   const result = SPACE_REGEX.test(description);
-  //   setValidArticle(result);
-  // }, [description]);
-
-  // useEffect(() => {
-  //   console.log(formErrors);
-  //   if (Object.keys(formErrors).length === 0 && isSubmit) {
-  //     console.Console.log(newArticle);
-  //   }
-  // }, [formErrors])
-
-  // const validate = (values) => {
-  //   const errors = {}
-  //   const SPACE_REGEX = /^\s/g;
-  //   if (SPACE_REGEX.test(values.newArticle)) {
-  //     errors.newArticle = "Should not be empty"
-  //   }
-  //   return errors;
-  // }
-
   //this sends the file out
-  // const handleSubmit = async (e:any) => {
-  //   e.preventDefault();
   const handleSubmit = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     const v1 = SPACE_REGEX.test(name);
