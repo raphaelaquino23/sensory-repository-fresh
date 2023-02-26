@@ -10,7 +10,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // const SPACE_REGEX = /^\s/;
-const SPACE_REGEX = /^[A-z][A-z0-9-_ ]{3,50}$/;
+const SPACE_REGEX = /^[A-z][A-z0-9-.,_ ]{3,50}$/;
 const SPACE2_REGEX = /^[A-z][A-z0-9-.,?!'_ ]{3,150}$/;
 const SPACE3_REGEX = /^[A-z][A-z0-9-.,_ ]{3,50}$/;
 
@@ -146,15 +146,15 @@ const AddForm = () => {
         </label> */}
         <Form.Control
           type="text"
-          placeholder="Article Name *"
+          placeholder="Article Name"
           name="name"
           value={name}
           onChange={(e) => onInputChange(e)}
           required
           aria-invalid={validArticle ? 'false' : 'true'}
-              aria-describedby='uidnote'
-              onFocus={() => setArticleFocus(true)}
-              onBlur={() => setArticleFocus(false)}
+          aria-describedby='uidnote'
+          onFocus={() => setArticleFocus(true)}
+          onBlur={() => setArticleFocus(false)}
         />
         <p
           id='uidnote'
