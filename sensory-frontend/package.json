@@ -30,6 +30,7 @@
     "next": "^13.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
+    "react-date-range": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-facebook-login": "^4.1.1",
     "react-google-recaptcha": "^2.1.0",
@@ -71,6 +72,7 @@
   },
   "devDependencies": {
     "@types/file-saver": "^2.0.5",
+    "@types/react-date-range": "^1.4.4",
     "@types/react-facebook-login": "^4.1.5",
     "@types/react-google-recaptcha": "^2.1.5",
     "@types/styled-components": "^5.1.26",
