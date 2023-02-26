@@ -20,6 +20,7 @@
     "@types/react": "^18.0.19",
     "@types/react-dom": "^18.0.6",
     "axios": "^1.1.3",
+    "bad-words": "^3.0.4",
     "bootstrap": "^5.2.2",
     "file-saver": "^2.0.5",
     "formik": "^2.2.9",
@@ -71,6 +72,7 @@
     ]
   },
   "devDependencies": {
+    "@types/bad-words": "^3.0.1",
     "@types/file-saver": "^2.0.5",
     "@types/react-date-range": "^1.4.4",
     "@types/react-facebook-login": "^4.1.5",

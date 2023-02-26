@@ -52,7 +52,8 @@ const PostDetailPage = () => {
         color="primary"
         onClick={handleBackToPrev}
         sx={{
-          marginBottom: "15px"
+          marginBottom: "15px",
+          marginTop: "10px"
         }}>
           <ArrowBackIcon/>
         Back
