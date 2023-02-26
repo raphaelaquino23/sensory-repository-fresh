@@ -21,6 +21,7 @@ import axios from 'axios';
 import { axiosPrivate } from '../../api/axios';
 import { response } from 'express';
 import PostDetailPage from './ForumPostDetail';
+import Filter from 'bad-words';
 
 const Post = ({post} : { post: any}) => {
 	const {deletePost} = useContext(PostContext)
@@ -30,6 +31,8 @@ const Post = ({post} : { post: any}) => {
   const [poster, setPoster] = useState('');
   const [posterId, setPostUserId] = useState('');
   const [postId, setPostId] = useState('');
+
+  const filter = new Filter();
 		
   const handleShow = () => setShow(true);
 	const handleClose = () => setShow(false);
@@ -141,9 +144,9 @@ const Post = ({post} : { post: any}) => {
                   </Tag>
                 </HStack>
                 <Box fontSize="xl">
-                  <strong>{post.PostInformation_Title}</strong>
+                  <strong>{post.PostInformation_Title ? filter.clean(post.PostInformation_Title) : ''}</strong>
                 </Box>
-                <Box>{post.PostInformation_Content}</Box>
+                <Box>{post.PostInformation_Content ? filter.clean(post.PostInformation_Content) : ''}</Box>
               </Box>
               <Box>
                 <Box fontSize="sm" fontStyle="italic" color="gray.600" mt={3}>

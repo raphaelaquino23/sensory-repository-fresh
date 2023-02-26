@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const SPACE_REGEX = /^[A-z][A-z0-9-.,_ ]{3,50}$/;
 const SPACE2_REGEX = /^[A-z][A-z0-9-.,?!'_ ]{3,150}$/;
 const SPACE3_REGEX = /^[A-z][A-z0-9-.,_ ]{3,50}$/;
+import Filter from 'bad-words';
 
 const AddForm = () => {
 
@@ -35,6 +36,7 @@ const AddForm = () => {
 
   //File is to be placed here
 	const [selectedFile, setSelectedFile] = useState();
+  const filter = new Filter();
 
   const onInputChange = (e:any) => {
     setNewArticle({ ...newArticle, [e.target.name]: e.target.value });
