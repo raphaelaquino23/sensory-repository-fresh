@@ -80,6 +80,10 @@ const Login2 = () =>{
 
 	const { UserInformation_Name, UserInformation_Password } = userinformation
 
+  useEffect(() => {
+		setErrMsg('');
+	}, [UserInformation_Name, UserInformation_Password])
+
 	const activateAPI= useCallback(async () => {
 		const response = await axiosPrivate.post('http://localhost:3081/api/login' ,{userinformation: userinformation})
         if (response.data) {
@@ -90,14 +94,11 @@ const Login2 = () =>{
         return response.data;
 	}, [userinformation]);
 
-	useEffect(() => {
-		setErrMsg('');
-	}, [UserInformation_Name, UserInformation_Password])
-
 	const handleSubmit = useCallback((e: React.ChangeEvent<any>) => {
 		e.preventDefault();
 		try {
         activateAPI();
+
       } catch (err: any) {
 			if (!err?.response) {
 					setErrMsg('No Server Response');
@@ -111,6 +112,38 @@ const Login2 = () =>{
 	}
 		///activateAPIStats();
 	}, [activateAPI])
+
+//   const handleSubmit = async (e: any) => {
+//     e.preventDefault();
+
+//     try {
+//         const response = await axiosPrivate.post('http://localhost:3081/api/login',
+//             JSON.stringify({ userinformation }),
+//             {
+//                 headers: { 'Content-Type': 'application/json' },
+//                 withCredentials: true
+//             }
+//         );
+//         console.log(JSON.stringify(response?.data));
+//         //console.log(JSON.stringify(response));
+//         const accessToken = response?.data?.accessToken;
+//         const roles = response?.data?.roles;
+//         setAuth({ userinformation, roles, accessToken });
+//         setUserInformation(userinformation);
+//         setSuccess(true);
+//     } catch (err) {
+//         if (!err?.response?) {
+//             setErrMsg('No Server Response');
+//         } else if (err?.response?.status === 400) {
+//             setErrMsg('Missing Username or Password');
+//         } else if (err.response?.status === 401) {
+//             setErrMsg('Unauthorized');
+//         } else {
+//             setErrMsg('Login Failed');
+//         }
+//         errRef.current?.focus();
+//     } 
+// }
 
 	return (
     <>
@@ -137,7 +170,7 @@ const Login2 = () =>{
             <Form.Group style={{backgroundColor: "white"}}>
               <Form.Control
                 type="text"
-                placeholder="User Name *"
+                placeholder="User Name"
                 name="UserInformation_Name"
                 value={UserInformation_Name}
                 onChange={(e) => onInputChange(e)}
@@ -148,7 +181,7 @@ const Login2 = () =>{
             <Form.Group>
               <Form.Control
                 type="password"
-                placeholder="Password *"
+                placeholder="Password"
                 name="UserInformation_Password"
                 value={UserInformation_Password}
                 onChange={(e) => onInputChange(e)}
