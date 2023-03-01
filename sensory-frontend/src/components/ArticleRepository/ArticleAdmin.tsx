@@ -21,9 +21,7 @@ const Article = ({article} : { article: any}) => {
 
   return (
     <>
-    	<td>
-				<a href={article.ArticleInformation_Url} target="_blank" rel="noopener noreferrer" >{article.ArticleInformation_Name ? filter.clean(article.ArticleInformation_Name) : ''}</a>
-			</td> 
+    	<td>{article.ArticleInformation_Name ? filter.clean(article.ArticleInformation_Name) : ''}</td> 
       <td>{article.ArticleInformation_Description ? filter.clean(article.ArticleInformation_Description) : ''}</td>
       <td>{article.ArticleInformation_PublishedBy ? filter.clean(article.ArticleInformation_PublishedBy) : ''}</td>
       <td>{article.ArticleInformation_Url}</td>

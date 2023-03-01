@@ -53,7 +53,7 @@ const EditForm = ({theArticle} : { theArticle: any}) =>{
       <Form.Group>
         <Form.Control
           type="text"
-          placeholder="Article Name *"
+          placeholder="Article Name"
           name="name"
           value={name}
           onChange={(e) => onInputChange(e)}

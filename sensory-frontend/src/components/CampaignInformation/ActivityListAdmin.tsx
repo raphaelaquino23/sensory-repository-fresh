@@ -105,7 +105,8 @@ const ActivityList = () => {
                 </div>
             </div>
 
-            <div style={{display: "flex", justifyContent: "center"}}>
+            {/* <div style={{display: "flex", justifyContent: "center"}}> */}
+            <div>
             <input 
                 className="inpt" 
                 placeholder="Search" 

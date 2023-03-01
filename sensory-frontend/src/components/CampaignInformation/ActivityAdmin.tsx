@@ -33,9 +33,10 @@ const Activity = ({activity} : { activity: any}) => {
   return (
     <>
       {/* <Link to={'/activityinfo'}> */}
-      <td>
+      {/* <td>
         <a href={'/activityinfo'} target="_blank" rel="noopener noreferrer">{activity.CampaignInformation_Name}</a>
-      </td>
+      </td> */}
+      <td>{activity.CampaignInformation_Name}</td>
       <td>{activity.CampaignInformation_Description}</td>
       <td>{date.toLocaleDateString()}</td>
       <td>{activity.CampaignInformation_Url}</td>

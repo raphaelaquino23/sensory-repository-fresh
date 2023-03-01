@@ -44,7 +44,7 @@ const EditActivity = ({theActivity} : { theActivity: any}) =>{
 			<Form.Group>
 				<Form.Control
 					type="text"
-					placeholder="Activity Name *"
+					placeholder="Activity Name"
 					name="name"
 					value={name}
 					onChange={(e)=> setName(e.target.value)}
@@ -54,7 +54,7 @@ const EditActivity = ({theActivity} : { theActivity: any}) =>{
 			<Form.Group>
 				<Form.Control
 					as="textarea"
-					placeholder="Activity Description *"
+					placeholder="Activity Description"
 					rows={3} //changed row to rows
 					name="description"
 					value={description}
