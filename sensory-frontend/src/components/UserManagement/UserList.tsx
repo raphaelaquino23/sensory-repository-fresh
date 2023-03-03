@@ -6,6 +6,7 @@ import UserRegistrationPage from '../../pages/UserRegistrationPage'; //Registrat
 // import UserPagination from './UserPagination';
 import axios from 'axios';
 import { axiosPrivate } from '../../api/axios';
+import '../../index.css';
 
 const UserList = () => {
   // const {sortedUsers} = useContext(UserContext);
@@ -38,10 +39,10 @@ const UserList = () => {
 
   return(
     <>
-      <div className="table-title">
+      <div className="table-title" style={{marginLeft: "1px", marginRight: "3px"}}>
         <div className="row">
           <div className="col-sm-6">
-            <h2> User Management </h2>
+            <h2> User <b>Management </b></h2>
           </div>
         </div>
       </div>
