@@ -147,7 +147,7 @@ const Register = () => {
             <Form.Control
               type='text'
               id='username'
-							placeholder='User Name*'
+							placeholder='User Name'
               ref={userRef}
               autoComplete='off'
               onChange={(e) => setUser(e.target.value)}
@@ -185,7 +185,7 @@ const Register = () => {
             <Form.Control
               type='password'
               id='password'
-							placeholder='Password*'
+							placeholder='Password'
               onChange={(e) => setPwd(e.target.value)}
               value={pwd}
               required
@@ -224,7 +224,7 @@ const Register = () => {
             <Form.Control
               type='password'
               id='confirm_pwd'
-							placeholder='Confirm Password*'
+							placeholder='Confirm Password'
               onChange={(e) => setMatchPwd(e.target.value)}
               value={matchPwd}
               required
@@ -256,7 +256,7 @@ const Register = () => {
             <Form.Control
               type='text'
               id='email'
-							placeholder='Email Address*'
+							placeholder='Email Address'
               ref={emailRef} //not sure if emailRef is needed
               autoComplete='off'
               onChange={(e) => setEmail(e.target.value)}
@@ -280,24 +280,6 @@ const Register = () => {
               <br />
               Letters, numbers, underscore, dot allowed.
             </p>
-
-            {/* <p
-              style={{
-                textAlign: 'center',
-                marginTop: '5px',
-                marginBottom: '-3px',
-              }}
-            >
-              {' '}
-              or{' '}
-            </p> */}
- 
-            {/* <button
-              style={{ backgroundColor: '#003959' }}
-              disabled={!validName || !validPwd || !validMatch ? true : false}
-            >
-              Sign Up
-            </button> */}
 						<Button variant="success" type="submit" style={{marginTop: "10px"}} disabled={!validName || !validPwd || !validMatch ? true : false}>
               Sign Up
             </Button>
