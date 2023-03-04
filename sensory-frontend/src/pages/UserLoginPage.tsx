@@ -91,7 +91,7 @@ const Login2 = () =>{
           setSuccess(true);
       localStorage.setItem("username", UserInformation_Name);
     } else {
-      alert('Please Input Valid User Credentials');
+      setErrMsg('Username or password is incorrect');
     }
     return response.data;
   }, [userinformation]);
