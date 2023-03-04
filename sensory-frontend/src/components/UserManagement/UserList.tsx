@@ -32,6 +32,12 @@ const UserList = () => {
     });
   }, []);
 
+  // useEffect(() => {
+  //   axiosPrivate.get(`http://localhost:3081/api/user`).then((response) => {
+  //     setListUserInformation(response.data);
+  //   });
+  // }, []);
+
   // const indexOfLastUser = currentPage * usersPerPage;
   // const indexOfFirstUser = indexOfLastUser - usersPerPage;
   // const currentUsers = sortedUsers.slice(indexOfFirstUser, indexOfLastUser);

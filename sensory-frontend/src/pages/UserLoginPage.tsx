@@ -84,34 +84,22 @@ const Login2 = () =>{
 		setErrMsg('');
 	}, [UserInformation_Name, UserInformation_Password])
 
-	const activateAPI= useCallback(async () => {
-		const response = await axiosPrivate.post('http://localhost:3081/api/login' ,{userinformation: userinformation})
-        if (response.data) {
-          localStorage.setItem("accessToken", (response.data));
-      		setSuccess(true);
-          localStorage.setItem("username", UserInformation_Name);
-        }
-        return response.data;
-	}, [userinformation]);
-
-	const handleSubmit = useCallback((e: React.ChangeEvent<any>) => {
-		e.preventDefault();
-		try {
-        activateAPI();
-
-      } catch (err: any) {
-			if (!err?.response) {
-					setErrMsg('No Server Response');
-			} else if (err.response?.status === 400) {
-					setErrMsg('Missing Username or Password');
-			} else if (err.response?.status === 401) {
-					setErrMsg('Unauthorized');
-			} else {
-					setErrMsg('Login Failed');
-			}
-	}
-		///activateAPIStats();
-	}, [activateAPI])
+  const activateAPI= useCallback(async () => {
+    const response = await axiosPrivate.post('http://localhost:3081/api/login' ,{userinformation: userinformation})
+    if (response.data) {
+      localStorage.setItem("accessToken", (response.data));
+          setSuccess(true);
+      localStorage.setItem("username", UserInformation_Name);
+    } else {
+      alert('Please Input Valid User Credentials');
+    }
+    return response.data;
+  }, [userinformation]);
+  
+  const handleSubmit = useCallback((e: React.ChangeEvent<any>) => {
+    e.preventDefault();
+    activateAPI();
+  }, [activateAPI])
 
 //   const handleSubmit = async (e: any) => {
 //     e.preventDefault();
