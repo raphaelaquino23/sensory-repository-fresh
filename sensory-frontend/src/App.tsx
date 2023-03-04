@@ -30,7 +30,7 @@ import PostDetailPage from './components/Forum/ForumPostDetail';
 import CommentListDown from './components/Forum/CommentList';
 import CommentCard from './components/Forum/CommentCard';
 import Unauthorized from './pages/UnauthorizedPage';
-
+//Test
 
 function App() {
 	const thisToken = localStorage.getItem("accessToken")
@@ -41,13 +41,13 @@ function App() {
 			{thisToken? <Navbar /> : <NotNavbar/>}
       <Routes>
         <Route path='/'  element={<Logout/>} />
-        <Route path='/article' element={thisToken && (thisUserType === "2")? <Article/>: <LogIn/>} />
-				<Route path='/article-user' element={thisToken && (thisUserType === "4")? <ArticleUser/>: <LogIn/>} />
+        <Route path='/article' element={thisToken && (thisUserType === "2")? <Article/>: <ArticleUser/>} />
+				<Route path='/article-user' element={thisToken && (thisUserType === "2")? <Article/>: <ArticleUser/>} />
         <Route path='/campaign' element={thisToken? <Campaign/> : <LogIn/>} />
         <Route path='/post' element={thisToken? <Post/>: <LogIn/>} />
         <Route path='/postdetail' element={<PostDetailPage/>} />
-        <Route path='/activity' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <LogIn/>} /> 
-				<Route path='/activityinfo' element={thisToken && (thisUserType === "4")? <ActivityInfo/>: <LogIn/>} /> 
+        <Route path='/activity' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <ActivityInfo/>} /> 
+				<Route path='/activityinfo' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <ActivityInfo/>} /> 
 				<Route path='/home' element={<Home/>} />
 				<Route path='/pastactivities' element={thisToken? <PastActivities/>: <LogIn/>} />
 				<Route path='/checklist-toddler' element={thisToken? <ChecklistToddler/>: <LogIn/>} />
