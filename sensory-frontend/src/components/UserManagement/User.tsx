@@ -14,8 +14,8 @@ const User = ({user} : { user: any}) => {
     <>
       <td>{user.UserInformation_Name}</td>
       <td>{user.UserInformation_Email}</td>
-      <td>{userType?.UserType_Name}</td>
-      <td>{user.UserInformation_Status}</td>
+      <td>{user.UserType_Name}</td>
+      <td>{user.User_DeactivatedStatus}</td>
       <td>
         <OverlayTrigger
           overlay={

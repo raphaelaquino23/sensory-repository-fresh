@@ -12,15 +12,19 @@ const UserList = () => {
   // const {sortedUsers} = useContext(UserContext);
 
   const [listUserInformation, setListUserInformation] = useState([]);
+  const [listUser, setListUser] = useState([]);
+  const [listUserType, setListUserType] = useState([]);
+  const [userManagement, setUserManagement] = useState([]);
 
-  const [showAlert, setShowAlert] = useState(false);
+
+  // const [showAlert, setShowAlert] = useState(false);
   const [search, setSearch] = useState('');
-  const [show, setShow] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [usersPerPage] = useState(10)
+  // const [show, setShow] = useState(false);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [usersPerPage] = useState(10)
 
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
+  // const handleShow = () => setShow(true);
+  // const handleClose = () => setShow(false);
 
   const handleSearchUSer = (event: React.ChangeEvent<any>) => {
     setSearch(event.target.value)
@@ -29,8 +33,25 @@ const UserList = () => {
   useEffect(() => {
     axiosPrivate.get(`http://localhost:3081/api/userinformation`).then((response) => {
       setListUserInformation(response.data);
+      console.log("a" + listUserInformation)
     });
   }, []);
+
+  useEffect(() => {
+    axiosPrivate.get(`http://localhost:3081/api/usertype`).then((response) => {
+      setListUserType(response.data);
+      console.log("b" + listUserType)
+    });
+  }, []);
+
+  useEffect(() => {
+    axiosPrivate.get(`http://localhost:3081/api/user`).then((response) => {
+      setListUser(response.data);
+      console.log("c" + listUser)
+    });
+  }, []);
+
+
 
   // useEffect(() => {
   //   axiosPrivate.get(`http://localhost:3081/api/user`).then((response) => {
@@ -78,13 +99,12 @@ const UserList = () => {
                   return user;
                 } else if (
                   user.UserInformation_Name.toLowerCase().includes(search.toLowerCase()) ||
-                  user.UserInformation_Email.toLowerCase().includes(search.toLowerCase()) 
-                  // usertype.UserType_Name.toLowerCase().includes(search.toLowerCase()) 
-                  // user.UserInformation_Status.toLowerCase().includes(search.toLowerCase())
+                  user.UserInformation_Email.toLowerCase().includes(search.toLowerCase())
+                  // user.UserType_Name.toLowerCase().includes(search.toLowerCase()) 
                 ) {
                   return user;
                 }
-              }
+              } 
             })
             .map(
               (
