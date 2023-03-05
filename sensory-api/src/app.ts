@@ -498,6 +498,11 @@ class App {
 			this.commentController.deleteCommentStats(parseInt(req.params.id)).then(data => res.json(data));
 		});
 
+		// User
+		this.express.get('/api/user', (req: any, res: any) => {
+			this.userController.getUser().then(data => res.json(data));
+		});
+
 		// User Information
 		this.express.get('/api/userinformation', (req: any, res: any) => {
 			this.userController.getUserInformation().then(data => res.json(data));
@@ -533,6 +538,10 @@ class App {
 		// User Type
 		this.express.post('/api/createusertype', (req, res) => {
 			this.userController.createUserType(req.body.usertype).then(data => res.json(data));
+		});
+
+		this.express.get('/api/usertype', (req: any, res: any) => {
+			this.userController.getUserType().then(data => res.json(data));
 		});
 
 		this.express.get('/api/usertype/:id', (req: any, res: any) => {
