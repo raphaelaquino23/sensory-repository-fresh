@@ -1,4 +1,12 @@
+.post-list-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .post-list {
+  width: 80%;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 16px;
