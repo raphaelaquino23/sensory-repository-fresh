@@ -1,5 +1,6 @@
 import { connect } from "../config/db.config";
 import { APILogger } from "../logger/api.logger";
+import { winstonLogger } from "../logger/winston.logger";
 import {
   Post,
   PostInformation,
@@ -38,6 +39,7 @@ export class PostRepository {
       return posts;
     } catch (error) {
       console.log("error");
+      winstonLogger.error("Error findAll()");
       return [];
     }
   }
