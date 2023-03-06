@@ -49,3 +49,5 @@ function MyChatComponent() {
 
   return <div ref={chatboxEl} />;
 }
+
+export default MyChatComponent;
