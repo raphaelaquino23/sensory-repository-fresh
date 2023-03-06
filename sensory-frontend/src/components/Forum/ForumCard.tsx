@@ -14,10 +14,12 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { BiDetail } from "react-icons/bi";
 import { BsCaretDownFill, BsCaretUpFill, BsReplyAllFill } from "react-icons/bs";
+import Filter from 'bad-words';
 
 export const PostCard = ({post} : { post: any})=> {
 
   const [listPostInformation, setListPostInformation] = useState([]);
+  const filter = new Filter();
   
   useEffect(() => {
     axios.get(`http://localhost:3081/api/postinformation`).then((response) => {
@@ -101,7 +103,7 @@ export const PostCard = ({post} : { post: any})=> {
                   shadow="md"
                   _hover={{ shadow: "1px 1px 8px #888888", cursor: "pointer" }}
                 >
-                  {post.PostCategory_Title}
+                  {post.PostCategory_Title ? filter.clean(post.PostCategory_Title) : ''}
                 </Badge>
               </NextLink>
               <Tag colorScheme="whatsapp" shadow="md">
@@ -112,9 +114,9 @@ export const PostCard = ({post} : { post: any})=> {
               </Tag>
             </HStack>
             <Box fontSize="xl">
-              <strong>{post.PostInformation_Title}</strong>
+              <strong>{post.PostCategory_Title ? filter.clean(post.PostCategory_Title) : ''}</strong>
             </Box>
-            <Box>{post.PostInformation_Content}</Box>
+            <Box>{post.PostInformation_Content ? filter.clean(post.PostInformation_Content) : ''}</Box>
           </Box>
           <Box>
             <Box fontSize="sm" fontStyle="italic" color="gray.600" mt={3}>

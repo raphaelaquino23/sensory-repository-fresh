@@ -62,7 +62,7 @@ const PostList = () => {
 					<div className="col-sm-6">
 						<h2><b>Messages</b></h2>
 					</div>
-					<div className="col-sm-6">
+					<div>
 						<Button onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Compose a message</span></Button>					
 					</div>
 				</div>

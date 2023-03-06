@@ -3,25 +3,43 @@ import {ActivityContext} from '../../contexts/ActivityContext';
 import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import EditActivity from './EditActivity';
 
+
 const Activity = ({activity} : { activity: any}) => {
-	const {deleteActivity} = useContext(ActivityContext)
-	const [show, setShow] = useState(false);
-		
+  const {deleteActivity} = useContext(ActivityContext)
+  const [show, setShow] = useState(false);
+   
   const handleShow = () => setShow(true);
-	const handleClose = () => setShow(false);
+  const handleClose = () => setShow(false);
+
 
   useEffect(() => {
      handleClose()
   }, [activity])
 
+
+  // {products.map((product)=>{
+  //   let date = new Date(product["createdAt"]);
+  //   return(
+  //     <tr>
+  //       <td>{product["id"]}</td>
+  //       <td>{product["name"]}</td>
+  //       <td>{date.toLocaleDateString()}</td>
+  //     </tr>
+  //   );
+  // })}
+
+
+  const date = new Date(activity["CampaignInformation_Date"]);
   return (
     <>
-			{/* <Link to={'/activityinfo'}> */}
-    	<td>
-				<a href={'/activityinfo'} target="_blank" rel="noopener noreferrer">{activity.CampaignInformation_Name}</a>
-			</td> 
-			<td>{activity.CampaignInformation_Description}</td>
-			<td>{activity.CampaignInformation_Url}</td>
+      {/* <Link to={'/activityinfo'}> */}
+      {/* <td>
+        <a href={'/activityinfo'} target="_blank" rel="noopener noreferrer">{activity.CampaignInformation_Name}</a>
+      </td> */}
+      <td>{activity.CampaignInformation_Name}</td>
+      <td>{activity.CampaignInformation_Description}</td>
+      <td>{date.toLocaleDateString()}</td>
+      <td>{activity.CampaignInformation_Url}</td>
       <td>
         <OverlayTrigger
           overlay={
@@ -35,12 +53,13 @@ const Activity = ({activity} : { activity: any}) => {
           overlay={
             <Tooltip id={`tooltip-top`}>
               Delete
-          	</Tooltip>
+            </Tooltip>
           }>
             <button onClick={() => deleteActivity(activity.CampaignInformation_Id)}  style={{display: 'inline-block'}} className="btn text-danger btn-act" data-toggle="modal"><i className="material-icons">&#xE872;</i></button>
         </OverlayTrigger>
-                
+               
       </td>
+
 
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -56,9 +75,10 @@ const Activity = ({activity} : { activity: any}) => {
             Close Button
           </Button>
         </Modal.Footer>
-  	  </Modal>
-  	</>
+      </Modal>
+    </>
   )
 }
+
 
 export default Activity;

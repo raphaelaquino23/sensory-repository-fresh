@@ -3,6 +3,7 @@ import {ArticleContext} from '../../contexts/ArticleContext';
 import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import EditForm from './EditForm';
 import UploadFile from './UploadFile';
+import Filter from 'bad-words';
 // import '../../index.css';
 
 const Article = ({article} : { article: any}) => {
@@ -12,17 +13,17 @@ const Article = ({article} : { article: any}) => {
   const handleShow = () => setShow(true);
 	const handleClose = () => setShow(false);
 
+  const filter = new Filter();
+
   useEffect(() => {
      handleClose()
   }, [article])
 
   return (
     <>
-    	<td>
-				<a href={article.ArticleInformation_Url} target="_blank" rel="noopener noreferrer" >{article.ArticleInformation_Name}</a>
-			</td> 
-      <td>{article.ArticleInformation_Description}</td>
-      <td>{article.ArticleInformation_PublishedBy}</td>
+    	<td>{article.ArticleInformation_Name ? filter.clean(article.ArticleInformation_Name) : ''}</td> 
+      <td>{article.ArticleInformation_Description ? filter.clean(article.ArticleInformation_Description) : ''}</td>
+      <td>{article.ArticleInformation_PublishedBy ? filter.clean(article.ArticleInformation_PublishedBy) : ''}</td>
       <td>{article.ArticleInformation_Url}</td>
 			{/* <td>{article.ArticleStats_Downloads}</td> */}
       <td>

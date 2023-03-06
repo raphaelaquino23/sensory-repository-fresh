@@ -15,10 +15,13 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { Paper, Container, Button, TextField, Box, Grid } from "@mui/material";
 import { axiosPrivate } from "../../api/axios";
+import Filter from 'bad-words';
 
 const CommentList = ({ comment }: { comment: any }) => {
   const [commentDir, setCommentDir] = useState<any>(null);
   const [commentUser, setCommentUser] = useState<any>(null);
+
+  const filter = new Filter();
 
   useEffect(() => {
     axiosPrivate
@@ -35,19 +38,19 @@ const CommentList = ({ comment }: { comment: any }) => {
 
   return (
     <>
-      <Paper style={{ padding: "40px 20px" }}>
+      <Paper style={{ padding: "40px 20px", marginTop: "5px", width: "200px" }}>
         <Grid container wrap="nowrap" spacing={2}>
           <Grid item>
             <Avatar alt="Remy Sharp" />
           </Grid>
           <Grid justifyContent="left" item xs zeroMinWidth>
-            <h4 style={{ margin: 0, textAlign: "left" }}>{commentUser}</h4>
+            <h4 style={{ margin: 0, textAlign: "left" }}><strong>{commentUser}</strong></h4>
             <p style={{ textAlign: "left" }}>
-              {commentDir}
+              {commentDir ? filter.clean(commentDir) : ''}
             </p>
           </Grid>
         </Grid>
-        <Divider variant="fullWidth" style={{ margin: "30px 0" }} />
+        {/* <Divider variant="fullWidth" style={{ margin: "30px 0" }} /> */}
       </Paper>
     </>
   );

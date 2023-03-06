@@ -65,17 +65,16 @@ const ArticleList = () => {
               Article <b>Repository</b>
             </h2>
           </div>
-          <div className="col-sm-6">
-            <input
-              className="inpt"
-              placeholder="Search"
-              style={{color: "black"}}
-              value={search}
-              onChange={handleSearchArticle}
-            ></input>
-          </div>
         </div>
       </div>
+
+      <input 
+                className="inpt" 
+                placeholder="Search" 
+                style={{border: "2px solid black"}} 
+                value={search} 
+                onChange={handleSearchArticle}
+      />
 
       <Alert show={showAlert} variant="success">
         Article Repository Updated Successfully!

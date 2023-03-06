@@ -7,20 +7,24 @@ import ActivityService from '../../services/ActivityService';
 import FileDownload from 'js-file-download';
 import Axios from 'axios';
 
+
 const ActivityInfo = ({activity}: {activity : any}) => {
-	const {deleteActivity} = useContext(ActivityContext)
-	const [show, setShow] = useState(false);
-		
+  const {deleteActivity} = useContext(ActivityContext)
+  const [show, setShow] = useState(false);
+   
   const handleShow = () => setShow(true);
-	const handleClose = () => setShow(false);
+  const handleClose = () => setShow(false);
+
 
   useEffect(() => {
      handleClose()
   }, [activity])
 
 
-	const displayAlert = async () => {
-		alert("You are now registered to the event! Please check your email for more details.")
+
+
+  const displayAlert = async () => {
+    alert("You are now registered to the event! Please check your email for more details.")
     const resUser = await axiosPrivate.get(`http://localhost:3081/api/getuserid/${localStorage.getItem("username")}`)
     const userId = resUser.data
     const registerObject = {
@@ -30,14 +34,15 @@ const ActivityInfo = ({activity}: {activity : any}) => {
       userid: userId
     }
     await axiosPrivate.post('http://localhost:3081/api/campaignsignup', registerObject);
-	};
+  };
+
 
   const onClickChange = (e:any) => {    
     //   axiosPrivate.get(`http://localhost:3081/api/getFile/${article.ArticleInformation_Id}`).then((response) => {
     //   setFile(response.data.file);
     //   console.log("THE RESPONSE FILE" + response);
     //   saveAs(response.data);
-    //  }) 
+    //  })
       e.preventDefault();
       // setFile(response.data.file);
       Axios({
@@ -50,15 +55,18 @@ const ActivityInfo = ({activity}: {activity : any}) => {
       })
       //console.log(file);
     };
-		
-	return (
-		<>
-    	<td>
-				<a href={'/activityinfo'} target="_blank" rel="noopener noreferrer">{activity.CampaignInformation_Name}</a>
-			</td> 
-			<td>{activity.CampaignInformation_Description}</td>
+   
+  const date = new Date(activity["CampaignInformation_Date"]);  
+  return (
+    <>
+      <td>
+        <a href={activity.CampaignInformation_Url} target="_blank" rel="noopener noreferrer">{activity.CampaignInformation_Name}</a>
+      </td>
+      <td>{activity.CampaignInformation_Description}</td>
+      <td>{date.toLocaleDateString()}</td>
       <td><Button onClick={(e)=>onClickChange(e)}>Download</Button></td>
-			<td><p onClick={displayAlert} style={{cursor: 'pointer', color: 'blue'}}>Join Event</p></td>
+      <td><p onClick={displayAlert} style={{cursor: 'pointer', color: 'blue'}}>Join Event</p></td>
+
 
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -74,9 +82,11 @@ const ActivityInfo = ({activity}: {activity : any}) => {
             Close Button
           </Button>
         </Modal.Footer>
-  	  </Modal>
-		</>
-	)
+      </Modal>
+    </>
+  )
 }
 
+
 export default ActivityInfo;
+

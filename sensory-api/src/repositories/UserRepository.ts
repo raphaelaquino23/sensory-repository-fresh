@@ -58,27 +58,41 @@ export class UserRepository {
   }
 
   async register(user: User, userinformation: UserInformation) {
-    let uInfo, data = {};
+    let foundUser, foundEmail, uInfo, data = {};
     const saltRound = 8;
-    try {
-      uInfo = await this.userInformationRepository.create({
-        UserInformation_Name: userinformation.UserInformation_Name,
-        UserType_Id: 4,
-        UserInformation_Email: userinformation.UserInformation_Email,
-        UserInformation_Description: userinformation.UserInformation_Description,
-        UserInformation_Image: "default.png",
-        UserInformation_Password: await bcrypt.hash(userinformation.UserInformation_Password, saltRound)
-      });
-      user.User_DateCreated = new Date();
-      user.UserInformation_Id = uInfo.getDataValue("UserInformation_Id");
-      user.User_DeactivatedStatus = false;
-      await this.userRepository.create(user);
+    foundUser = await this.userInformationRepository.findOne({ 
+      where: {
+        UserInformation_Name: userinformation.UserInformation_Name
+      }})
 
-      data = uInfo;
+    foundEmail = await this.userInformationRepository.findOne({ 
+      where: {
+        UserInformation_Email: userinformation.UserInformation_Email
+      }})
 
-    } catch (error) {
-      console.log('Error:: ');
+    if(!foundUser){
+      if(!foundEmail){
+        try {
+          uInfo = await this.userInformationRepository.create({
+            UserInformation_Name: userinformation.UserInformation_Name,
+            UserType_Id: 4,
+            UserInformation_Email: userinformation.UserInformation_Email,
+            UserInformation_Description: userinformation.UserInformation_Description,
+            UserInformation_Image: "default.png",
+            UserInformation_Password: await bcrypt.hash(userinformation.UserInformation_Password, saltRound)
+          });
+          user.User_DateCreated = new Date();
+          user.UserInformation_Id = uInfo.getDataValue("UserInformation_Id");
+          user.User_DeactivatedStatus = false;
+          await this.userRepository.create(user);
+
+          data = uInfo;
+
+        } catch (error) {
+          console.log('Error:: ');
+        }
     }
+  }
     return data;
   }
 
