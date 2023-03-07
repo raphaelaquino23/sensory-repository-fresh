@@ -64,7 +64,7 @@ const Navbar = () => {
           </NavLink>
 					
         </NavMenu>
-        <Badge>{userType?.UserType_Name}</Badge>
+        <Badge style={{marginTop: "15px", height: "50%", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "0 1rem", backgroundColor: "#90b474!important"}}>{userType?.UserType_Name}</Badge>
         <NavDropdown title={localStorage.getItem("username")} id="navbarScrollingDropdown" style={{
 						color: "#fff",
 						display: "flex",
@@ -75,6 +75,7 @@ const Navbar = () => {
   					height: "100%",
 					}}>
           <NavDropdown.Item href="/profile" style={{color: "black"}}>My Profile</NavDropdown.Item>
+          <NavDropdown.Item href="/user" style={{color: "black"}}>User Management</NavDropdown.Item>
             <NavDropdown.Item href="/logout" style={{color: "black"}} onClick={logout}>
               Log Out 
             </NavDropdown.Item>

@@ -32,6 +32,14 @@ const NotNavbar = () => {
           </NavLink>
         </Box>
         <Bars />
+        <NavMenu>
+          <NavLink to='/Article-user'>
+            Articles
+          </NavLink>
+          <NavLink to='/post'>
+            Forum
+          </NavLink>
+        </NavMenu>
         <NavBtn>
           <NavBtnLink to='/login'>Sign In</NavBtnLink>
         </NavBtn>
