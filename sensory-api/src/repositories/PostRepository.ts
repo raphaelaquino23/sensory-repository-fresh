@@ -1,5 +1,4 @@
 import { connect } from "../config/db.config";
-import { APILogger } from "../logger/api.logger";
 import { winstonLogger } from "../logger/winston.logger";
 import {
   Post,
@@ -10,7 +9,6 @@ import {
 } from "../models/PostModel";
 
 export class PostRepository {
-  private logger: APILogger;
   private db: any = {};
   private postRepository: any;
   private postInformationRepository: any;
@@ -38,7 +36,7 @@ export class PostRepository {
       console.log("posts::: ", posts);
       return posts;
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
       winstonLogger.error("Error findAll()");
       return [];
     }
@@ -52,7 +50,7 @@ export class PostRepository {
       console.log("posts::: ", posts);
       return posts;
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
       return [];
     }
   }
@@ -77,7 +75,7 @@ export class PostRepository {
       //        "Post_DateEdited","User_Id","Post_DeactivatedStatus","Post_DeactivatedBy";
       //          error
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
     }
     return data;
   }
@@ -115,7 +113,7 @@ export class PostRepository {
         }
       );
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
     }
     return data;
   }
@@ -149,7 +147,7 @@ export class PostRepository {
         },
       });
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
     }
     return data;
   }
@@ -160,7 +158,7 @@ export class PostRepository {
       console.log("postinformation::: ", postinformation);
       return postinformation;
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
       return [];
     }
   }
@@ -173,7 +171,7 @@ export class PostRepository {
       console.log("posts::: ", posts);
       return posts;
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
       return [];
     }
   }
@@ -188,7 +186,7 @@ export class PostRepository {
       poststat = await this.postStatsRepository.create(poststats);
       data = await this.postInformationRepository.create(postinformation);
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
     }
     return data;
   }
@@ -205,7 +203,7 @@ export class PostRepository {
         }
       );
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
     }
     return data;
   }
@@ -219,7 +217,7 @@ export class PostRepository {
         },
       });
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
     }
     return data;
   }
@@ -230,7 +228,7 @@ export class PostRepository {
       console.log("postCategory::: ", postCategory);
       return postCategory;
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
       return [];
     }
   }
@@ -240,7 +238,7 @@ export class PostRepository {
     try {
       data = await this.postCategoryRepository.create(postCategory);
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
     }
     return data;
   }
@@ -257,7 +255,7 @@ export class PostRepository {
         }
       );
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
     }
     return data;
   }
@@ -271,7 +269,7 @@ export class PostRepository {
         },
       });
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
     }
     return data;
   }
@@ -282,7 +280,7 @@ export class PostRepository {
       console.log("postStats::: ", postStats);
       return postStats;
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
       return [];
     }
   }
@@ -295,7 +293,7 @@ export class PostRepository {
       console.log("postStatsId::: ", postStats);
       return postStats;
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
       return [];
     }
   }
@@ -305,7 +303,7 @@ export class PostRepository {
     try {
       data = await this.postStatsRepository.create(postStats);
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
     }
     return data;
   }
@@ -322,7 +320,7 @@ export class PostRepository {
         }
       );
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
     }
     return data;
   }
@@ -336,7 +334,7 @@ export class PostRepository {
         },
       });
     } catch (error) {
-      console.log("error");
+      winstonLogger.log("error", { error });
     }
     return data;
   }
