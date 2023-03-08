@@ -112,7 +112,8 @@ const UserList = () => {
               ) => (
                 <tr key={user.UserInformation_Id}>
                   {/* <tr key={user.UserType_Id}></tr> */}
-                  <User user={user} />
+                  {/* <User user={user} /> */}
+                  <User />
                 </tr>
               )
             )}
