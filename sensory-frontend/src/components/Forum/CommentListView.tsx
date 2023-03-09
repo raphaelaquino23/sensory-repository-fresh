@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Box, Text, Button, Flex } from "@chakra-ui/react";
 
 interface Comment {
   Comment_Id: number;
@@ -25,9 +26,10 @@ interface CommentStats {
 
 interface Props {
   postId: number;
+  postTitle: string;
 }
 
-const CommentList = ({ postId }: Props) => {
+const CommentList = ({ postId, postTitle }: Props) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentInformation, setCommentInformation] = useState<CommentInformation[]>([]);
   const [commentStats, setCommentStats] = useState<CommentStats[]>([]);
@@ -36,7 +38,7 @@ const CommentList = ({ postId }: Props) => {
     async function fetchComments() {
       try {
         const response = await axios.get<Comment[]>(
-          `http://localhost:3081/api/comment?Post_Id=${postId}`
+          `http://localhost:3081/api/commentbypost/${postId}`
         );
         setComments(response.data);
       } catch (error) {
@@ -71,15 +73,30 @@ const CommentList = ({ postId }: Props) => {
     fetchCommentStats();
   }, [postId]);
 
+  const handleDeleteComment = async (commentId: number) => {
+    try {
+      await axios.delete(`http://localhost:3081/api/comment/${commentId}`);
+      setComments(comments.filter((comment) => comment.Comment_Id !== commentId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <>
+    <Box>
+      <Text fontSize="2xl" fontWeight="bold" mb="4">
+        Comments for {postTitle}
+      </Text>
       {comments.map((comment) => (
-        <div key={comment.Comment_Id}>
-          <p>{commentInformation.find((c) => c.CommentInformation_Id === comment.CommentInformation_Id)?.CommentInformation_Content}</p>
-          <p>{commentStats.find((c) => c.CommentStats_Id === comment.CommentStats_Id)?.CommentStats_Upvotes} Upvotes</p>
-        </div>
+        <Box key={comment.Comment_Id} p="4" bg="gray.100" borderRadius="md" mb="4">
+          <Flex justify="space-between" alignItems="center" mb="2">
+            <Text fontWeight="bold">{postTitle}</Text>
+            <Button onClick={() => handleDeleteComment(comment.Comment_Id)}>Delete</Button>
+          </Flex>
+          <Text>{commentInformation.find((info) => info.CommentInformation_Id === comment.CommentInformation_Id)?.CommentInformation_Content}</Text>
+        </Box>
       ))}
-    </>
+    </Box>
   );
 };
 

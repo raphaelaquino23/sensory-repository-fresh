@@ -1,19 +1,26 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
 import {
-  Flex,
   Box,
+  Button,
+  Flex,
   Heading,
   Text,
-  Button,
   AlertDialog,
   AlertDialogBody,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  ButtonGroup,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalCloseButton,
+  ModalHeader,
+  ModalOverlay,
 } from "@chakra-ui/react";
-import React from "react";
+import axios from "axios";
+import CommentListView from './CommentListView'
 
 interface Post {
   PostInformation_Id: number;
@@ -26,10 +33,21 @@ interface PostListProps {
   posts: Post[];
 }
 
+interface CommentListViewProps {
+  postId: number;
+}
+
+const DeleteButton = ({ onDelete }: { onDelete: () => void }) => (
+  <Button colorScheme="red" onClick={onDelete}>
+    Delete
+  </Button>
+);
+
 const PostList = () => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [postList, setPostList] = useState<Post[]>([]);
+  const [isViewCommentOpen, setIsViewCommentOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef = React.useRef<HTMLButtonElement>(null);
 
@@ -63,6 +81,15 @@ const PostList = () => {
     setIsOpen(false);
   };
 
+  const onViewCommentClose = () => {
+    setIsViewCommentOpen(false);
+  };
+
+  const handleViewComment = (post: Post) => {
+    setSelectedPost(post);
+    setIsViewCommentOpen(true);
+  };
+
   return (
     <Flex justify="center" align="center" height="100%">
       <Box w="80%">
@@ -84,6 +111,9 @@ const PostList = () => {
               <Button colorScheme="red" onClick={() => handleDelete(post)}>
                 Delete
               </Button>
+              <Button colorScheme="blue" onClick={() => handleViewComment(post)} ml="4">
+                View Comments
+              </Button>
             </Box>
           ))}
         </Box>
@@ -97,11 +127,11 @@ const PostList = () => {
               <AlertDialogHeader fontSize="lg" fontWeight="bold">
                 Delete Post
               </AlertDialogHeader>
-
+  
               <AlertDialogBody>
                 Are you sure? You can't undo this action afterwards.
               </AlertDialogBody>
-
+  
               <AlertDialogFooter>
                 <Button ref={cancelRef} onClick={onClose}>
                   Cancel
@@ -113,9 +143,19 @@ const PostList = () => {
             </AlertDialogContent>
           </AlertDialogOverlay>
         </AlertDialog>
+        <Modal isOpen={isViewCommentOpen} onClose={onViewCommentClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Comments</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              {selectedPost && <CommentListView postId={selectedPost.PostInformation_Id} postTitle={selectedPost.PostInformation_Title} /> }
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       </Box>
     </Flex>
   );
-};
-
-export default PostList;
+  
+}
+export default PostList;  
