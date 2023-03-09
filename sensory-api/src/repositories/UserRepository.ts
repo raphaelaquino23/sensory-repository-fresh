@@ -81,29 +81,37 @@ export class UserRepository {
   }
 
   async register(user: User, userinformation: UserInformation) {
-<<<<<<< Updated upstream
-    let foundUser, foundEmail, uInfo, data = {};
+    let foundUser,
+      foundEmail,
+      uInfo,
+      data = {};
     const saltRound = 8;
-    foundUser = await this.userInformationRepository.findOne({ 
+    foundUser = await this.userInformationRepository.findOne({
       where: {
-        UserInformation_Name: userinformation.UserInformation_Name
-      }})
+        UserInformation_Name: userinformation.UserInformation_Name,
+      },
+    });
 
-    foundEmail = await this.userInformationRepository.findOne({ 
+    foundEmail = await this.userInformationRepository.findOne({
       where: {
-        UserInformation_Email: userinformation.UserInformation_Email
-      }})
+        UserInformation_Email: userinformation.UserInformation_Email,
+      },
+    });
 
-    if(!foundUser){
-      if(!foundEmail){
+    if (!foundUser) {
+      if (!foundEmail) {
         try {
           uInfo = await this.userInformationRepository.create({
             UserInformation_Name: userinformation.UserInformation_Name,
             UserType_Id: 4,
             UserInformation_Email: userinformation.UserInformation_Email,
-            UserInformation_Description: userinformation.UserInformation_Description,
+            UserInformation_Description:
+              userinformation.UserInformation_Description,
             UserInformation_Image: "default.png",
-            UserInformation_Password: await bcrypt.hash(userinformation.UserInformation_Password, saltRound)
+            UserInformation_Password: await bcrypt.hash(
+              userinformation.UserInformation_Password,
+              saltRound
+            ),
           });
           user.User_DateCreated = new Date();
           user.UserInformation_Id = uInfo.getDataValue("UserInformation_Id");
@@ -111,38 +119,11 @@ export class UserRepository {
           await this.userRepository.create(user);
 
           data = uInfo;
-
         } catch (error) {
-          console.log('Error:: ');
+          console.log("Error:: ");
         }
-=======
-    let uInfo,
-      data = {};
-    const saltRound = 8;
-    try {
-      uInfo = await this.userInformationRepository.create({
-        UserInformation_Name: userinformation.UserInformation_Name,
-        UserType_Id: 4,
-        UserInformation_Email: userinformation.UserInformation_Email,
-        UserInformation_Description:
-          userinformation.UserInformation_Description,
-        UserInformation_Image: "default.png",
-        UserInformation_Password: await bcrypt.hash(
-          userinformation.UserInformation_Password,
-          saltRound
-        ),
-      });
-      user.User_DateCreated = new Date();
-      user.UserInformation_Id = uInfo.getDataValue("UserInformation_Id");
-      user.User_DeactivatedStatus = false;
-      await this.userRepository.create(user);
-
-      data = uInfo;
-    } catch (error) {
-      console.log("Error:: ");
->>>>>>> Stashed changes
+      }
     }
-  }
     return data;
   }
 

@@ -45,7 +45,9 @@ export class PostRepository {
     // });
 
     this.userRepository.create({
-      user: {},
+      user: {
+        User_Id: 1,
+      },
       userinformation: [
         {
           UserInformation_Name: "Renzo",
@@ -53,6 +55,10 @@ export class PostRepository {
           UserInformation_Password: "11234",
         },
       ],
+      usertype: {
+        UserType_Id: 1,
+        UserType_Name: "Admin",
+      },
     });
   }
 
