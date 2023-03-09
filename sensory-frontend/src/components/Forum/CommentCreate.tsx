@@ -15,9 +15,9 @@ import {
   TextField,
   Stack,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
+// import EditIcon from "@mui/icons-material/Edit";
+// import DeleteIcon from "@mui/icons-material/Delete";
+// import SendIcon from "@mui/icons-material/Send";
 import Swal from "sweetalert2";
 import axios, { axiosPrivate } from "../../api/axios";
 
@@ -124,7 +124,7 @@ function CommentItem() {
                     className="buttons"
                     onClick={handleSubmit}
                   >
-                    <SendIcon sx={{ mr: 1 }} /> Submit{" "}
+                    {/* <SendIcon sx={{ mr: 1 }} /> Submit{" "} */}
                   </Button>
                 </Box>
               </Box>
