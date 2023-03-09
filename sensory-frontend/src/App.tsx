@@ -31,6 +31,7 @@ import PostDetailPage from './components/Forum/ForumPostDetail';
 import CommentListDown from './components/Forum/CommentList';
 import CommentCard from './components/Forum/CommentCard';
 import Unauthorized from './pages/UnauthorizedPage';
+import NewsSearch from './components/NewsAPI/newsapi';
 //Test
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <Route path='/'  element={<Logout/>} />
         <Route path='/article' element={thisToken && (thisUserType === "2")? <Article/>: <ArticleUser/>} />
 				<Route path='/article-user' element={thisToken && (thisUserType === "2")? <Article/>: <ArticleUser/>} />
+				<Route path='/news-search' element={thisToken? <NewsSearch/> : <LogIn/>} />
         <Route path='/campaign' element={thisToken? <Campaign/> : <LogIn/>} />
         <Route path='/forum' element={thisToken? <UserForum/>: <LogIn/>} />
         <Route path='/forum-admin' element={thisToken? <AdminForum/>: <LogIn/>} />
