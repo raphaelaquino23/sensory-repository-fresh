@@ -111,11 +111,6 @@ const Post = ({post} : { post: any}) => {
             <Spacer />
             <Box>
               {postClicks}
-              <Button onClick={handleShow}>
-                <Box title="Comment" _hover={{ color: "gray", cursor: "pointer" }}>
-                  <BsReplyAllFill />
-                </Box>
-              </Button>
             </Box>
           </VStack>
           <Box
