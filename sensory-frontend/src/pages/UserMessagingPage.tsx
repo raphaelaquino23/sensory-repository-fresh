@@ -1,5 +1,6 @@
 import MessageList from '../components/UserMessaging/MessageList';
 import MessageContextProvider from '../contexts/MessageContext';
+import MyChatComponent from './TalkJSMessaging';
 
 function Message() {
   return (
@@ -8,6 +9,7 @@ function Message() {
         <div className='table-wrapper'>
           <MessageContextProvider>
             <MessageList />
+            <MyChatComponent />
           </MessageContextProvider>
         </div>
       </div>
