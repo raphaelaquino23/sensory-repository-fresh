@@ -1,5 +1,5 @@
 import PostContextProvider from '../contexts/PostContext';
-import PostList from '../components/Forum/ForumPostList';
+import PostList from '../components/Forum/ForumAdminPostList';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '../theme';
 

@@ -56,8 +56,11 @@ const Navbar = () => {
           <NavLink to='/campaign'>
             Campaigns
           </NavLink>
-          <NavLink to='/post'>
+          <NavLink to='/forum'>
             Forum
+          </NavLink>
+          <NavLink to='/forum-admin'>
+            Forum Management
           </NavLink>
           <NavLink to='/message'>
             Messenger
