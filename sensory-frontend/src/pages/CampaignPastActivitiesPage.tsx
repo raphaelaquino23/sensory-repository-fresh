@@ -3,11 +3,11 @@ import './styles//PastActivities.css';
 const PastActivities = () => {
   return (
     <div>
-      <h1 style={{ textAlign: 'center', marginTop: '10px' }}>
+      <h1 style={{ textAlign: 'center', marginTop: '10px', fontSize: '40px' }}>
         Past Campaign Activities
       </h1>
       <div className='card-container'>
-        <h3 style={{ textAlign: 'center', marginTop: '15px' }}>
+        <h3 style={{ textAlign: 'center', marginTop: '15px', fontSize: '30px' }}>
           Fun Run for a Cause
         </h3>
         <div className='image-container'>
@@ -24,7 +24,7 @@ const PastActivities = () => {
               manage it. At the same time, this event encourages and promotes
               healthy lifestyle through physical activities. Proceeds from this
               activity will be donated to SensAware's partner institute as part
-              of our awareness campaign for SPD.{' '}
+              of our awareness campaign for SPD.{' '} <br />
             </p>
             <hr
               style={{
@@ -32,7 +32,7 @@ const PastActivities = () => {
                 width: 730,
               }}
             />
-            <h3 style={{ textAlign: 'center', marginTop: '15px' }}>
+            <h3 style={{ textAlign: 'center', marginTop: '15px', fontSize: '30px' }}>
               Kamustahan: SensAware Community
             </h3>
             <div className='image-container'>
