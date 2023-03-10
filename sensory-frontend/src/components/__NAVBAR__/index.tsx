@@ -36,7 +36,7 @@ const NotNavbar = () => {
           <NavLink to='/Article-user'>
             Articles
           </NavLink>
-          <NavLink to='/post'>
+          <NavLink to='/forum'>
             Forum
           </NavLink>
         </NavMenu>
