@@ -129,7 +129,7 @@ const Home = () => {
       <h1 style={{ textAlign: "center", marginTop: "20px", fontSize: "30px"}}>
         Get started 
       </h1>
-      <div className="wrapper">
+      <div className="wrapper" style={{marginBottom: "40px"}}>
         {/* {thisUserType==="2"? <AdminArticles /> : <Articles/>} */}
         <AdminArticles />
         <Campaigns />
