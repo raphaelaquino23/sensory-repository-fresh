@@ -50,7 +50,7 @@ const Navbar = () => {
         </Box>
         <Bars />
         <NavMenu>
-          <NavLink to='/Article-user'>
+          <NavLink to='/ArticleOptions'>
             Articles
           </NavLink>
           <NavLink to='/campaign'>

@@ -7,6 +7,7 @@ import Home from './pages/HomePage'
 import Article from './pages/ArticlePage';
 import ArticleUser from './pages/ArticleUserPage'
 import Campaign from './pages/CampaignPage';
+import ArticleOptions from './pages/ArticleOptions';
 import UserForum from './pages/ForumPostPage';
 import AdminForum from './pages/ForumPostAdminPage';
 import CampaignActivityPage from './pages/CampaignActivityPage';
@@ -47,6 +48,7 @@ function App() {
 				<Route path='/article-user' element={thisToken && (thisUserType === "2")? <Article/>: <ArticleUser/>} />
 				<Route path='/news-search' element={thisToken? <NewsSearch/> : <LogIn/>} />
         <Route path='/campaign' element={thisToken? <Campaign/> : <LogIn/>} />
+		<Route path='/ArticleOptions' element={thisToken? <ArticleOptions/> : <LogIn/>} />
         <Route path='/forum' element={thisToken? <UserForum/>: <LogIn/>} />
         <Route path='/forum-admin' element={thisToken? <AdminForum/>: <LogIn/>} />
         <Route path='/postdetail' element={<PostDetailPage/>} />

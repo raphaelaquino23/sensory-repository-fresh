@@ -55,29 +55,29 @@ const AdminArticles = () => {
           Discover and read articles related to Sensory Processing Disorder.
         </p>
       </div>
-      <Link to={"/Article"}>
+      <Link to={"/ArticleOptions"}>
         <button className="card__btn">View Articles</button>
       </Link>
     </div>
   );
 };
 
-const Articles = () => {
-  return (
-    <div className="card">
-      <div className="card__body">
-        <img src="images/articles.jpg" className="card__image" alt="img" />
-        <h2 className="card__title">Articles</h2>
-        <p className="card__description">
-          Discover and read articles related to Sensory Processing Disorder.
-        </p>
-      </div>
-      <Link to={"/article-user"}>
-        <button className="card__btn">View Articles</button>
-      </Link>
-    </div>
-  );
-};
+// const Articles = () => {
+//   return (
+//     <div className="card">
+//       <div className="card__body">
+//         <img src="images/articles.jpg" className="card__image" alt="img" />
+//         <h2 className="card__title">Articles</h2>
+//         <p className="card__description">
+//           Discover and read articles related to Sensory Processing Disorder.
+//         </p>
+//       </div>
+//       <Link to={"/article-user"}>
+//         <button className="card__btn">View Articles</button>
+//       </Link>
+//     </div>
+//   );
+// };
 
 const Campaigns = () => {
   return (
@@ -130,7 +130,8 @@ const Home = () => {
         Get started 
       </h1>
       <div className="wrapper">
-        {thisUserType==="2"? <AdminArticles /> : <Articles/>}
+        {/* {thisUserType==="2"? <AdminArticles /> : <Articles/>} */}
+        <AdminArticles />
         <Campaigns />
         <Forum />
       </div>
