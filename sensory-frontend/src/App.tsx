@@ -7,7 +7,8 @@ import Home from './pages/HomePage'
 import Article from './pages/ArticlePage';
 import ArticleUser from './pages/ArticleUserPage'
 import Campaign from './pages/CampaignPage';
-import Post from './pages/ForumPostPage';
+import UserForum from './pages/ForumPostPage';
+import AdminForum from './pages/ForumPostAdminPage';
 import CampaignActivityPage from './pages/CampaignActivityPage';
 import Logout from './pages/UserLogoutPage';
 import ActivityInfo from './pages/CampaignActivityInfoPage';
@@ -30,6 +31,7 @@ import PostDetailPage from './components/Forum/ForumPostDetail';
 import CommentListDown from './components/Forum/CommentList';
 import CommentCard from './components/Forum/CommentCard';
 import Unauthorized from './pages/UnauthorizedPage';
+import NewsSearch from './components/NewsAPI/newsapi';
 //Test
 
 function App() {
@@ -43,8 +45,10 @@ function App() {
         <Route path='/'  element={<Logout/>} />
         <Route path='/article' element={thisToken && (thisUserType === "2")? <Article/>: <ArticleUser/>} />
 				<Route path='/article-user' element={thisToken && (thisUserType === "2")? <Article/>: <ArticleUser/>} />
+				<Route path='/news-search' element={thisToken? <NewsSearch/> : <LogIn/>} />
         <Route path='/campaign' element={thisToken? <Campaign/> : <LogIn/>} />
-        <Route path='/post' element={thisToken? <Post/>: <LogIn/>} />
+        <Route path='/forum' element={thisToken? <UserForum/>: <LogIn/>} />
+        <Route path='/forum-admin' element={thisToken? <AdminForum/>: <LogIn/>} />
         <Route path='/postdetail' element={<PostDetailPage/>} />
         <Route path='/activity' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <ActivityInfo/>} /> 
 				<Route path='/activityinfo' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <ActivityInfo/>} /> 
