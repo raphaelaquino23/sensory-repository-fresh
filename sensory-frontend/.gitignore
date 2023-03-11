@@ -11,6 +11,9 @@
 # production
 /build
 
+yarn.lock
+node_modules
+
 # misc
 .DS_Store
 .env.local
