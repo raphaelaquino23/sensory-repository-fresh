@@ -7,7 +7,7 @@ import {
   PostStats,
   PostUpvoteTracker,
 } from "../models/PostModel";
-import { User, UserInformation } from "../models/UserModel";
+import { User, UserInformation, UserType } from "../models/UserModel";
 
 export class PostRepository {
   private logger: APILogger;
@@ -19,6 +19,7 @@ export class PostRepository {
   private postUpvoteTrackerRepository: any;
   private userRepository: any;
   private userInformationRepository: any;
+  private userTypeRepository: any;
 
   constructor() {
     this.db = connect();
@@ -35,31 +36,54 @@ export class PostRepository {
     this.userRepository = this.db.sequelize.getRepository(User);
     this.userInformationRepository =
       this.db.sequelize.getRepository(UserInformation);
+    this.userTypeRepository = this.db.sequelize.getRepository(UserType);
 
-    // const userAdminInfo = this.userRepository.create({
-    //   userinformation: {
-    //     UserInformation_Name: "Renzo",
-    //     UserInformation_Email: "renzancajas@yahoo.com",
-    //     UserInformation_Password: "12345",
-    //   },
-    // });
-
-    this.userRepository.create({
-      user: {
-        User_Id: 1,
-      },
-      userinformation: [
+    this.postCategoryRepository.bulkCreate(
+      [
         {
-          UserInformation_Name: "Renzo",
-          UserInformation_Email: "renzancajas@yahoo.com",
-          UserInformation_Password: "11234",
+          PostCategory_Id: 1,
+          PostCategory_Title: "Health",
+          PostCategory_Description: "Test Content",
+        },
+        {
+          PostCategory_Id: 2,
+          PostCategory_Title: "Autism",
+          PostCategory_Description: "Test Content",
+        },
+        {
+          PostCategory_Id: 3,
+          PostCategory_Title: "News",
+          PostCategory_Description: "Test Content",
         },
       ],
-      usertype: {
-        UserType_Id: 1,
-        UserType_Name: "Admin",
-      },
-    });
+      { updateOnDuplicate: ["PostCategory_Title", "PostCategory_Description"] }
+    );
+
+    this.userTypeRepository.bulkCreate(
+      [
+        {
+          UserType_Id: 1,
+          UserType_Name: "Therapist",
+          UserType_Description: "Green thumbs",
+        },
+        {
+          UserType_Id: 2,
+          UserType_Name: "Admin",
+          UserType_Description: "Controls everything",
+        },
+        {
+          UserType_Id: 3,
+          UserType_Name: "Moderator",
+          UserType_Description: "Moderates forum",
+        },
+        {
+          UserType_Id: 4,
+          UserType_Name: "User",
+          UserType_Description: "Regular role",
+        },
+      ],
+      { updateOnDuplicates: ["UserType_Name", "UserType_Description"] }
+    );
   }
 
   async getPosts() {
