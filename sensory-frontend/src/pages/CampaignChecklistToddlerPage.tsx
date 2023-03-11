@@ -108,7 +108,7 @@ function ChecklistToddler () {
           </div>
           
           <p style={{marginLeft: '20px'}}>Total number of symptoms checked: {activeItemsCount}</p>
-          <p style={{marginLeft: '20px'}}>Percent: {((activeItemsCount*100)/listData.length).toFixed(2)}%</p>
+          {/* <p style={{marginLeft: '20px'}}>Percent: {((activeItemsCount*100)/listData.length).toFixed(2)}%</p> */}
           <Button variant="success" type="submit" style={{backgroundColor: "#90b474"}}>
             Submit
           </Button>

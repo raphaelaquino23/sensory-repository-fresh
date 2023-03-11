@@ -100,7 +100,7 @@ function ChecklistAdult () {
           </div>
           
           <p style={{marginLeft: '20px'}}>Total number of symptoms checked: {activeItemsCount}</p>
-          <p style={{marginLeft: '20px'}}>Percent: {((activeItemsCount*100)/adultData.length).toFixed(2)}%</p>
+          {/* <p style={{marginLeft: '20px'}}>Percent: {((activeItemsCount*100)/adultData.length).toFixed(2)}%</p> */}
           {/* <button style={{marginTop: '0px', marginBottom: '10px', marginLeft: '24px'}}>Submit</button> */}
           <Button variant="success" type="submit" style={{backgroundColor: "#90b474"}}>
             Submit
