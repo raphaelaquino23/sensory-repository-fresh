@@ -20,7 +20,7 @@ const PostDetailPage = () => {
   const [post, setPost] = useState("");
 
   const handleBackToPrev = () => {
-    history('/post')
+    history('/forum')
   }
 
   const handleSearchComment = (event: React.ChangeEvent<any>) => {
