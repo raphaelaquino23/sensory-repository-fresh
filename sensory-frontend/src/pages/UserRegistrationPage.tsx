@@ -298,6 +298,7 @@ const Register = () => {
             >
               Sign Up
             </button> */}
+            <p style={{fontSize:"12px"}}>By signing up, you agree to the <a href='/terms' style={{color: "blue"}}>Terms of Service</a> and <a href='/privacy' style={{color: "blue"}}>Privacy Policy</a> of SensAware</p>
 						<Button variant="success" type="submit" style={{marginTop: "10px"}} disabled={!validName || !validPwd || !validMatch ? true : false}>
               Sign Up
             </Button>
