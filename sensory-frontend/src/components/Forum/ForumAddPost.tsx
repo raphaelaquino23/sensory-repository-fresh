@@ -82,6 +82,7 @@ const AddPost = () => {
 					value={PostInformation_Title}
 					onChange = { (e) => onInputChange(e)}
 					required
+					style={{width: "310px"}}
 					aria-invalid={validTitle ? 'false' : 'true'}
           aria-describedby='uidnote'
           onFocus={() => setPostFocus(true)}
@@ -106,6 +107,7 @@ const AddPost = () => {
 					value={PostInformation_Content}
 					onChange = { (e) => onInputChange(e)}
 					required
+					style={{width: "310px"}}
 					aria-invalid={validContent ? 'false' : 'true'}
           aria-describedby='dcnote'
           onFocus={() => setPostFocus(true)}
@@ -122,7 +124,7 @@ const AddPost = () => {
         </p>
 			</Form.Group>
 
-				<Button variant="success" type="submit">
+				<Button variant="success" type="submit" style={{width: "310px"}}>
 					Add New Post
 				</Button>
 		</Form>
