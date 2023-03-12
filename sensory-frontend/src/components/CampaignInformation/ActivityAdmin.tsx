@@ -57,11 +57,6 @@ const Activity = ({activity} : { activity: any}) => {
         <Modal.Body>
           <EditActivity theActivity={activity} />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close Button
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   )

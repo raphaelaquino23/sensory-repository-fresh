@@ -176,11 +176,6 @@ const ActivityList = () => {
         <Modal.Body>
           <AddActivity />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close Button
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

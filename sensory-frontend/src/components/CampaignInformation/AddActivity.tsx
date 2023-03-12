@@ -42,7 +42,6 @@ const AddActivity = () => {
     setSelectedFile(e.target.files[0]);
   };
 
-
   const { name, description, url, date } = newActivity;
 
   useEffect(() => {
@@ -97,6 +96,7 @@ const AddActivity = () => {
           value={name}
           onChange = { (e) => onInputChange(e)}
           required
+          style={{width: "330px"}}
           aria-invalid={validActivity ? 'false' : 'true'}
           aria-describedby='uidnote'
           onFocus={() => setActivityFocus(true)}
@@ -121,6 +121,7 @@ const AddActivity = () => {
           value={description}
           onChange = { (e) => onInputChange(e)}
           required
+          style={{width: "330px"}}
           aria-invalid={validDescription ? 'false' : 'true'}
           aria-describedby='dcnote'
           onFocus={() => setActivityFocus(true)}
@@ -142,6 +143,7 @@ const AddActivity = () => {
           placeholder="Date"
           name="date"
           value={date}
+          style={{width: "330px"}}
           onChange = { (e) => onInputChange(e)}
           required
         />
@@ -156,7 +158,7 @@ const AddActivity = () => {
           onChange = { (e) => onFileChange(e)}
         />
       </Form.Group>
-                <Button variant="success" type="submit">
+                <Button variant="success" type="submit" style={{width: "330px"}}>
                     Add New Activity
                 </Button>
         </Form>
