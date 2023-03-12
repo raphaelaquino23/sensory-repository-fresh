@@ -127,8 +127,7 @@ const ArticleList = () => {
       </table>
 
 
-      <Pagination
-        pages={totalPagesNum}
+      <Pagination pages={totalPagesNum}
         setCurrentPage={setCurrentPage}
         currentArticles={currentArticles}
         sortedArticles={sortedArticles}

@@ -71,7 +71,7 @@ const EditForm = ({theArticle} : { theArticle: any}) =>{
           required
         />
       </Form.Group>
-      <Form.Group>
+      {/* <Form.Group>
         <Form.Control
           type="file"
           formEncType="multipart/form-data"
@@ -81,7 +81,7 @@ const EditForm = ({theArticle} : { theArticle: any}) =>{
           onChange={(e) => onFileChange(e)}
           required
         />
-      </Form.Group>
+      </Form.Group> */}
       <Form.Group>
         <Form.Control
           type="text"
