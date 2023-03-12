@@ -55,6 +55,23 @@ const ArticlesCard = () => {
 )
 };
 
+const DirectoryCard = () => {
+  return(
+    <div className='card'>
+    <div className='card__body'>
+      <img src='images/directory.jpg' className='card__image' alt='img' width="20px" />
+      <h2 className='card__title'>Therapist Directory</h2>
+      <p className='card__description'>
+      Looking for a therapist? Check out these clinics from Metro Manila that might be near you.{' '}
+      </p>
+    </div>
+    <Link to={'/directory'}>
+      <button className='card__btn'>See directory</button>
+    </Link>
+  </div>
+  )
+}
+
 const PastEventsCard = () => {
   return(
     <div className='card'>
@@ -76,7 +93,7 @@ const ArticleOptions = () => {
   return (
     <div>
       <div className='wrapper'>
-        {/* <CheckListCard /> */}
+        <DirectoryCard />
         <ArticlesCard />
         <PastEventsCard /> 
       </div>

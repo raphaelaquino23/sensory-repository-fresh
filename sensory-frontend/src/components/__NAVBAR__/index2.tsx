@@ -51,7 +51,7 @@ const Navbar = () => {
         <Bars />
         <NavMenu>
           <NavLink to='/ArticleOptions'>
-            Articles
+            Repository
           </NavLink>
           <NavLink to='/campaign'>
             Campaigns

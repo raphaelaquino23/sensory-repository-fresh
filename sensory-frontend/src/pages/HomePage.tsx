@@ -50,13 +50,13 @@ const AdminArticles = () => {
     <div className="card">
       <div className="card__body">
         <img src="images/articles.jpg" className="card__image" alt="img" />
-        <h2 className="card__title">Articles</h2>
+        <h2 className="card__title">Repository</h2>
         <p className="card__description">
-          Discover and read articles related to Sensory Processing Disorder.
+          Discover and read articles related to Sensory Processing Disorder and check for therapy clinics near you.
         </p>
       </div>
       <Link to={"/ArticleOptions"}>
-        <button className="card__btn">View Articles</button>
+        <button className="card__btn">View Repository</button>
       </Link>
     </div>
   );
