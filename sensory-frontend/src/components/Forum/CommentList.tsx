@@ -16,11 +16,12 @@ import Typography from "@mui/material/Typography";
 import { Paper, Container, Button, TextField, Box, Grid } from "@mui/material";
 import { axiosPrivate } from "../../api/axios";
 import Filter from 'bad-words';
-import { Flex } from "@chakra-ui/react";
+import { Flex, HStack, Badge, Tag } from "@chakra-ui/react";
 
 const CommentList = ({ comment }: { comment: any }) => {
   const [commentDir, setCommentDir] = useState<any>(null);
   const [commentUser, setCommentUser] = useState<any>(null);
+  const [commentUserType, setCommentUserType] = useState(0);
 
   const filter = new Filter();
 
@@ -34,6 +35,7 @@ const CommentList = ({ comment }: { comment: any }) => {
         .get(`http://localhost:3081/api/userinformation/${comment.User_Id}`)
         .then((response) => {
           setCommentUser(response.data.UserInformation_Name);
+          setCommentUserType(response.data.UserType_Id);
     });
   }, [commentUser]);
 
@@ -44,7 +46,18 @@ const CommentList = ({ comment }: { comment: any }) => {
           <Avatar alt="Remy Sharp" />
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
-          <h4 style={{ margin: 0, textAlign: "left" }}><strong>{commentUser}</strong></h4>
+        <HStack mb={2} spacing={4}>
+            <Badge
+              fontSize="sm"
+              colorScheme={getUserTypeColor(commentUserType)}
+              shadow="md"
+            >
+            {commentUser}
+            </Badge>
+            <Tag color="grey" shadow="md">
+              {getUserType(commentUserType)}
+            </Tag>
+          </HStack>
           <p style={{ textAlign: "left" }}>
             {commentDir ? filter.clean(commentDir) : ''}
           </p>
@@ -54,5 +67,36 @@ const CommentList = ({ comment }: { comment: any }) => {
     </Flex>
   );
 };
+
+const getUserTypeColor = (userTypeId: number) => {
+  switch (userTypeId) {
+    case 1:
+      return "blue";
+    case 2:
+      return "purple";
+    case 3:
+      return "orange";
+    case 4:
+      return "green";
+    default:
+      return "gray";
+  }
+};
+
+const getUserType = (userTypeId: number) => {
+  switch (userTypeId) {
+    case 1:
+      return "Therapist";
+    case 2:
+      return "Admin";
+    case 3:
+      return "Moderator";
+    case 4:
+      return "Regular User";
+    default:
+      return "Unknown";
+  }
+};
+
 
 export default CommentList;
