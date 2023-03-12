@@ -16,19 +16,6 @@ const Activity = ({activity} : { activity: any}) => {
      handleClose()
   }, [activity])
 
-
-  // {products.map((product)=>{
-  //   let date = new Date(product["createdAt"]);
-  //   return(
-  //     <tr>
-  //       <td>{product["id"]}</td>
-  //       <td>{product["name"]}</td>
-  //       <td>{date.toLocaleDateString()}</td>
-  //     </tr>
-  //   );
-  // })}
-
-
   const date = new Date(activity["CampaignInformation_Date"]);
   return (
     <>
@@ -55,7 +42,7 @@ const Activity = ({activity} : { activity: any}) => {
               Delete
             </Tooltip>
           }>
-            <button onClick={() => deleteActivity(activity.CampaignInformation_Id)}  style={{display: 'inline-block'}} className="btn text-danger btn-act" data-toggle="modal"><i className="material-icons">&#xE872;</i></button>
+            <button onClick={() => deleteActivity(activity.CampaignInformation_Id)} className="btn text-danger btn-act" data-toggle="modal"><i className="material-icons">&#xE872;</i></button>
         </OverlayTrigger>
                
       </td>
