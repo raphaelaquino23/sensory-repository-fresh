@@ -3,6 +3,8 @@ import { connect } from "../config/db.config";
 import { APILogger } from "../logger/api.logger";
 import { Message } from "../models/MessageModel";
 import { User, UserInformation } from "../models/UserModel";
+import CryptoJS from "crypto-js";
+import { useState } from "react";
 
 export class MessageRepository {
 
@@ -35,6 +37,18 @@ export class MessageRepository {
 		try {
 			const Message = await this.messageRepository.findOne({where: {Message_Id: MessageId}});
 			console.log('Messages:::', Message);
+      //decrypt message content
+
+      const [decryptedData, setDecrptedData] = useState("");
+      const secretPass = "XkhZG4fW2t2W";
+
+      const decryptData = () => {
+        const bytes = CryptoJS.AES.decrypt(Message.Message_Content, secretPass);
+        const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        setDecrptedData(decrypted);
+      };
+      Message.Message_Content = decryptedData;
+
 			return Message;
 		} catch (error) {
 			console.log("error");
@@ -62,6 +76,10 @@ export class MessageRepository {
 
   async createMessage(Message: Message, SenderName: String, ReceiverName: String) {
     let userSearch, userId, senderId, receiverId, receiverSearch, receivedId, data = {};
+    
+    const [encryptedData, setEncrptedData] = useState("");
+    const secretPass = "XkhZG4fW2t2W";
+
     try {
       console.log("---------------USER SEARCH");
 			userSearch = await this.userInformationRepository.findOne({where: {UserInformation_Name: SenderName}});
@@ -87,6 +105,18 @@ export class MessageRepository {
               Message.Receiver_Id = receivedId 
             }
             Message.Message_DateCreated = new Date();
+
+            //Encrypt message content
+            const encryptData = () => {
+              const encrypted = CryptoJS.AES.encrypt(
+                JSON.stringify(Message.Message_Content),
+                secretPass
+              ).toString();
+          
+              setEncrptedData(encrypted);
+            };
+            encryptData();
+            Message.Message_Content = encryptedData;
             data = await this.messageRepository.create(Message);
           }
         }
