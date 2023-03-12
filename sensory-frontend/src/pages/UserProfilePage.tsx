@@ -72,67 +72,67 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-  <Box className="container">
-    <div className="search-container">
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Search for a user"
-          value={searchUsername}
-          onChange={(e) => setSearchUsername(e.target.value)}
-        />
-        <button className="search-button" onClick={handleSearch}>
-          <SearchIcon />
-        </button>
-      </div>
-    </div>
-    {searchResult ? (
-      <div className="user-container">
-        <div className="user-info">
-          <h1>{searchResult.UserInformation_Name}</h1>
-          <div className="badge-container">
-            <Badge colorScheme={getUserTypeColor(searchResult.UserType_Id)}>
-              {getUserType(searchResult.UserType_Id)}
-            </Badge>
-          </div>
-        </div>
-        <div className="user-details">
-          <p>
-            <strong>Email:</strong> {searchResult.UserInformation_Email}
-          </p>
-          <p>
-            <strong>Description:</strong> {searchResult.UserInformation_Description}
-          </p>
-          <button className="send-message-button" onClick={handleSendMessage}>
-            Send Message
+    <div className="bontainer">
+      <div className="search-container">
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search for a user"
+            value={searchUsername}
+            onChange={(e) => setSearchUsername(e.target.value)}
+          />
+          <button className="search-button" onClick={handleSearch}>
+            <SearchIcon />
           </button>
         </div>
       </div>
-    ) : currentUserInformation ? (
-      <div className="user-container">
-        <div className="user-info">
-          <strong><h1>{currentUserInformation.UserInformation_Name}</h1></strong>
-          <div className="badge-container">
-            <Badge colorScheme={getUserTypeColor(currentUserInformation.UserType_Id)}>
-              {getUserType(currentUserInformation.UserType_Id)}
-            </Badge>
+      {searchResult ? (
+        <div className="user-container">
+          <div className="user-info">
+            <h1>{searchResult.UserInformation_Name}</h1>
+            <div className="badge-container">
+              <Badge colorScheme={getUserTypeColor(searchResult.UserType_Id)}>
+                {getUserType(searchResult.UserType_Id)}
+              </Badge>
+            </div>
+          </div>
+          <div className="user-details">
+            <p>
+              <strong>Email:</strong> {searchResult.UserInformation_Email}
+            </p>
+            <p>
+              <strong>Description:</strong> {searchResult.UserInformation_Description}
+            </p>
+            <button className="send-message-button" onClick={handleSendMessage}>
+              Send Message
+            </button>
           </div>
         </div>
-        <div className="user-details">
-          <p>
-            <strong>Email:</strong> {currentUserInformation.UserInformation_Email}
-          </p>
-          <p>
-            <strong>Description:</strong> {currentUserInformation.UserInformation_Description}
-          </p>
+      ) : currentUserInformation ? (
+        <div className="user-container">
+          <div className="user-info">
+            <strong><h1>{currentUserInformation.UserInformation_Name}</h1></strong>
+            <div className="badge-container">
+              <Badge colorScheme={getUserTypeColor(currentUserInformation.UserType_Id)}>
+                {getUserType(currentUserInformation.UserType_Id)}
+              </Badge>
+            </div>
+          </div>
+          <div className="user-details">
+            <p>
+              <strong>Email:</strong> {currentUserInformation.UserInformation_Email}
+            </p>
+            <p>
+              <strong>Description:</strong> {currentUserInformation.UserInformation_Description}
+            </p>
+          </div>
         </div>
-      </div>
-    ) : (
-      <div className="loading-container">
-        <p>Loading...</p>
-      </div>
-    )}
-  </Box>
+      ) : (
+        <div className="loading-container">
+          <p>Loading...</p>
+        </div>
+      )}
+    </div>
   );
   
   
