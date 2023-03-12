@@ -17,8 +17,8 @@
 
 // export default User;
 
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface UserType {
   UserType_Id: number;
@@ -51,42 +51,49 @@ interface User {
 const UserPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [userTypes, setUserTypes] = useState<UserType[]>([]);
-  const [userInformations, setUserInformations] = useState<UserInformation[]>([]);
+  const [userInformations, setUserInformations] = useState<UserInformation[]>(
+    []
+  );
 
   useEffect(() => {
     // Fetch all the user types
-    axios.get<UserType[]>('http://localhost:3081/api/usertype')
-      .then(response => {
+    axios
+      .get<UserType[]>("http://localhost:3081/api/usertype")
+      .then((response) => {
         setUserTypes(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching user types:', error);
+      .catch((error) => {
+        console.error("Error fetching user types:", error);
       });
 
     // Fetch all the users with their associated user information and user type
-    axios.get<UserInformation[]>(`http://localhost:3081/api/userinformation`)
-      .then(response => {
+    axios
+      .get<UserInformation[]>(`http://localhost:3081/api/userinformation`)
+      .then((response) => {
         setUserInformations(response.data);
       })
-      .catch(error => {
-        console.error('Error fetching users:', error);
+      .catch((error) => {
+        console.error("Error fetching users:", error);
       });
   }, []);
 
   const changeUserType = async (user: User, userType: UserType) => {
     try {
-      const response = await axios.put(`http://localhost:3081/api/user/${user.User_Id}`, {
-        userInformationId: user.UserInformation_Id,
-        userType: {
-          id: userType.UserType_Id,
-          name: userType.UserType_Name,
-          description: userType.UserType_Description,
-        },
-      });
+      const response = await axios.put(
+        `http://localhost:3081/api/user/${user.User_Id}`,
+        {
+          userInformationId: user.UserInformation_Id,
+          userType: {
+            id: userType.UserType_Id,
+            name: userType.UserType_Name,
+            description: userType.UserType_Description,
+          },
+        }
+      );
 
       if (response.status === 200) {
         // Update the user's user type in the state
-        const updatedUsers = users.map(u => {
+        const updatedUsers = users.map((u) => {
           if (u.User_Id === user.User_Id) {
             const updatedUserInformation = { ...u.userInformation!, userType };
             return { ...u, userInformation: updatedUserInformation };
@@ -99,18 +106,26 @@ const UserPage = () => {
         console.error(`Failed to update user ${user.User_Id}'s user type`);
       }
     } catch (error) {
-      console.error(`Error updating user ${user.User_Id}'s user type: ${error}`);
+      console.error(
+        `Error updating user ${user.User_Id}'s user type: ${error}`
+      );
     }
   };
 
-  const displayUserType = async (userInformation: UserInformation, userType: UserType) => {
-    if (userInformation.UserType_Id === userType.UserType_Id) {
-      // userTypeName = userType.UserType_Id
-      return userType.UserType_Name;
+  const getUserTypeName = (userTypeId: number): string => {
+    switch (userTypeId) {
+      case 1:
+        return "Therapist";
+      case 2:
+        return "Admin";
+      case 3:
+        return "Moderator";
+      case 4:
+        return "Regular User";
+      default:
+        return "Unknown";
     }
   };
-
-
 
   return (
     <div>
@@ -119,60 +134,51 @@ const UserPage = () => {
       <input type="text" id="search" />
 
       <ul>
-        {userInformations.map(userInformations => (
+        {userInformations.map((userInformations) => (
           <li key={userInformations.UserInformation_Id}>
-            <h2>{userInformations.UserInformation_Name || 'Unnamed User'}</h2>
+            <h2>{userInformations.UserInformation_Name || "Unnamed User"}</h2>
             <h2>{userInformations.UserInformation_Email}</h2>
+            <h2>{getUserTypeName(userInformations.UserType_Id)}</h2>
 
-            
-
-            {/* {userTypes.map(userType => (
-              <>
-              <h2>{displayUserType(user, usertype)}</h2>
-                  <option key={userType.UserType_Id} value={userType.UserType_Id}>
-                    {userType.UserType_Name}
-                  </option>
-              </>
-            ))}
-            <p>User Type: {user.userType.UserType_Name || 'Unknown'}</p> */}
-            
-            {users.map(user => (
+            {users.map((user) => (
               <>
                 <select
-                value={userInformations.UserType_Id}
-                onChange={event => {
-                  const userType = userTypes.find(type => type.UserType_Id === parseInt(event.target.value));
-                  if (userType) {
-                    changeUserType(user, userType);
-                  }
-                }}
-              >
-                {/* <p>Created: {user.User_DateCreated}</p>
+                  value={userInformations.UserType_Id}
+                  onChange={(event) => {
+                    const userType = userTypes.find(
+                      (type) =>
+                        type.UserType_Id === parseInt(event.target.value)
+                    );
+                    if (userType) {
+                      changeUserType(user, userType);
+                    }
+                  }}
+                >
+                  {/* <p>Created: {user.User_DateCreated}</p>
                 <p>Last Edited: {user.User_DateEdited || 'Never'}</p> */}
-                {userTypes.map(userType => (
-                  <option key={userType.UserType_Id} value={userType.UserType_Id}>
-                    {userType.UserType_Name}
-                  </option>
-                ))}
-              </select>
-              <p>Deactivated: {user.User_DeactivatedStatus ? 'Yes' : 'No'}</p>
+                  {userTypes.map((userType) => (
+                    <option
+                      key={userType.UserType_Id}
+                      value={userType.UserType_Id}
+                    >
+                      {userType.UserType_Name}
+                    </option>
+                  ))}
+                </select>
+                <p>Deactivated: {user.User_DeactivatedStatus ? "Yes" : "No"}</p>
               </>
-              ))}
+            ))}
 
-              {users.map(user => (
-  
+            {users.map((user) => (
               <>
-              <p>Deactivated: {user.User_DeactivatedStatus ? 'Yes' : 'No'}</p>
+                <p>Deactivated: {user.User_DeactivatedStatus ? "Yes" : "No"}</p>
               </>
-              
-              ))}
-        
-      </li>
-    ))}
-  </ul>
-
-  
-</div>);
+            ))}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default UserPage;

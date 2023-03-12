@@ -11,8 +11,8 @@
 # production
 /build
 
-yarn.lock
 node_modules
+yarn.lock
 
 # misc
 .DS_Store
