@@ -71,6 +71,11 @@ const ActivityContextProvider = (props: any) => {
           : activity
       )
     );
+    axios.put(
+      `http://localhost:3081/api/campaigninformation/${CampaignInformation_Id}`
+    );
+    window.location.reload();
+    history('/activity')
   };
 
   return (

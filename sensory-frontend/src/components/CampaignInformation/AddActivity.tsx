@@ -145,8 +145,8 @@ const AddActivity = () => {
           onChange = { (e) => onInputChange(e)}
           required
         />
-            </Form.Group>
-            <Form.Group>
+      </Form.Group>
+      <Form.Group>
         <Form.Control
           type="file"
           formEncType="multipart/form-data"

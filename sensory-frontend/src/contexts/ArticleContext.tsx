@@ -85,6 +85,9 @@ const ArticleContextProvider = (props: any) => {
           : article
       )
     );
+    axios.put(
+      `http://localhost:3081/api/articleinformation/${ArticleInformation_Id}`
+    );
     window.location.reload();
     history('/article');
   };
