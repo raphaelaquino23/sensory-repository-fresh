@@ -91,9 +91,20 @@ const ProfilePage: React.FC = () => {
           <div className="user-info">
             <h1>{searchResult.UserInformation_Name}</h1>
             <div className="badge-container">
-              <Badge colorScheme={getUserTypeColor(searchResult.UserType_Id)}>
-                {getUserType(searchResult.UserType_Id)}
-              </Badge>
+            <span 
+              style={{ 
+                backgroundColor: getUserTypeColor(searchResult.UserType_Id), 
+                borderRadius: '9999px', 
+                color: 'white', 
+                display: 'inline-block', 
+                padding: '4px 8px', 
+                fontWeight: 'bold', 
+                fontSize: '14px', 
+                textTransform: 'uppercase' 
+              }}
+            >
+              {getUserType(searchResult.UserType_Id)}
+            </span>
             </div>
           </div>
           <div className="user-details">
@@ -113,9 +124,20 @@ const ProfilePage: React.FC = () => {
           <div className="user-info">
             <strong><h1>{currentUserInformation.UserInformation_Name}</h1></strong>
             <div className="badge-container">
-              <Badge colorScheme={getUserTypeColor(currentUserInformation.UserType_Id)}>
-                {getUserType(currentUserInformation.UserType_Id)}
-              </Badge>
+              <span 
+              style={{ 
+                backgroundColor: getUserTypeColor(currentUserInformation.UserType_Id), 
+                borderRadius: '9999px', 
+                color: 'white', 
+                display: 'inline-block', 
+                padding: '4px 8px', 
+                fontWeight: 'bold', 
+                fontSize: '14px', 
+                textTransform: 'uppercase' 
+              }}
+            >
+              {getUserType(currentUserInformation.UserType_Id)}
+            </span>
             </div>
           </div>
           <div className="user-details">
