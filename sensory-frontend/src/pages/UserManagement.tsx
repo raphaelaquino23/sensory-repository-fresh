@@ -19,6 +19,9 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import UsersService from "../services/UsersService";
+import { Modal, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { textAlign } from "@mui/system";
 
 interface UserType {
   UserType_Id: number;
@@ -50,10 +53,19 @@ interface User {
 
 const UserPage = () => {
   const [users, setUsers] = useState<User[]>([]);
+  const [loading, setLoading] = useState(true);
   const [userTypes, setUserTypes] = useState<UserType[]>([]);
   const [userInformations, setUserInformations] = useState<UserInformation[]>(
     []
   );
+  const [show, setShow] = useState(false);
+
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+
+  useEffect(() => {
+    handleClose();
+  }, []);
 
   useEffect(() => {
     // Fetch all the user types
@@ -67,14 +79,17 @@ const UserPage = () => {
       });
 
     // Fetch all the users with their associated user information and user type
-    axios
-      .get<UserInformation[]>(`http://localhost:3081/api/userinformation`)
-      .then((response) => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await UsersService.getAllUserInformation();
         setUserInformations(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching users:", error);
-      });
+      } catch (error) {
+        console.log("Error fetching user information data", error);
+      }
+      setLoading(false);
+    };
+    fetchData();
   }, []);
 
   const changeUserType = async (user: User, userType: UserType) => {
@@ -128,56 +143,84 @@ const UserPage = () => {
   };
 
   return (
-    <div>
-      <h1>Manage Users</h1>
-      <label htmlFor="search">Search: </label>
-      <input type="text" id="search" />
+    <>
+      <div className="table-title">
+        <div className="row">
+          <div className="col-sm-6">
+            <h2 style={{ fontSize: "25px" }}>
+              User <b>Management</b>
+            </h2>
+          </div>
+        </div>
+      </div>
 
-      <ul>
-        {userInformations.map((userInformations) => (
-          <li key={userInformations.UserInformation_Id}>
-            <h2>{userInformations.UserInformation_Name || "Unnamed User"}</h2>
-            <h2>{userInformations.UserInformation_Email}</h2>
-            <h2>{getUserTypeName(userInformations.UserType_Id)}</h2>
-
-            {users.map((user) => (
-              <>
-                <select
-                  value={userInformations.UserType_Id}
-                  onChange={(event) => {
-                    const userType = userTypes.find(
-                      (type) =>
-                        type.UserType_Id === parseInt(event.target.value)
-                    );
-                    if (userType) {
-                      changeUserType(user, userType);
-                    }
-                  }}
-                >
-                  {/* <p>Created: {user.User_DateCreated}</p>
-                <p>Last Edited: {user.User_DateEdited || 'Never'}</p> */}
-                  {userTypes.map((userType) => (
-                    <option
-                      key={userType.UserType_Id}
-                      value={userType.UserType_Id}
+      <table
+        className="table"
+        style={{ marginLeft: "110px", width: "85%", marginTop: "205px" }}
+      >
+        <thead>
+          <th>Name</th>
+          <th>Email Address</th>
+          <th>Role</th>
+          <th className="th" style={{ textAlign: "right" }}>
+            Action
+          </th>
+        </thead>
+        {!loading && (
+          <tbody>
+            {userInformations.map((userInfo) => (
+              <tr key={userInfo.UserInformation_Id}>
+                <td>{userInfo.UserInformation_Name}</td>
+                <td>{userInfo.UserInformation_Email}</td>
+                <td>{getUserTypeName(userInfo.UserType_Id)}</td>
+                <td style={{ textAlign: "right" }}>
+                  <OverlayTrigger
+                    overlay={<Tooltip id={`tooltip-top`}>Edit</Tooltip>}
+                  >
+                    <button
+                      onClick={handleShow}
+                      style={{ display: "inline-block", alignItems: "right" }}
+                      className="btn text-warning btn-act"
+                      data-toggle="modal"
                     >
-                      {userType.UserType_Name}
-                    </option>
-                  ))}
-                </select>
-                <p>Deactivated: {user.User_DeactivatedStatus ? "Yes" : "No"}</p>
-              </>
-            ))}
+                      <i className="material-icons">&#xE254;</i>
+                    </button>
+                  </OverlayTrigger>
+                  <OverlayTrigger
+                    overlay={<Tooltip id={`tooltip-top`}>Delete</Tooltip>}
+                  >
+                    <button
+                      onClick={() =>
+                        UsersService.deleteUser(userInfo.UserInformation_Id)
+                      }
+                      style={{ display: "inline-block", alignItems: "right" }}
+                      className="btn text-danger btn-act"
+                      data-toggle="modal"
+                    >
+                      <i className="material-icons">&#xE872;</i>
+                    </button>
+                  </OverlayTrigger>
+                </td>
 
-            {users.map((user) => (
-              <>
-                <p>Deactivated: {user.User_DeactivatedStatus ? "Yes" : "No"}</p>
-              </>
+                <Modal show={show} onHide={handleClose}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Edit Activity</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    {/* <EditUser theUser={userinformation} /> */}
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                      Close Button
+                    </Button>
+                  </Modal.Footer>
+                </Modal>
+              </tr>
             ))}
-          </li>
-        ))}
-      </ul>
-    </div>
+          </tbody>
+        )}
+      </table>
+    </>
   );
 };
 

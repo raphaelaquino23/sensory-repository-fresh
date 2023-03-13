@@ -270,11 +270,22 @@ export class UserRepository {
   }
 
   async deleteUser(User_Id: number) {
-    let data = {};
+    let uRef,
+      uInfo,
+      data = {};
     try {
+      uRef = await this.userRepository.findOne({ where: { User_Id: User_Id } });
+      uInfo = await this.userInformationRepository.findOne({
+        where: { UserInformation_Id: uRef.getDataValue("UserInformation_Id") },
+      });
+      await this.userInformationRepository.destroy({
+        where: {
+          UserInformation_Id: uInfo.getDataValue("UserInformation_Id"),
+        },
+      });
       data = await this.userRepository.destroy({
         where: {
-          id: User_Id,
+          User_Id: User_Id,
         },
       });
     } catch (error) {
