@@ -123,6 +123,9 @@ class App {
     this.express.get('/api/postcategory', (req, res) => {
       this.postController.getPostCategory().then((data: any) => res.json(data));
     });
+		this.express.get('/api/postcategory/:id', (req, res) => {
+      this.postController.getPostCategoryById(parseInt(req.params.id)).then((data: any) => res.json(data));
+    });
     this.express.put('/api/postcategory', (req, res) => {
       this.postController.createPostCategory(req.body.postcategory).then((data: any) => res.json(data));
     })

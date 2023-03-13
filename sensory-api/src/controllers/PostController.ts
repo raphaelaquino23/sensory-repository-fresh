@@ -39,6 +39,11 @@ export class PostController {
     return await this.postService.getPostCategory();
   }
 
+  async getPostCategoryById(PostCategory_Id: number) {
+    winstonLogger.info("Controller: getPostCategoryById", null);
+    return await this.postService.getPostCategoryById(PostCategory_Id);
+  }
+
   async getPostStats() {
     winstonLogger.info("Controller: getPostInformation", null);
     return await this.postService.getPostStats();

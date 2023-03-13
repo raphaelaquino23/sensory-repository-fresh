@@ -260,6 +260,17 @@ export class PostRepository {
     return data;
   }
 
+  async getPostCategoryById(PostCategory_Id: number) {
+    try {
+      const posts = await this.postCategoryRepository.findOne({ where: { PostCategory_Id: PostCategory_Id}});
+      console.log('posts::: ', posts);
+      return posts;
+    } catch (error) {
+      console.log("error");
+      return [];
+    }
+  }
+
   async deletePostCategory(PostCategory_Id: number) {
     let data = {};
     try {
