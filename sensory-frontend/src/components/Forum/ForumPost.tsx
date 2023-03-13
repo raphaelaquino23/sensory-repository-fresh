@@ -29,7 +29,8 @@ const Post = ({post} : { post: any}) => {
   const [postUpvotes, setPostUpvotes] = useState(0);
   const [postClicks, setPostClicks] = useState(0);
   const [poster, setPoster] = useState('');
-  const [posterId, setPostUserId] = useState('');
+  const [posterId, setPostUserId] = useState(0);
+  const [posterUserType, setPosterUserType] = useState(0);
   const [postId, setPostId] = useState('');
 
   const filter = new Filter();
@@ -50,6 +51,7 @@ const Post = ({post} : { post: any}) => {
     }) 
     axiosPrivate.get(`http://localhost:3081/api/userinformation/${posterId}`).then((response => {
       setPoster(response.data.UserInformation_Name);
+      setPosterUserType(response.data.UserType_Id);
     }))
   })
 
@@ -127,15 +129,22 @@ const Post = ({post} : { post: any}) => {
                   <NextLink href={`/category/`}>
                     <Badge
                       fontSize="sm"
-                      colorScheme="green"
+                      colorScheme="yellow"
                       shadow="md"
                       _hover={{ shadow: "1px 1px 8px #888888", cursor: "pointer" }}
                     >
                       Category Sample
                     </Badge>
                   </NextLink>
+                  <Badge
+                      fontSize="sm"
+                      colorScheme={getUserTypeColor(posterUserType)}
+                      shadow="md"
+                    >
+                      {poster}
+                  </Badge>
                   <Tag color="grey" shadow="md">
-                    {poster}
+                    {getUserType(posterUserType)}
                   </Tag>
                 </HStack>
                 <Box fontSize="xl">
@@ -184,5 +193,35 @@ const Post = ({post} : { post: any}) => {
     </>
   )
 }
+
+const getUserTypeColor = (userTypeId: number) => {
+  switch (userTypeId) {
+    case 1:
+      return "blue";
+    case 2:
+      return "purple";
+    case 3:
+      return "orange";
+    case 4:
+      return "green";
+    default:
+      return "gray";
+  }
+};
+
+const getUserType = (userTypeId: number) => {
+  switch (userTypeId) {
+    case 1:
+      return "Therapist";
+    case 2:
+      return "Admin";
+    case 3:
+      return "Moderator";
+    case 4:
+      return "Regular User";
+    default:
+      return "Unknown";
+  }
+};
 
 export default Post;

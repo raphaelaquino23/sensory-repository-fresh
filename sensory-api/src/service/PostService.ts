@@ -25,6 +25,9 @@ export class PostService {
   async getPostCategory() {
     return await this.postRepository.getPostCategory();
   }
+  async getPostCategoryById(PostCategory_Id: number) {
+    return await this.postRepository.getPostCategoryById(PostCategory_Id);
+  }
   async getPostStats() {
     return await this.postRepository.getPostStats();
   }

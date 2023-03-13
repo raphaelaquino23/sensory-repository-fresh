@@ -9,30 +9,29 @@ export class AuthController {
   private userInformationRepository: any;
 
   constructor() {
-    this.db = connect()
+    this.db = connect();
     this.userService = new UserService();
-    this.userInformationRepository = this.db.sequelize.getRepository(UserInformation); 
+    this.userInformationRepository =
+      this.db.sequelize.getRepository(UserInformation);
   }
 
-  async login(userinformation: UserInformation){
+  async login(userinformation: UserInformation) {
     return await this.userService.login(userinformation);
   }
 
-  async loggedUser(UserInformation_Id: number){
+  async loggedUser(UserInformation_Id: number) {
     return await this.userService.loggedUser(UserInformation_Id);
   }
 
+  async register(user: User, userinformation: UserInformation) {
+    return await this.userService.register(user, userinformation);
+  }
 
-	async register(user: User, userinformation: UserInformation){
-		return await this.userService.register(user, userinformation)
-	}
+  async registerAdmin(user: User, userinformation: UserInformation) {
+    return await this.userService.registerAdmin(user, userinformation);
+  }
 
-	async registerAdmin(user: User, userinformation: UserInformation){
-		return await this.userService.registerAdmin(user, userinformation)
-	}
-
-  async listAllUserInfo(){
+  async listAllUserInfo() {
     return await this.userService.listAllUserInfo();
   }
-  
 }
