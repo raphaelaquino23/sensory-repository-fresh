@@ -2,6 +2,9 @@ import { Op } from "sequelize";
 import { connect } from "../config/db.config";
 import { Message } from "../models/MessageModel";
 import { User, UserInformation } from "../models/UserModel";
+
+import CryptoJS from "crypto-js";
+
 import { winstonLogger } from "../logger/winston.logger";
 
 export class MessageRepository {
@@ -28,6 +31,7 @@ export class MessageRepository {
       return [];
     }
   }
+
   //GET BY ID MESSAGE
   async getMessageById(MessageId: number) {
     try {
@@ -35,9 +39,21 @@ export class MessageRepository {
         where: { Message_Id: MessageId },
       });
       console.log("Messages:::", Message);
+      //decrypt message content
+      let decryptedData = Message.Message_Content;
+      const secretPass = "XkhZG4fW2t2W";
+
+      const decryptData = () => {
+        const bytes = CryptoJS.AES.decrypt(Message.Message_Content, secretPass);
+        const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        decryptedData = decrypted;
+      };
+      decryptData();
+      Message.Message_Content = decryptedData;
+
       return Message;
     } catch (error) {
-      winstonLogger.log("error", { error });
+      console.log("error");
       return [];
     }
   }
@@ -49,6 +65,24 @@ export class MessageRepository {
           [Op.or]: [{ Sender_Id: UserId }, { Receiver_Id: UserId }],
         },
       });
+
+      Messages.forEach(function (Message: any) {
+        //decrypt message content
+        let decryptedData = Message.Message_Content;
+        const secretPass = "XkhZG4fW2t2W";
+
+        const decryptData = () => {
+          const bytes = CryptoJS.AES.decrypt(
+            Message.Message_Content,
+            secretPass
+          );
+          const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+          decryptedData = decrypted;
+        };
+        decryptData();
+        Message.Message_Content = decryptedData;
+      });
+
       console.log("Messages:::", Messages);
       return Messages;
     } catch (error) {
@@ -69,6 +103,10 @@ export class MessageRepository {
       receiverSearch,
       receivedId,
       data = {};
+    let encryptedData: string;
+
+    const secretPass = "XkhZG4fW2t2W";
+
     try {
       console.log("---------------USER SEARCH");
       userSearch = await this.userInformationRepository.findOne({
@@ -107,6 +145,17 @@ export class MessageRepository {
               Message.Receiver_Id = receivedId;
             }
             Message.Message_DateCreated = new Date();
+            encryptedData = Message.Message_Content;
+            //Encrypt message content
+            const encryptData = () => {
+              const encrypted = CryptoJS.AES.encrypt(
+                JSON.stringify(Message.Message_Content),
+                secretPass
+              ).toString();
+              encryptedData = encrypted;
+            };
+            encryptData();
+            Message.Message_Content = encryptedData;
             data = await this.messageRepository.create(Message);
           }
         }
