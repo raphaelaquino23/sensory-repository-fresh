@@ -16,6 +16,10 @@ export class ArticleController {
     this.logger.info('Controller: getArticles', null)
     return await this.articleService.getArticles();
   }
+	async getArticleById(Article_Id: number) {
+    this.logger.info('Controller: getArticleById', null)
+    return await this.articleService.getArticleById(Article_Id);
+  }
 
 	async getArticleInformations() {
 		this.logger.info('Controller: getArticleInformations', null)
