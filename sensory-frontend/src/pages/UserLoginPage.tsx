@@ -101,38 +101,6 @@ const Login2 = () =>{
     activateAPI();
   }, [activateAPI])
 
-//   const handleSubmit = async (e: any) => {
-//     e.preventDefault();
-
-//     try {
-//         const response = await axiosPrivate.post('http://localhost:3081/api/login',
-//             JSON.stringify({ userinformation }),
-//             {
-//                 headers: { 'Content-Type': 'application/json' },
-//                 withCredentials: true
-//             }
-//         );
-//         console.log(JSON.stringify(response?.data));
-//         //console.log(JSON.stringify(response));
-//         const accessToken = response?.data?.accessToken;
-//         const roles = response?.data?.roles;
-//         setAuth({ userinformation, roles, accessToken });
-//         setUserInformation(userinformation);
-//         setSuccess(true);
-//     } catch (err) {
-//         if (!err?.response?) {
-//             setErrMsg('No Server Response');
-//         } else if (err?.response?.status === 400) {
-//             setErrMsg('Missing Username or Password');
-//         } else if (err.response?.status === 401) {
-//             setErrMsg('Unauthorized');
-//         } else {
-//             setErrMsg('Login Failed');
-//         }
-//         errRef.current?.focus();
-//     } 
-// }
-
 	return (
     <>
       {success && captchaSuccess === true ? (

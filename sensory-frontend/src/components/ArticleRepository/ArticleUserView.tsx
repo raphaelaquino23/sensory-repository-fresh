@@ -4,14 +4,21 @@ import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import FileDownload from 'js-file-download';
 import Axios from 'axios';
 import { axiosPrivate } from '../../api/axios';
+import { useNavigate } from 'react-router-dom';
 
 const Article = ({article} : { article: any}) => {
 	const {deleteArticle} = useContext(ArticleContext)
 	const [show, setShow] = useState(false);
   const [articleUpvotes, setArticleUpvotes] = useState(0);
+  const [articler, setArticler] = useState('');
+  const [articlerId, setArticleUserId] = useState('');
+  const [articleId, setArticleId] = useState('');
+
 		
   const handleShow = () => setShow(true);
 	const handleClose = () => setShow(false);
+  const navigate = useNavigate()
+  
   useEffect(() => {
      handleClose()
   }, [article])
@@ -23,19 +30,40 @@ const Article = ({article} : { article: any}) => {
     })
   })
 
+  useEffect(() => {
+    handleClose()
+    axiosPrivate.get(`http://localhost:3081/api/articlestats/${article.ArticleInformation_Id}`).then((response) => {
+     setArticleUpvotes(response.data.ArticleStats_Upvotes);
+   }) 
+   axiosPrivate.get(`http://localhost:3081/api/article/${article.ArticleInformation_Id}`).then((response) => {
+     setArticleUserId(response.data.User_Id);
+     setArticleId(response.data.Article_Id);
+   }) 
+   axiosPrivate.get(`http://localhost:3081/api/userinformation/${articlerId}`).then((response => {
+     setArticler(response.data.UserInformation_Name);
+   }))
+ })
+
   const handleUpvote = async (e:any) => {
     e.preventDefault();
     const res = await axiosPrivate.get(`http://localhost:3081/api/getuserid/${localStorage.getItem("username")}`);
-    const postRes = await axiosPrivate.get(`http://localhost:3081/api/article/${article.ArticleInformation_Id}`);
+    const articleRes = await axiosPrivate.get(`http://localhost:3081/api/article/${article.ArticleInformation_Id}`);
     const upvoteObject = {
       article: {
-        Article_Id: postRes.data.Article_Id,
-        ArticleStats_Id: postRes.data.ArticleStats_Id,
+        Article_Id: articleRes.data.Article_Id,
+        ArticleStats_Id: articleRes.data.ArticleStats_Id,
       },
       user_Id: res.data,
     }
     await axiosPrivate.post('http://localhost:3081/api/articleUpvoteTracker', upvoteObject);
     window.location.reload();
+  }
+
+  const handleArticleDetail = async (e:any) => {
+    e.preventDefault();
+    const getArticleId = await axiosPrivate.get(`http://localhost:3081/api/article/${article.ArticleInformation_Id}`);
+    localStorage.setItem("article", article.ArticleInformation_Id);
+    navigate(`/articledetail/`) 
   }
 
 const onClickChange = (e:any) => {    
