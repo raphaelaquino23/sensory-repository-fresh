@@ -6,7 +6,7 @@ import { User, UserInformation } from "../models/UserModel";
 import CryptoJS from "crypto-js";
 import { useState } from "react";
 
-import { winstonLogger } from "../logger/winston.lo
+import { winstonLogger } from "../logger/winston.logger";
 
 export class MessageRepository {
   private db: any = {};
@@ -26,19 +26,6 @@ export class MessageRepository {
     try {
       const Message = await this.messageRepository.findAll();
       console.log("Messages::: ", Message);
-      return Message;
-    } catch (error) {
-      winstonLogger.log("error", { error });
-      return [];
-    }
-  }
-  //GET BY ID MESSAGE
-  async getMessageById(MessageId: number) {
-    try {
-      const Message = await this.messageRepository.findOne({
-        where: { Message_Id: MessageId },
-      });
-      console.log("Messages:::", Message);
       return Message;
     } catch (error) {
       winstonLogger.log("error", { error });
@@ -90,18 +77,6 @@ export class MessageRepository {
     
     const [encryptedData, setEncrptedData] = useState("");
     const secretPass = "XkhZG4fW2t2W";
-  async createMessage(
-    Message: Message,
-    SenderName: String,
-    ReceiverName: String
-  ) {
-    let userSearch,
-      userId,
-      senderId,
-      receiverId,
-      receiverSearch,
-      receivedId,
-      data = {};
 
     try {
       console.log("---------------USER SEARCH");
