@@ -84,6 +84,14 @@ export class UserController {
     return await this.userService.updateUserType(usertype);
   }
 
+  async updateUserInformationUserTypeId(userTypeId: number, userId: number) {
+    winstonLogger.info("Controller: updateUserInformationUserTypeId", null);
+    return await this.userService.updateUserInformationUserType(
+      userTypeId,
+      userId
+    );
+  }
+
   async updateApplication(application: Application) {
     winstonLogger.info("Controller: updateApplication", null);
     return await this.userService.updateApplication(application);

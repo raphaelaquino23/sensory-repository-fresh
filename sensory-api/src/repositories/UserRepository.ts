@@ -354,6 +354,25 @@ export class UserRepository {
     return data;
   }
 
+  async updateUserInformationUserTypeId(userTypeId: number, userId: number) {
+    let data = {};
+    try {
+      console.log("userTypeID:: " + userTypeId);
+      console.log("userID:: " + userId);
+      data = await this.userInformationRepository.update(
+        { UserType_Id: userTypeId },
+        {
+          where: {
+            UserInformation_Id: userId,
+          },
+        }
+      );
+    } catch (error) {
+      this.logger.error("Error::" + error);
+    }
+    return data;
+  }
+
   async deleteUserInformation(UserInformation_Id: number) {
     let data = {};
     try {

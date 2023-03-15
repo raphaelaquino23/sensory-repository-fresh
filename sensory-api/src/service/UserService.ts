@@ -89,6 +89,13 @@ export class UserService {
     return await this.userRepository.updateUserInformation(userinformation);
   }
 
+  async updateUserInformationUserType(userTypeId: number, userId: number) {
+    return await this.userRepository.updateUserInformationUserTypeId(
+      userTypeId,
+      userId
+    );
+  }
+
   async updateUserType(usertype: UserType) {
     return await this.userRepository.updateUserType(usertype);
   }

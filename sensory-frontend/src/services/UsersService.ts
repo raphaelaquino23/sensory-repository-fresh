@@ -1,6 +1,7 @@
 import axios from "axios";
 const USERINFORMATION_API_URL = "http://localhost:3081/api/userinformation/";
 const USER_API_URL = "http://localhost:3081/api/user";
+const USERTYPE_API_URL = "http://localhost:3081/api/usertypeId";
 const USERID_API_URL = "http://localhost:3081/api/getuserid/:username";
 
 class UserService {
@@ -24,8 +25,9 @@ class UserService {
     return axios.get(USER_API_URL);
   }
 
-  updateUser() {
-    return axios.put(USER_API_URL);
+  updateUserInfoUserTypeId(userTypeId: number, userId: number) {
+    console.log(USERTYPE_API_URL, { userTypeId, userId });
+    return axios.put(USERTYPE_API_URL, { userTypeId, userId });
   }
 }
 

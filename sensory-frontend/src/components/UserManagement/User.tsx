@@ -59,16 +59,6 @@ const UserPage = ({ user }: { user: any }) => {
             <i className="material-icons">&#xE872;</i>
           </button>
         </OverlayTrigger>
-        <OverlayTrigger overlay={<Tooltip id={`tooltip-top`}>Status</Tooltip>}>
-          <button
-            onClick={handleShow}
-            style={{ display: "inline-block", alignItems: "right" }}
-            className="btn text-danger btn-act"
-            data-toggle="modal"
-          >
-            <i className="material-icons">&#xE872;</i>
-          </button>
-        </OverlayTrigger>
       </td>
 
       <Modal show={show} onHide={handleClose}>
@@ -78,11 +68,6 @@ const UserPage = ({ user }: { user: any }) => {
         <Modal.Body>
           <UserEdit user={user} />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close Button
-          </Button>
-        </Modal.Footer>
       </Modal>
       <Modal show={showDelete} onHide={handleCloseDel}>
         <Modal.Header closeButton>
@@ -98,9 +83,6 @@ const UserPage = ({ user }: { user: any }) => {
             }}
           >
             OK
-          </Button>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
           </Button>
         </Modal.Footer>
       </Modal>

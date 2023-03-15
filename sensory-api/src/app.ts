@@ -722,9 +722,9 @@ class App {
       });
     });
 
-    this.express.put("/api/user", (req, res) => {
+    this.express.put("/api/usertypeId", (req, res) => {
       this.userController
-        .updateUser(req.body.user, req.body.userInformation)
+        .updateUserInformationUserTypeId(req.body.userTypeId, req.body.userId)
         .then((data) => res.json(data));
     });
 
