@@ -8,6 +8,7 @@ import Article from "./pages/ArticlePage";
 import User from "./pages/UserManagement copy";
 import ArticleUser from "./pages/ArticleUserPage";
 import Campaign from "./pages/CampaignPage";
+import ArticleOptions from "./pages/ArticleOptions";
 import UserForum from "./pages/ForumPostPage";
 import AdminForum from "./pages/ForumPostAdminPage";
 import CampaignActivityPage from "./pages/CampaignActivityPage";
@@ -33,6 +34,9 @@ import CommentListDown from "./components/Forum/CommentList";
 import CommentCard from "./components/Forum/CommentCard";
 import Unauthorized from "./pages/UnauthorizedPage";
 import NewsSearch from "./components/NewsAPI/newsapi";
+import TherapistDirectory from "./pages/TherapistDirectory";
+import Terms from "./pages/TermsOfService";
+import Privacy from "./pages/PrivacyPolicy";
 //Test
 
 function App() {
@@ -44,25 +48,31 @@ function App() {
         {thisToken ? <Navbar /> : <NotNavbar />}
         <Routes>
           <Route path="/" element={<Logout />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route
             path="/article"
             element={
-              thisToken && thisUserType === "2" ? <Article /> : <LogIn />
+              thisToken && thisUserType === "2" ? <Article /> : <ArticleUser />
             }
-          />
-          <Route
-            path="/user"
-            element={thisToken && thisUserType === "2" ? <User /> : <LogIn />}
           />
           <Route
             path="/article-user"
             element={
-              thisToken && thisUserType === "4" ? <ArticleUser /> : <LogIn />
+              thisToken && thisUserType === "2" ? <Article /> : <ArticleUser />
             }
+          />
+          <Route
+            path="/news-search"
+            element={thisToken ? <NewsSearch /> : <LogIn />}
           />
           <Route
             path="/campaign"
             element={thisToken ? <Campaign /> : <LogIn />}
+          />
+          <Route
+            path="/ArticleOptions"
+            element={thisToken ? <ArticleOptions /> : <LogIn />}
           />
           <Route
             path="/forum"
@@ -70,7 +80,9 @@ function App() {
           />
           <Route
             path="/forum-admin"
-            element={thisToken ? <AdminForum /> : <LogIn />}
+            element={
+              thisToken && thisUserType === "2" ? <AdminForum /> : <LogIn />
+            }
           />
           <Route path="/postdetail" element={<PostDetailPage />} />
           <Route
@@ -105,6 +117,10 @@ function App() {
           <Route
             path="/checklist-schoolage"
             element={thisToken ? <ChecklistSchoolAge /> : <LogIn />}
+          />
+          <Route
+            path="/directory"
+            element={thisToken ? <TherapistDirectory /> : <LogIn />}
           />
           <Route
             path="/checklist-adult"

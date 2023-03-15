@@ -53,7 +53,7 @@ function CommentItem() {
     window.location.reload();
   }
   return (
-    <ListItem alignItems="flex-start"  sx={{ width: 6/8 }}>
+    <ListItem alignItems="flex-start">
       <Container>
         <Stack
           direction="column"
@@ -98,7 +98,7 @@ function CommentItem() {
                         fullWidth
                         className="textField"
                         id="outlined-multiline-flexible"
-                        label="Add a Comment"
+                        label="Edit Your Comment"
                         multiline
                         
 					              name="CommentInformation_Content"

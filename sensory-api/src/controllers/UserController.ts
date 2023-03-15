@@ -1,3 +1,4 @@
+import { APILogger } from "../logger/api.logger";
 import {
   Application,
   User,
@@ -5,67 +6,68 @@ import {
   UserType,
 } from "../models/UserModel";
 import { UserService } from "../service/UserService";
-import { winstonLogger } from "../logger/winston.logger";
 
 export class UserController {
   private userService: UserService;
+  private logger: APILogger;
 
   constructor() {
     this.userService = new UserService();
+    this.logger = new APILogger();
   }
 
   async getUser() {
-    winstonLogger.info("Controller: getUser", null);
+    this.logger.info("Controller: getUser", null);
     return await this.userService.getUser();
   }
 
   async getUserById(User_Id: number) {
-    winstonLogger.info("Controller: getUserById", null);
+    this.logger.info("Controller: getUserById", null);
     return await this.userService.getUserById(User_Id);
   }
 
   async getUserId(username: string) {
-    winstonLogger.info("Controller: getUserId", null);
+    this.logger.info("Controller: getUserId", null);
     return await this.userService.getUserId(username);
   }
 
   async getUserInformation() {
-    winstonLogger.info("Controller: getUserInformation", null);
+    this.logger.info("Controller: getUserInformation", null);
     return await this.userService.getUserInformation();
   }
 
   async getUserInformationById(id: number) {
-    winstonLogger.info("Controller: getUserInformation", null);
+    this.logger.info("Controller: getUserInformation", null);
     return await this.userService.getUserInformationById(id);
   }
 
   async getUserType() {
-    winstonLogger.info("Controller: getUserType", null);
+    this.logger.info("Controller: getUserType", null);
     return await this.userService.getUserType();
   }
 
   async getUserTypeById(UserType_Id: number) {
-    winstonLogger.info("Controller: getUserTypeById", null);
+    this.logger.info("Controller: getUserTypeById", null);
     return await this.userService.getUserTypeById(UserType_Id);
   }
 
   async createUser(user: User) {
-    winstonLogger.info("Controller: createUser", null);
+    this.logger.info("Controller: createUser", null);
     return await this.userService.createUser(user);
   }
 
   async createUserInformation(userinformation: UserInformation) {
-    winstonLogger.info("Controller: createUserInformation", null);
+    this.logger.info("Controller: createUserInformation", null);
     return await this.userService.createUserInformation(userinformation);
   }
 
   async createUserType(usertype: UserType) {
-    winstonLogger.info("Controller: createUserType", null);
+    this.logger.info("Controller: createUserType", null);
     return await this.userService.createUserType(usertype);
   }
 
   async createApplication(application: Application) {
-    winstonLogger.info("Controller: createApplication", null);
+    this.logger.info("Controller: createApplication", null);
     return await this.userService.createApplication(application);
   }
 
@@ -75,12 +77,12 @@ export class UserController {
   }
 
   async updateUserInformation(userinformation: UserInformation) {
-    winstonLogger.info("Controller: updateUserInformation", null);
+    this.logger.info("Controller: updateUserInformation", null);
     return await this.userService.updateUserInformation(userinformation);
   }
 
   async updateUserType(usertype: UserType) {
-    winstonLogger.info("Controller: updateUserType", null);
+    this.logger.info("Controller: updateUserType", null);
     return await this.userService.updateUserType(usertype);
   }
 
@@ -98,22 +100,22 @@ export class UserController {
   }
 
   async deleteUser(User_Id: number) {
-    winstonLogger.info("Controller: deleteUser", null);
+    this.logger.info("Controller: deleteUser", null);
     return await this.userService.deleteUser(User_Id);
   }
 
   async deleteUserInformation(UserInformation_Id: number) {
-    winstonLogger.info("Controller: deleteUserInformation", null);
+    this.logger.info("Controller: deleteUserInformation", null);
     return await this.userService.deleteUserInformation(UserInformation_Id);
   }
 
   async deleteUserType(UserType_Id: number) {
-    winstonLogger.info("Controller: deleteUserType", null);
+    this.logger.info("Controller: deleteUserType", null);
     return await this.userService.deleteUserType(UserType_Id);
   }
 
   async deleteApplication(Application_Id: number) {
-    winstonLogger.info("Controller: deleteApplication", null);
+    this.logger.info("Controller: deleteApplication", null);
     return await this.userService.deleteApplication(Application_Id);
   }
 

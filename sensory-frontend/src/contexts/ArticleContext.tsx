@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -84,6 +83,9 @@ const ArticleContextProvider = (props: any) => {
           ? updatedArticle
           : article
       )
+    );
+    axios.put(
+      `http://localhost:3081/api/articleinformation/${ArticleInformation_Id}`
     );
     window.location.reload();
     history('/article');

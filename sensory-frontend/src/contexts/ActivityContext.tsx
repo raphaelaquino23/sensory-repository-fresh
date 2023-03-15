@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
@@ -52,6 +53,11 @@ const ActivityContextProvider = (props: any) => {
         (activity) => activity.CampaignInformation_Id !== CampaignInformation_Id
       )
     );
+    axios.delete(
+      `http://localhost:3081/api/campaigninformation/${CampaignInformation_Id}`
+    );
+    window.location.reload();
+    history('/activity')
   };
 
   const updateActivity = (
@@ -65,6 +71,11 @@ const ActivityContextProvider = (props: any) => {
           : activity
       )
     );
+    axios.put(
+      `http://localhost:3081/api/campaigninformation/${CampaignInformation_Id}`
+    );
+    window.location.reload();
+    history('/activity')
   };
 
   return (

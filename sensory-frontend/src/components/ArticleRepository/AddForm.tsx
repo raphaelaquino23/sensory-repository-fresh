@@ -113,16 +113,6 @@ const AddForm = () => {
   return (
    <Form onSubmit={handleSubmit}>
       <Form.Group>
-        {/* <label htmlFor='newArticle'>
-        <FontAwesomeIcon
-          icon={faCheck}
-          className={validArticle ? 'valid' : 'hide'}
-        />
-        <FontAwesomeIcon
-          icon={faTimes}
-          className={validArticle || !name ? 'hide' : 'invalid'}
-        />
-        </label> */}
         <Form.Control
           type="text"
           placeholder="Article Name"
@@ -130,6 +120,7 @@ const AddForm = () => {
           value={name}
           onChange={(e) => onInputChange(e)}
           required
+          style={{width: "330px"}}
           aria-invalid={validArticle ? 'false' : 'true'}
           aria-describedby='uidnote'
           onFocus={() => setArticleFocus(true)}
@@ -146,16 +137,6 @@ const AddForm = () => {
         </p>
       </Form.Group>
       <Form.Group>
-      {/* <label htmlFor='newArticle'>
-        <FontAwesomeIcon
-          icon={faCheck}
-          className={validDescription ? 'valid' : 'hide'}
-        />
-        <FontAwesomeIcon
-          icon={faTimes}
-          className={validDescription || !description ? 'hide' : 'invalid'}
-        />
-        </label> */}
         <Form.Control
           as="textarea"
           placeholder="Article Description"
@@ -164,6 +145,7 @@ const AddForm = () => {
           value={description}
           onChange={(e) => onInputChange(e)}
           required
+          style={{width: "330px"}}
           aria-invalid={validDescription ? 'false' : 'true'}
           aria-describedby='dcnote'
           onFocus={() => setArticleFocus(true)}
@@ -198,6 +180,7 @@ const AddForm = () => {
           value={publishedBy}
           onChange={(e) => onInputChange(e)}
           required
+          style={{width: "330px"}}
           aria-invalid={validPublished ? 'false' : 'true'}
           aria-describedby='pbnote'
           onFocus={() => setArticleFocus(true)}
@@ -213,7 +196,7 @@ const AddForm = () => {
           Field must not be empty
         </p>
       </Form.Group>
-      <Button variant="success" type="submit">
+      <Button variant="success" type="submit" style={{width: "330px"}}>
         Add New Article
       </Button>
     </Form>
