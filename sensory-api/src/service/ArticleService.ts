@@ -23,6 +23,10 @@ export class ArticleService {
 		return await this.articleRepository.getArticleStats();
 	}
 
+	async getArticleStatsById(ArticleStats_Id: number) {
+		return await this.articleRepository.getArticleStatsById(ArticleStats_Id);
+	}
+
 	async getArticleTopic() {
 		return await this.articleRepository.getArticleTopic();
 	}
