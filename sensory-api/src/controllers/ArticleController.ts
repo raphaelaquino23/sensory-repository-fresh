@@ -106,7 +106,7 @@ export class ArticleController {
 	}	
 	
 	async articleUpvoteTracker(Article: Article, User_Id: number) {
-		this.logger.info('Controller: upvoteTracker', Article);
+		// this.logger.info('Controller: upvoteTracker', Article);
 		return await this.articleService.articleUpvoteTracker(Article, User_Id);
 	}
 

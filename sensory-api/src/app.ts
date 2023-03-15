@@ -304,9 +304,13 @@ class App {
 		});
 
 		// Article Upvote Tracker
-		this.express.post('/api/articleupvotetracker/:id', (req, res) => {
-			this.articleController.articleUpvoteTracker(req.body.article, parseInt(req.params.id)).then(data => res.json(data));
+		this.express.post('/api/articleUpvoteTracker', (req, res) => {
+			this.articleController.articleUpvoteTracker(req.body.article, req.body.user_Id).then((data: any) => res.json(data));
 		});
+
+		// this.express.post('/api/postUpvoteTracker', (req, res) => {
+		// 	this.postController.postUpvoteTracker(req.body.post, req.body.user_Id).then((data: any) => res.json(data));
+		//   });
 
     // Messages
 		this.express.get('/api/message', (req, res) => {

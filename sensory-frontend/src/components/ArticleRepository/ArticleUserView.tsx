@@ -10,7 +10,7 @@ const Article = ({article} : { article: any}) => {
 	const {deleteArticle} = useContext(ArticleContext)
 	const [show, setShow] = useState(false);
   const [articleUpvotes, setArticleUpvotes] = useState(0);
-  const [articler, setArticler] = useState('');
+  // const [articler, setArticler] = useState('');
   const [articlerId, setArticleUserId] = useState('');
   const [articleId, setArticleId] = useState('');
 
@@ -19,29 +19,29 @@ const Article = ({article} : { article: any}) => {
 	const handleClose = () => setShow(false);
   const navigate = useNavigate()
   
-  useEffect(() => {
-     handleClose()
-  }, [article])
+  // useEffect(() => {
+  //    handleClose()
+  // }, [article])
+
+  // useEffect(() => {
+  //   handleClose()
+  //   axiosPrivate.get(`http://localhost:3081/api/articlestats/${article.ArticleInformation_Id}`).then((response) => {
+  //     setArticleUpvotes(response.data.ArticleStats_Upvotes);
+  //   })
+  // })
 
   useEffect(() => {
     handleClose()
     axiosPrivate.get(`http://localhost:3081/api/articlestats/${article.ArticleInformation_Id}`).then((response) => {
-      setArticleUpvotes(response.data.ArticleStats_Upvotes);
-    })
-  })
-
-  useEffect(() => {
-    handleClose()
-    axiosPrivate.get(`http://localhost:3081/api/articlestats/${article.ArticleInformation_Id}`).then((response) => {
-     setArticleUpvotes(response.data.ArticleStats_Upvotes);
+      // setArticleUpvotes(response.data.ArticleStats_Upvotes);
    }) 
    axiosPrivate.get(`http://localhost:3081/api/article/${article.ArticleInformation_Id}`).then((response) => {
      setArticleUserId(response.data.User_Id);
      setArticleId(response.data.Article_Id);
    }) 
-   axiosPrivate.get(`http://localhost:3081/api/userinformation/${articlerId}`).then((response => {
-     setArticler(response.data.UserInformation_Name);
-   }))
+  //  axiosPrivate.get(`http://localhost:3081/api/userinformation/${articlerId}`).then((response => {
+  //    setArticler(response.data.UserInformation_Name);
+  //  }))
  })
 
   const handleUpvote = async (e:any) => {
@@ -56,7 +56,8 @@ const Article = ({article} : { article: any}) => {
       user_Id: res.data,
     }
     await axiosPrivate.post('http://localhost:3081/api/articleUpvoteTracker', upvoteObject);
-    window.location.reload();
+    // window.location.reload();
+    console.log("hello" + articleUpvotes);
   }
 
   const handleArticleDetail = async (e:any) => {
@@ -88,13 +89,16 @@ const onClickChange = (e:any) => {
 			{/* <td>{article.topic}</td> */}
 			<td><Button onClick={(e)=>onClickChange(e)}>Download</Button></td>
       <td>
+        {articleUpvotes}
+      </td>
+      <td>
       <OverlayTrigger
           overlay={
             <Tooltip id={`tooltip-top`}>
               Edit
             </Tooltip>
           }>
-            <button onClick={handleUpvote}  className="btn text-warning btn-act" data-toggle="modal"><i className="material-icons">&#xe8dc; {articleUpvotes}</i></button>
+            <button onClick={handleUpvote}  className="btn text-warning btn-act" data-toggle="modal"><i className="material-icons">&#xe8dc;</i></button>
         </OverlayTrigger>
       </td>
         <Modal show={show} onHide={handleClose} style={{width: "300px", alignItems: "center", marginLeft: "500px"}}>
