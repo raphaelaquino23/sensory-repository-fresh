@@ -11,6 +11,9 @@ export class ArticleService {
 	async getArticles() {
 		return await this.articleRepository.getArticles();
 	}
+	async getArticleById(Article_Id: number) {
+		return await this.articleRepository.getArticleById(Article_Id);
+	}
 
 	async getArticleInformations() {
 		return await this.articleRepository.getArticleInformations();

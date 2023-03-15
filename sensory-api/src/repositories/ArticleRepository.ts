@@ -358,8 +358,11 @@ export class ArticleRepository {
 	//UPVOTE TRACKER
 	async articleUpvoteTracker(article: Article, user_Id: number) {
 		let filteredList, found, articleStats, upvotePluser, data = {};
+
 		try {
 			filteredList = await this.articleUpvoteTrackerRepository.findAll({where: {Article_Id: article.Article_Id}});
+      articleStats = await this.articleStatsRepository.findOne({ where: {ArticleStats_Id: article.ArticleStats_Id }});
+
 			articleStats = await this.articleStatsRepository.findOne({where: {ArticleStats_Id: article.ArticleStats_Id}});
 			if(filteredList == false){
 				data = await this.articleUpvoteTrackerRepository.create({Article_Id: article.Article_Id, User_Id: user_Id});
@@ -371,6 +374,7 @@ export class ArticleRepository {
           }
 				});
 				return data;
+				
 			}else{
 				found = await this.articleUpvoteTrackerRepository.findAll({where: {Article_Id: article.Article_Id, User_Id: user_Id}});
 			}
@@ -383,6 +387,7 @@ export class ArticleRepository {
             ArticleStats_Id: article.ArticleStats_Id
           }
         });
+
 				return data;
 			}else{
 			}
