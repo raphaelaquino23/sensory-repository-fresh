@@ -282,8 +282,8 @@ class App {
 			this.articleController.getArticleStats().then(data => res.json(data));
 		});
 		this.express.get('/api/articlestats/:id', (req, res) => {
-			this.articleController.getArticleStatsById().then(data => res.json(data));
-		});
+            this.articleController.getArticleStatsById(parseInt(req.params.id)).then(data => res.json(data));
+        });
 		this.express.post('/api/articlestats', (req, res) => {
 			this.articleController.createArticleStats(req.body.articlestats).then(data => res.json(data));
 		});

@@ -33,7 +33,7 @@ const Article = ({article} : { article: any}) => {
   useEffect(() => {
     handleClose()
     axiosPrivate.get(`http://localhost:3081/api/articlestats/${article.ArticleInformation_Id}`).then((response) => {
-      // setArticleUpvotes(response.data.ArticleStats_Upvotes);
+      setArticleUpvotes(response.data.ArticleStats_Upvotes);
    }) 
    axiosPrivate.get(`http://localhost:3081/api/article/${article.ArticleInformation_Id}`).then((response) => {
      setArticleUserId(response.data.User_Id);
@@ -56,7 +56,7 @@ const Article = ({article} : { article: any}) => {
       user_Id: res.data,
     }
     await axiosPrivate.post('http://localhost:3081/api/articleUpvoteTracker', upvoteObject);
-    // window.location.reload();
+    window.location.reload();
     console.log("hello" + articleUpvotes);
   }
 

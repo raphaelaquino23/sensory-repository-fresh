@@ -55,7 +55,7 @@ function App() {
         <Route path='/campaign' element={thisToken? <Campaign/> : <LogIn/>} />
 		<Route path='/ArticleOptions' element={thisToken? <ArticleOptions/> : <LogIn/>} />
         <Route path='/forum' element={thisToken? <UserForum/>: <LogIn/>} />
-        <Route path='/forum-admin' element={thisToken? <AdminForum/>: <LogIn/>} />
+        <Route path='/forum-admin' element={thisToken && (thisUserType === "2")? <AdminForum/>: <LogIn/>} />
         <Route path='/postdetail' element={<PostDetailPage/>} />
         <Route path='/activity' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <ActivityInfo/>} /> 
 				<Route path='/activityinfo' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <ActivityInfo/>} /> 
