@@ -1,152 +1,192 @@
-import { useState } from 'react';
-import { Row, Col, Form } from 'react-bootstrap';
-import ImageUploading, { ImageListType } from 'react-images-uploading';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Box, Center, Text, Button, Badge, VStack, Input, InputGroup, InputLeftElement, IconButton } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+import './styles/UserProfile.css'
 
-const UserProfile = () => {
-  const [description, setDescription] = useState('');
-  const [images, setImages] = useState([]);
-  const maxNumber = 1;
 
-  const onChange = (
-    imageList: ImageListType,
-    addUpdateIndex: number[] | undefined
-  ) => {
-    setImages(imageList as never[]);
+interface UserInformation {
+  UserInformation_Id: number;
+  UserInformation_Name: string;
+  UserType_Id: number;
+  UserInformation_Password: string;
+  UserInformation_Email: string;
+  UserInformation_Description: string;
+}
+
+const ProfilePage: React.FC = () => {
+  const [currentUserInformation, setCurrentUserInformation] = useState<UserInformation | null>(null);
+  const [searchUsername, setSearchUsername] = useState("");
+  const [searchResult, setSearchResult] = useState<UserInformation | null>(null);
+  const [messageContent, setMessageContent] = useState("");
+
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+
+    if (username) {
+      axios
+        .get(`http://localhost:3081/api/getuserid/${username}`)
+        .then((response) => {
+          const userId = response.data;
+          return axios.get(`http://localhost:3081/api/userinformation/${userId}`);
+        })
+        .then((response) => {
+          setCurrentUserInformation(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, []);
+
+  const handleSearch = () => {
+    axios
+      .get(`http://localhost:3081/api/getuserid/${searchUsername}`)
+      .then((response) => {
+        const userId = response.data;
+        return axios.get(`http://localhost:3081/api/userinformation/${userId}`);
+      })
+      .then((response) => {
+        setSearchResult(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const handleSendMessage = () => {
+    // const messageObject = {
+    //   message: { Message_Content: messageContent },
+    //   SenderName: localStorage.getItem("username"),
+    //   ReceiverName: searchResult?.UserInformation_Name,
+    // };
+    // axios
+    //   .post("http://localhost:3081/api/message", messageObject)
+    //   .then((response) => {
+    //     console.log("Message sent successfully");
+    //     setMessageContent("");
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error sending message: ", error);
+    //   });
   };
 
   return (
-    <div>
-      <Row className='profileContainer' style={{ marginTop: '40px' }}>
-        <Col
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <ImageUploading
-            value={images}
-            onChange={onChange}
-            maxNumber={maxNumber}
-          >
-            {({
-              imageList,
-              onImageUpload,
-              onImageUpdate,
-              onImageRemove,
-              isDragging,
-              dragProps,
-            }) => (
-              <div
-                className='upload__image-wrapper'
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <button
-                  style={{
-                    marginBottom: '10px',
-                    backgroundColor: '#8eb572',
-                    height: '40px',
-                    width: '300px',
-                    color: '#fff',
-                  }}
-                  onClick={onImageUpload}
-                  {...dragProps}
-                >
-                  Select or Drop your image here
-                </button>{' '}
-                <br></br>
-                {imageList.map((image, index) => (
-                  <div key={index} className='image-item'>
-                    <img src={image.dataURL} alt='' width='300' />
-                    <div
-                      className='image-item__btn-wrapper'
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <button
-                        onClick={() => onImageUpdate(index)}
-                        style={{
-                          backgroundColor: '#8eb572',
-                          height: '40px',
-                          width: '100px',
-                          marginTop: '10px',
-                          color: '#fff',
-                        }}
-                      >
-                        Update
-                      </button>{' '}
-                      &nbsp;
-                      <button
-                        onClick={() => onImageRemove(index)}
-                        style={{
-                          backgroundColor: '#8eb572',
-                          height: '40px',
-                          width: '100px',
-                          marginTop: '10px',
-                          color: '#fff',
-                        }}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </ImageUploading>
-        </Col>
-        <Col
-          md={5}
-          style={{
-            marginTop: '40px',
-            marginRight: '20px',
-          }}
-        >
-          <Form>
-            <Form.Group controlId='description'>
-              <h1>Tell us something about yourself</h1>
-              <Form.Control
-                as='textarea'
-                rows={9}
-                placeholder='User bio'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
-            <button
-              type='submit'
-              style={{
-                backgroundColor: '#8eb572',
-                height: '40px',
-                marginTop: '10px',
-                color: '#fff',
+    <div className="bontainer">
+      <div className="search-container">
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="Search for a user"
+            value={searchUsername}
+            onChange={(e) => setSearchUsername(e.target.value)}
+          />
+          <button className="search-button" onClick={handleSearch}>
+            <SearchIcon />
+          </button>
+        </div>
+      </div>
+      {searchResult ? (
+        <div className="user-container">
+          <div className="user-info">
+            <h1>{searchResult.UserInformation_Name}</h1>
+            <div className="badge-container">
+            <span 
+              style={{ 
+                backgroundColor: getUserTypeColor(searchResult.UserType_Id), 
+                borderRadius: '9999px', 
+                color: 'white', 
+                display: 'inline-block', 
+                padding: '4px 8px', 
+                fontWeight: 'bold', 
+                fontSize: '14px', 
+                textTransform: 'uppercase' 
               }}
             >
-              Submit
+              {getUserType(searchResult.UserType_Id)}
+            </span>
+            </div>
+          </div>
+          <div className="user-details">
+            <p>
+              <strong>Email:</strong> {searchResult.UserInformation_Email}
+            </p>
+            <p>
+              <strong>Description:</strong> {searchResult.UserInformation_Description}
+            </p>
+            <button className="send-message-button" onClick={handleSendMessage}>
+              Send Message
             </button>
-          </Form>
-          <p style={{ bottom: '0%', position: 'fixed' }}>
-            Apply as a{' '}
-            <a href='/moderator' style={{ color: 'blue' }}>
-              moderator
-            </a>{' '}
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-            &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp; Apply as a{' '}
-            <a href='/therapist' style={{ color: 'blue' }}>
-              therapist
-            </a>
-          </p>
-        </Col>
-      </Row>
+          </div>
+        </div>
+      ) : currentUserInformation ? (
+        <div className="user-container">
+          <div className="user-info">
+            <strong><h1>{currentUserInformation.UserInformation_Name}</h1></strong>
+            <div className="badge-container">
+              <span 
+              style={{ 
+                backgroundColor: getUserTypeColor(currentUserInformation.UserType_Id), 
+                borderRadius: '9999px', 
+                color: 'white', 
+                display: 'inline-block', 
+                padding: '4px 8px', 
+                fontWeight: 'bold', 
+                fontSize: '14px', 
+                textTransform: 'uppercase' 
+              }}
+            >
+              {getUserType(currentUserInformation.UserType_Id)}
+            </span>
+            </div>
+          </div>
+          <div className="user-details">
+            <p>
+              <strong>Email:</strong> {currentUserInformation.UserInformation_Email}
+            </p>
+            <p>
+              <strong>Description:</strong> {currentUserInformation.UserInformation_Description}
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="loading-container">
+          <p>Loading...</p>
+        </div>
+      )}
     </div>
   );
+  
+  
+}
+
+const getUserTypeColor = (userTypeId: number) => {
+  switch (userTypeId) {
+    case 1:
+      return "blue";
+    case 2:
+      return "purple";
+    case 3:
+      return "orange";
+    case 4:
+      return "green";
+    default:
+      return "gray";
+  }
 };
 
-export default UserProfile;
+const getUserType = (userTypeId: number) => {
+  switch (userTypeId) {
+    case 1:
+      return "Therapist";
+    case 2:
+      return "Admin";
+    case 3:
+      return "Moderator";
+    case 4:
+      return "Regular User";
+    default:
+      return "Unknown";
+  }
+};
+export default ProfilePage;

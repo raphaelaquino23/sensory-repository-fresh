@@ -16,7 +16,7 @@ import Typography from "@mui/material/Typography";
 import { Paper, Container, Button, TextField, Box, Grid } from "@mui/material";
 import { axiosPrivate } from "../../api/axios";
 import Filter from 'bad-words';
-import { Flex } from "@chakra-ui/react";
+import { Flex, HStack } from "@chakra-ui/react";
 
 const CommentList = ({ comment }: { comment: any }) => {
   const [commentDir, setCommentDir] = useState<any>(null);
