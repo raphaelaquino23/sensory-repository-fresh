@@ -1,103 +1,102 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { Box, Text, Button, Flex } from "@chakra-ui/react";
 
-interface Comment {
-  Comment_Id: number;
-  Comment_DateCreated: Date;
-  Comment_DateEdited: Date;
-  User_Id: number;
-  Post_Id: number;
-  CommentInformation_Id: number;
-  CommentStats_Id: number;
-  Comment_DeactivatedStatus: boolean;
-  Comment_DeactivatedBy: number;
-}
+//Imports
+import React, { useEffect, useState } from "react";
+// import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import CommentItem from "./CommentCreate";
 
-interface CommentInformation {
-  CommentInformation_Id: number;
-  CommentInformation_Content: string;
-}
+//Styling Imports
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Divider from "@mui/material/Divider";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemAvatar from "@mui/material/ListItemAvatar";
+import Avatar from "@mui/material/Avatar";
+import Typography from "@mui/material/Typography";
+import { Paper, Container, Button, TextField, Box, Grid } from "@mui/material";
+import { axiosPrivate } from "../../api/axios";
+import Filter from 'bad-words';
+import { Flex, HStack, Badge, Tag } from "@chakra-ui/react";
 
-interface CommentStats {
-  CommentStats_Id: number;
-  CommentStats_Upvotes: number;
-}
+const CommentList = ({ comment }: { comment: any }) => {
+  const [commentDir, setCommentDir] = useState<any>(null);
+  const [commentUser, setCommentUser] = useState<any>(null);
+  const [commentUserType, setCommentUserType] = useState(0);
 
-interface Props {
-  postId: number;
-  postTitle: string;
-}
-
-const CommentList = ({ postId, postTitle }: Props) => {
-  const [comments, setComments] = useState<Comment[]>([]);
-  const [commentInformation, setCommentInformation] = useState<CommentInformation[]>([]);
-  const [commentStats, setCommentStats] = useState<CommentStats[]>([]);
+  const filter = new Filter();
 
   useEffect(() => {
-    async function fetchComments() {
-      try {
-        const response = await axios.get<Comment[]>(
-          `http://localhost:3081/api/commentbypost/${postId}`
-        );
-        setComments(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    async function fetchCommentInformation() {
-      try {
-        const response = await axios.get<CommentInformation[]>(
-          "http://localhost:3081/api/commentinformation"
-        );
-        setCommentInformation(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    async function fetchCommentStats() {
-      try {
-        const response = await axios.get<CommentStats[]>(
-          "http://localhost:3081/api/commentstats"
-        );
-        setCommentStats(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchComments();
-    fetchCommentInformation();
-    fetchCommentStats();
-  }, [postId]);
-
-  const handleDeleteComment = async (commentId: number) => {
-    try {
-      await axios.delete(`http://localhost:3081/api/comment/${commentId}`);
-      setComments(comments.filter((comment) => comment.Comment_Id !== commentId));
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    axiosPrivate
+      .get(`http://localhost:3081/api/commentinformation/${comment.Comment_Id}`)
+      .then((response) => {
+        setCommentDir(response.data.CommentInformation_Content);
+      });
+    axiosPrivate
+        .get(`http://localhost:3081/api/userinformation/${comment.User_Id}`)
+        .then((response) => {
+          setCommentUser(response.data.UserInformation_Name);
+          setCommentUserType(response.data.UserType_Id);
+    });
+  }, [commentUser]);
 
   return (
-    <Box>
-      <Text fontSize="2xl" fontWeight="bold" mb="4">
-        Comments for {postTitle}
-      </Text>
-      {comments.map((comment) => (
-        <Box key={comment.Comment_Id} p="4" bg="gray.100" borderRadius="md" mb="4">
-          <Flex justify="space-between" alignItems="center" mb="2">
-            <Text fontWeight="bold">{postTitle}</Text>
-            <Button onClick={() => handleDeleteComment(comment.Comment_Id)}>Delete</Button>
-          </Flex>
-          <Text>{commentInformation.find((info) => info.CommentInformation_Id === comment.CommentInformation_Id)?.CommentInformation_Content}</Text>
-        </Box>
-      ))}
-    </Box>
+    <Flex justify="center" align="center" height="100%" p="4" bg="gray.100" borderRadius="md" mb="4">
+      <Grid container wrap="nowrap" spacing={2}>
+        <Grid item>
+          <Avatar alt="Remy Sharp" />
+        </Grid>
+        <Grid justifyContent="left" item xs zeroMinWidth>
+        <HStack mb={2} spacing={4}>
+            <Badge
+              fontSize="sm"
+              colorScheme={getUserTypeColor(commentUserType)}
+              shadow="md"
+            >
+            {commentUser}
+            </Badge>
+            <Tag color="grey" shadow="md">
+              {getUserType(commentUserType)}
+            </Tag>
+          </HStack>
+          <p style={{ textAlign: "left" }}>
+            {commentDir ? filter.clean(commentDir) : ''}
+          </p>
+        </Grid>
+      </Grid>
+      {/* <Divider variant="fullWidth" style={{ margin: "30px 0" }} /> */}
+    </Flex>
   );
 };
+
+const getUserTypeColor = (userTypeId: number) => {
+  switch (userTypeId) {
+    case 1:
+      return "blue";
+    case 2:
+      return "purple";
+    case 3:
+      return "orange";
+    case 4:
+      return "green";
+    default:
+      return "gray";
+  }
+};
+
+const getUserType = (userTypeId: number) => {
+  switch (userTypeId) {
+    case 1:
+      return "Therapist";
+    case 2:
+      return "Admin";
+    case 3:
+      return "Moderator";
+    case 4:
+      return "Regular User";
+    default:
+      return "Unknown";
+  }
+};
+
 
 export default CommentList;
