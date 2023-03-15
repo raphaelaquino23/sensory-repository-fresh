@@ -89,9 +89,6 @@ const onClickChange = (e:any) => {
 			{/* <td>{article.topic}</td> */}
 			<td><Button onClick={(e)=>onClickChange(e)}>Download</Button></td>
       <td>
-        {articleUpvotes}
-      </td>
-      <td>
       <OverlayTrigger
           overlay={
             <Tooltip id={`tooltip-top`}>
@@ -100,6 +97,9 @@ const onClickChange = (e:any) => {
           }>
             <button onClick={handleUpvote}  className="btn text-warning btn-act" data-toggle="modal"><i className="material-icons">&#xe8dc;</i></button>
         </OverlayTrigger>
+      </td>
+      <td>
+        {articleUpvotes}
       </td>
         <Modal show={show} onHide={handleClose} style={{width: "300px", alignItems: "center", marginLeft: "500px"}}>
         <Modal.Header>
