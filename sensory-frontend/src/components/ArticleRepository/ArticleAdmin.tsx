@@ -25,7 +25,6 @@ const Article = ({article} : { article: any}) => {
       <td>{article.ArticleInformation_Description ? filter.clean(article.ArticleInformation_Description) : ''}</td>
       <td>{article.ArticleInformation_PublishedBy ? filter.clean(article.ArticleInformation_PublishedBy) : ''}</td>
       <td>{article.ArticleInformation_Url}</td>
-			{/* <td>{article.ArticleStats_Downloads}</td> */}
       <td>
         <OverlayTrigger
           overlay={
@@ -55,11 +54,6 @@ const Article = ({article} : { article: any}) => {
         <Modal.Body>
           <EditForm theArticle={article} />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close Button
-          </Button>
-        </Modal.Footer>
   	  </Modal>
   	</>
   )

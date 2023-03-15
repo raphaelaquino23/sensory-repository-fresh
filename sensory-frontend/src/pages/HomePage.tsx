@@ -50,34 +50,34 @@ const AdminArticles = () => {
     <div className="card">
       <div className="card__body">
         <img src="images/articles.jpg" className="card__image" alt="img" />
-        <h2 className="card__title">Articles</h2>
+        <h2 className="card__title">Repository</h2>
         <p className="card__description">
-          Discover and read articles related to Sensory Processing Disorder.
+          Discover and read articles related to Sensory Processing Disorder and check for therapy clinics near you.
         </p>
       </div>
-      <Link to={"/Article"}>
-        <button className="card__btn">View Articles</button>
+      <Link to={"/ArticleOptions"}>
+        <button className="card__btn">View Repository</button>
       </Link>
     </div>
   );
 };
 
-const Articles = () => {
-  return (
-    <div className="card">
-      <div className="card__body">
-        <img src="images/articles.jpg" className="card__image" alt="img" />
-        <h2 className="card__title">Articles</h2>
-        <p className="card__description">
-          Discover and read articles related to Sensory Processing Disorder.
-        </p>
-      </div>
-      <Link to={"/article-user"}>
-        <button className="card__btn">View Articles</button>
-      </Link>
-    </div>
-  );
-};
+// const Articles = () => {
+//   return (
+//     <div className="card">
+//       <div className="card__body">
+//         <img src="images/articles.jpg" className="card__image" alt="img" />
+//         <h2 className="card__title">Articles</h2>
+//         <p className="card__description">
+//           Discover and read articles related to Sensory Processing Disorder.
+//         </p>
+//       </div>
+//       <Link to={"/article-user"}>
+//         <button className="card__btn">View Articles</button>
+//       </Link>
+//     </div>
+//   );
+// };
 
 const Campaigns = () => {
   return (
@@ -129,8 +129,9 @@ const Home = () => {
       <h1 style={{ textAlign: "center", marginTop: "20px", fontSize: "30px"}}>
         Get started 
       </h1>
-      <div className="wrapper">
-        {thisUserType==="2"? <AdminArticles /> : <Articles/>}
+      <div className="wrapper" style={{marginBottom: "40px"}}>
+        {/* {thisUserType==="2"? <AdminArticles /> : <Articles/>} */}
+        <AdminArticles />
         <Campaigns />
         <Forum />
       </div>

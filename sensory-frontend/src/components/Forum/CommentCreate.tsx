@@ -15,9 +15,9 @@ import {
   TextField,
   Stack,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import SendIcon from "@mui/icons-material/Send";
+// import EditIcon from "@mui/icons-material/Edit";
+// import DeleteIcon from "@mui/icons-material/Delete";
+// import SendIcon from "@mui/icons-material/Send";
 import Swal from "sweetalert2";
 import axios, { axiosPrivate } from "../../api/axios";
 
@@ -53,7 +53,7 @@ function CommentItem() {
     window.location.reload();
   }
   return (
-    <ListItem alignItems="flex-start"  sx={{ width: 6/8 }}>
+    <ListItem alignItems="flex-start">
       <Container>
         <Stack
           direction="column"
@@ -98,7 +98,7 @@ function CommentItem() {
                         fullWidth
                         className="textField"
                         id="outlined-multiline-flexible"
-                        label="Add a Comment"
+                        label="Edit Your Comment"
                         multiline
                         
 					              name="CommentInformation_Content"
@@ -124,7 +124,7 @@ function CommentItem() {
                     className="buttons"
                     onClick={handleSubmit}
                   >
-                    <SendIcon sx={{ mr: 1 }} /> Submit{" "}
+                    {/* <SendIcon sx={{ mr: 1 }} /> Submit{" "} */}
                   </Button>
                 </Box>
               </Box>

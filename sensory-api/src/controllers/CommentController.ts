@@ -1,119 +1,87 @@
-import {
-  Comment,
-  CommentInformation,
-  CommentStats,
-} from "../models/CommentModel";
-import { CommentService } from "../service/CommentService";
-import { winstonLogger } from "../logger/winston.logger";
+import { APILogger } from '../logger/api.logger';
+import { Comment, CommentInformation, CommentStats } from '../models/CommentModel';
+import { CommentService } from '../service/CommentService';
 
 export class CommentController {
+
   private commentService: CommentService;
+  private logger: APILogger;
 
   constructor() {
     this.commentService = new CommentService();
+    this.logger = new APILogger();
   }
 
   async getComment() {
-    winstonLogger.info("Controller: getComment", null);
+    this.logger.info('Controller: getComment', null)
     return await this.commentService.getComment();
   }
 
-  async getCommentById(id: number) {
-    winstonLogger.info("Controller: getComment", null);
+  async getCommentById(id:number) {
+    this.logger.info('Controller: getComment', null)
     return await this.commentService.getCommentById(id);
   }
 
-  async getCommentByPostId(id: number) {
-    winstonLogger.info("Controller: getComment", null);
+  async getCommentByPostId(id:number) {
+    this.logger.info('Controller: getComment', null)
     return await this.commentService.getCommentByPostId(id);
   }
 
   async getCommentInformation() {
-    winstonLogger.info("Controller: getCommentInformation", null);
+    this.logger.info('Controller: getCommentInformation', null)
     return await this.commentService.getCommentInformation();
   }
 
-  async getCommentInformationById(id: number) {
-    winstonLogger.info("Controller: getCommentInformation", null);
+  async getCommentInformationById(id:number) {
+    this.logger.info('Controller: getCommentInformation', null)
     return await this.commentService.getCommentInformationById(id);
   }
-
+  
   async getCommentStats() {
-    winstonLogger.info("Controller: getCommentInformation", null);
+    this.logger.info('Controller: getCommentInformation', null)
     return await this.commentService.getCommentStats();
   }
 
-  async createComment(
-    comment: Comment,
-    commentInformation: CommentInformation,
-    commentStats: CommentStats
-  ) {
-    winstonLogger.info("Controller: createComment", comment);
-    return await this.commentService.createComment(
-      comment,
-      commentInformation,
-      commentStats
-    );
+  async createComment(comment: Comment, commentInformation: CommentInformation, commentStats: CommentStats) {
+    this.logger.info('Controller: createComment', comment);
+    return await this.commentService.createComment(comment, commentInformation, commentStats);
   }
 
   async createCommentInformation(commentinformation: CommentInformation) {
-    winstonLogger.info(
-      "Controller: createCommentInformation",
-      commentinformation
-    );
-    return await this.commentService.createCommentInformation(
-      commentinformation
-    );
+    this.logger.info('Controller: createCommentInformation', commentinformation);
+    return await this.commentService.createCommentInformation(commentinformation);
   }
 
   async createCommentStats(commentstats: CommentStats) {
-    winstonLogger.info("Controller: createCommentStats", commentstats);
+    this.logger.info('Controller: createCommentStats', commentstats);
     return await this.commentService.createCommentStats(commentstats);
   }
 
-  async updateComment(
-    comment: Comment,
-    commentInformation: CommentInformation,
-    commentStats: CommentStats
-  ) {
-    winstonLogger.info("Controller: updateComment", comment);
-    return await this.commentService.updateComment(
-      comment,
-      commentInformation,
-      commentStats
-    );
+  async updateComment(comment: Comment, commentInformation: CommentInformation, commentStats: CommentStats) {
+    this.logger.info('Controller: updateComment', comment);
+    return await this.commentService.updateComment(comment, commentInformation, commentStats);
   }
 
   async updateCommentInformation(commentinformation: CommentInformation) {
-    winstonLogger.info(
-      "Controller: updateCommentInformation",
-      commentinformation
-    );
-    return await this.commentService.updateCommentInformation(
-      commentinformation
-    );
+    this.logger.info('Controller: updateCommentInformation', commentinformation);
+    return await this.commentService.updateCommentInformation(commentinformation);
   }
 
   async updateCommentStats(commentstats: CommentStats) {
-    winstonLogger.info("Controller: updateCommentStats", commentstats);
+    this.logger.info('Controller: updateCommentStats', commentstats);
     return await this.commentService.updateCommentStats(commentstats);
   }
 
   async deleteComment(Comment_Id: number) {
-    winstonLogger.info("Controller: deleteComment", Comment_Id);
+    this.logger.info('Controller: deleteComment', Comment_Id);
     return await this.commentService.deleteComment(Comment_Id);
   }
   async deleteCommentInformation(CommentInformation_Id: number) {
-    winstonLogger.info(
-      "Controller: deleteCommentInformation",
-      CommentInformation_Id
-    );
-    return await this.commentService.deleteCommentInformation(
-      CommentInformation_Id
-    );
+    this.logger.info('Controller: deleteCommentInformation', CommentInformation_Id);
+    return await this.commentService.deleteCommentInformation(CommentInformation_Id);
   }
   async deleteCommentStats(CommentStats_Id: number) {
-    winstonLogger.info("Controller: deleteCommentStats", CommentStats_Id);
+    this.logger.info('Controller: deleteCommentStats', CommentStats_Id);
     return await this.commentService.deleteCommentStats(CommentStats_Id);
   }
 }
