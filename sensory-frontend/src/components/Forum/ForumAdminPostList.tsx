@@ -127,11 +127,11 @@ const PostList = () => {
               <AlertDialogHeader fontSize="lg" fontWeight="bold">
                 Delete Post
               </AlertDialogHeader>
-  
+
               <AlertDialogBody>
                 Are you sure? You can't undo this action afterwards.
               </AlertDialogBody>
-  
+
               <AlertDialogFooter>
                 <Button ref={cancelRef} onClick={onClose}>
                   Cancel
@@ -156,6 +156,6 @@ const PostList = () => {
       </Box>
     </Flex>
   );
-  
 }
+
 export default PostList;  
