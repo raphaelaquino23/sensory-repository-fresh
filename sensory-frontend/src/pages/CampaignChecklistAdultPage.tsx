@@ -4,6 +4,7 @@ import ChecklistItem from "../components/CampaignChecklist/ChecklistItem";
 import { useAuth } from "../contexts/AuthProvider";
 import UsersService from "../services/UsersService";
 import ChecklistService from "../services/ChecklistService";
+import { Form, Button } from "react-bootstrap";
 
 function ChecklistAdult () {
   const [checkedList, setCheckedList] = useState<string[]>([]);
@@ -61,6 +62,7 @@ function ChecklistAdult () {
     }
     console.log(testResultObject);
     ChecklistService.create(testResultObject);
+    alert("Your response has been recorded.")
   }
  
 	const items = adultData.map((item, index) => {
@@ -78,10 +80,11 @@ function ChecklistAdult () {
 
   return (
     <div className="container">
-			<p style={{marginTop: '-10px', marginLeft:'120px', marginRight:'120px', marginBottom: '0px'}}>Many of the symptoms listed in the following categories are common to that particular age group.
+			<p style={{marginTop: '-50px', marginLeft:'120px', marginRight:'120px', marginBottom: '0px'}}>
+        <b>Disclaimer</b>: Many of the symptoms listed in the following categories are common to that particular age group.
 					Where more than a few symptoms are found in a child, we recommend you talk to your doctor or
 					for a professional experienced with
-					treating Sensory Processing Disorder. *
+					treating Sensory Processing Disorder. 
 			</p>
       <div className="card-checklist">
         <div className="card-header">
@@ -97,8 +100,11 @@ function ChecklistAdult () {
           </div>
           
           <p style={{marginLeft: '20px'}}>Total number of symptoms checked: {activeItemsCount}</p>
-          <p style={{marginLeft: '20px'}}>Percent: {(activeItemsCount*100)/adultData.length}%</p>
-          <button style={{marginTop: '0px', marginBottom: '10px', marginLeft: '24px'}}>Submit</button>
+          {/* <p style={{marginLeft: '20px'}}>Percent: {((activeItemsCount*100)/adultData.length).toFixed(2)}%</p> */}
+          {/* <button style={{marginTop: '0px', marginBottom: '10px', marginLeft: '24px'}}>Submit</button> */}
+          <Button variant="success" type="submit" style={{backgroundColor: "#90b474"}}>
+            Submit
+          </Button>
         </form>
       </div>
     </div>

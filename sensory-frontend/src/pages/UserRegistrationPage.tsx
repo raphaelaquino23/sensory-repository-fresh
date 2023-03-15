@@ -132,27 +132,16 @@ const Register = () => {
                 className={validName || !user ? 'hide' : 'invalid'}
               />
             </label>
-						{/* <Form.Control
-                type="text"
-                placeholder="Username *"
-                name="UserInformation_Name"
-                value={user}
-								ref={userRef}
-                onChange={(e) => setUser(e.target.value)}
-								style={{marginTop: "10px"}}
-                required
-								onFocus={() => setUserFocus(true)}
-              	onBlur={() => setUserFocus(false)}
-            /> */}
             <Form.Control
               type='text'
               id='username'
-							placeholder='User Name*'
+							placeholder='User Name'
               ref={userRef}
               autoComplete='off'
               onChange={(e) => setUser(e.target.value)}
               value={user}
               required
+              style={{width: "310px"}}
               aria-invalid={validName ? 'false' : 'true'}
               aria-describedby='uidnote'
               onFocus={() => setUserFocus(true)}
@@ -185,10 +174,11 @@ const Register = () => {
             <Form.Control
               type='password'
               id='password'
-							placeholder='Password*'
+							placeholder='Password'
               onChange={(e) => setPwd(e.target.value)}
               value={pwd}
               required
+              style={{marginTop: "10px", width: "310px"}}
               aria-invalid={validPwd ? 'false' : 'true'}
               aria-describedby='pwdnote'
               onFocus={() => setPwdFocus(true)}
@@ -224,10 +214,11 @@ const Register = () => {
             <Form.Control
               type='password'
               id='confirm_pwd'
-							placeholder='Confirm Password*'
+							placeholder='Confirm Password'
               onChange={(e) => setMatchPwd(e.target.value)}
               value={matchPwd}
               required
+              style={{marginTop: "10px", width: "310px"}}
               aria-invalid={validMatch ? 'false' : 'true'}
               aria-describedby='confirmnote'
               onFocus={() => setMatchFocus(true)}
@@ -256,12 +247,13 @@ const Register = () => {
             <Form.Control
               type='text'
               id='email'
-							placeholder='Email Address*'
+							placeholder='Email Address'
               ref={emailRef} //not sure if emailRef is needed
               autoComplete='off'
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               required
+              style={{marginTop: "10px", width: "310px"}}
               aria-invalid={validEmail ? 'false' : 'true'}
               aria-describedby='emailnote'
               onFocus={() => setEmailFocus(true)}
@@ -298,7 +290,9 @@ const Register = () => {
             >
               Sign Up
             </button> */}
-						<Button variant="success" type="submit" style={{marginTop: "10px"}} disabled={!validName || !validPwd || !validMatch ? true : false}>
+            <br />
+            <p style={{fontSize:"12px", width: "310px"}}>By signing up, you agree to the <a href='/terms' style={{color: "blue"}}>Terms of Service</a> and <a href='/privacy' style={{color: "blue"}}>Privacy Policy</a> of SensAware</p>
+						<Button variant="success" type="submit" style={{marginTop: "10px", width: "310px"}} disabled={!validName || !validPwd || !validMatch ? true : false}>
               Sign Up
             </Button>
           </Form>

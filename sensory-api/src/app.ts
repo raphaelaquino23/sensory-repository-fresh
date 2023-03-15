@@ -123,9 +123,6 @@ class App {
     this.express.get('/api/postcategory', (req, res) => {
       this.postController.getPostCategory().then((data: any) => res.json(data));
     });
-		this.express.get('/api/postcategory/:id', (req, res) => {
-      this.postController.getPostCategoryById(parseInt(req.params.id)).then((data: any) => res.json(data));
-    });
     this.express.put('/api/postcategory', (req, res) => {
       this.postController.createPostCategory(req.body.postcategory).then((data: any) => res.json(data));
     })
@@ -162,7 +159,9 @@ class App {
 		this.express.get('/api/article', (req, res) => {
 			this.articleController.getArticles().then(data => res.json(data));
 		});
-
+		this.express.get('/api/article/:id', (req, res) => {
+      this.articleController.getArticleById(parseInt(req.params.id)).then((data: any) => res.json(data));
+    });
 		this.express.post('/api/article', (req, res) => {
 				this.articleController.createArticle(req.body.article, req.body.articleInformation, 
 					req.body.articleStats, req.body.fileName).then(data => res.json(data));
@@ -282,6 +281,9 @@ class App {
 		this.express.get('/api/articlestats', (req, res) => {
 			this.articleController.getArticleStats().then(data => res.json(data));
 		});
+		this.express.get('/api/articlestats/:id', (req, res) => {
+            this.articleController.getArticleStatsById(parseInt(req.params.id)).then(data => res.json(data));
+        });
 		this.express.post('/api/articlestats', (req, res) => {
 			this.articleController.createArticleStats(req.body.articlestats).then(data => res.json(data));
 		});
@@ -307,9 +309,13 @@ class App {
 		});
 
 		// Article Upvote Tracker
-		this.express.post('/api/articleupvotetracker/:id', (req, res) => {
-			this.articleController.articleUpvoteTracker(req.body.article, parseInt(req.params.id)).then(data => res.json(data));
+		this.express.post('/api/articleUpvoteTracker', (req, res) => {
+			this.articleController.articleUpvoteTracker(req.body.article, req.body.user_Id).then((data: any) => res.json(data));
 		});
+
+		// this.express.post('/api/postUpvoteTracker', (req, res) => {
+		// 	this.postController.postUpvoteTracker(req.body.post, req.body.user_Id).then((data: any) => res.json(data));
+		//   });
 
     // Messages
 		this.express.get('/api/message', (req, res) => {

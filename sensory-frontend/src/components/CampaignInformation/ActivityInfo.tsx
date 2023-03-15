@@ -24,7 +24,7 @@ const ActivityInfo = ({activity}: {activity : any}) => {
 
 
   const displayAlert = async () => {
-    alert("You are now registered to the event! Please check your email for more details.")
+    alert("You have successfully joined this campaign! Please check the poster for more details.")
     const resUser = await axiosPrivate.get(`http://localhost:3081/api/getuserid/${localStorage.getItem("username")}`)
     const userId = resUser.data
     const registerObject = {

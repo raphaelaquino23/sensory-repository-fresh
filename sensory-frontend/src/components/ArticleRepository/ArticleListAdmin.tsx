@@ -15,13 +15,11 @@ const ArticleList = () => {
 
   const [listArticleInformation, setListArticleInformation] = useState([]);
 
-
   const [showAlert, setShowAlert] = useState(false);
   const [search, setSearch] = useState('');
   const [show, setShow] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [articlesPerPage] = useState(10)
-
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -129,8 +127,7 @@ const ArticleList = () => {
       </table>
 
 
-      <Pagination
-        pages={totalPagesNum}
+      <Pagination pages={totalPagesNum}
         setCurrentPage={setCurrentPage}
         currentArticles={currentArticles}
         sortedArticles={sortedArticles}
@@ -144,11 +141,6 @@ const ArticleList = () => {
         <Modal.Body>
           <AddForm />
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close Button
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );

@@ -50,8 +50,8 @@ const Navbar = () => {
         </Box>
         <Bars />
         <NavMenu>
-          <NavLink to='/Article-user'>
-            Articles
+          <NavLink to='/ArticleOptions'>
+            Repository
           </NavLink>
           <NavLink to='/campaign'>
             Campaigns
@@ -67,7 +67,7 @@ const Navbar = () => {
           </NavLink>
 					
         </NavMenu>
-        <Badge>{userType?.UserType_Name}</Badge>
+        <Badge style={{marginTop: "15px", height: "50%", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "0 1rem", marginLeft: "50px"}}>{userType?.UserType_Name}</Badge>
         <NavDropdown title={localStorage.getItem("username")} id="navbarScrollingDropdown" style={{
 						color: "#fff",
 						display: "flex",

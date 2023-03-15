@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 const Pagination = ({pages, setCurrentPage, currentActivities, sortedActivities} : {pages: number; setCurrentPage: any; currentActivities: any; sortedActivities: any}) => {
@@ -8,14 +9,21 @@ const Pagination = ({pages, setCurrentPage, currentActivities, sortedActivities}
     }
 
   const [currentButton, setCurrentButton] = useState(1);
+  const [listActivityInformation, setListActivityInformation] = useState([]);
 
   useEffect(() => {
     setCurrentPage(currentButton);
   }, [currentButton, setCurrentPage])
 
+  useEffect(() => {
+		axios.get(`http://localhost:3081/api/campaigninformation`).then((response) => {
+			setListActivityInformation(response.data);
+		});
+	}, []);
+
   return (
     <div className="clearfix">
-      <div className="hint-text">Showing <b>{currentActivities.length}</b> out of <b>{sortedActivities.length}</b> entries</div>
+      <div className="hint-text">Showing <b>{listActivityInformation.length}</b> out of <b>{listActivityInformation.length}</b> entries</div>
         <ul className="pagination">
           <li className={`${currentButton === 1 ? 'page-item disabled' : 'page-item' }`}><a href="#!"
             onClick = { () => setCurrentButton((prev) => prev === 1 ? prev : prev - 1)}

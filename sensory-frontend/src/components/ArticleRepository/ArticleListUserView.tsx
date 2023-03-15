@@ -87,6 +87,7 @@ const ArticleList = () => {
             <th>Description</th>
             <th>Published By</th>
             <th>Actions</th>
+            <th>Upvote</th>
           </tr>
         </thead>
         <tbody>
