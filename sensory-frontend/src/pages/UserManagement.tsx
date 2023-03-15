@@ -29,7 +29,7 @@ interface UserType {
   UserType_Description: string;
 }
 
-interface UserInformation {
+interface UserInformation extends User {
   UserInformation_Id: number;
   UserInformation_Name: string;
   UserInformation_Password: string;
@@ -59,15 +59,26 @@ const UserPage = () => {
     []
   );
   const [show, setShow] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
 
   const handleShow = () => setShow(true);
+  const handleShowDelete = () => setShowDelete(true);
   const handleClose = () => setShow(false);
 
   useEffect(() => {
-    handleClose();
-  }, []);
+    //Fetch user
+    const fetchUserData = async () => {
+      setLoading(true);
+      try {
+        const response = await UsersService.getUser();
+        setUsers(response.data);
+      } catch (error) {
+        console.log("Error fetching User Model Data.", error);
+      }
+      setLoading(false);
+    };
+    fetchUserData();
 
-  useEffect(() => {
     // Fetch all the user types
     axios
       .get<UserType[]>("http://localhost:3081/api/usertype")
@@ -142,6 +153,13 @@ const UserPage = () => {
     }
   };
 
+  const handleClickDelete = async (userInfoId: number) => {
+    UsersService.deleteUser(userInfoId);
+    setShowDelete(false);
+  };
+
+  const deleteItem = userInformations;
+
   return (
     <>
       <div className="table-title">
@@ -168,7 +186,7 @@ const UserPage = () => {
         </thead>
         {!loading && (
           <tbody>
-            {userInformations.map((userInfo) => (
+            {userInformations.map((userInfo, index) => (
               <tr key={userInfo.UserInformation_Id}>
                 <td>{userInfo.UserInformation_Name}</td>
                 <td>{userInfo.UserInformation_Email}</td>
@@ -190,9 +208,7 @@ const UserPage = () => {
                     overlay={<Tooltip id={`tooltip-top`}>Delete</Tooltip>}
                   >
                     <button
-                      onClick={() =>
-                        UsersService.deleteUser(userInfo.UserInformation_Id)
-                      }
+                      onClick={handleShowDelete}
                       style={{ display: "inline-block", alignItems: "right" }}
                       className="btn text-danger btn-act"
                       data-toggle="modal"
@@ -201,25 +217,42 @@ const UserPage = () => {
                     </button>
                   </OverlayTrigger>
                 </td>
-
-                <Modal show={show} onHide={handleClose}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Edit Activity</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    {/* <EditUser theUser={userinformation} /> */}
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                      Close Button
-                    </Button>
-                  </Modal.Footer>
-                </Modal>
               </tr>
             ))}
           </tbody>
         )}
       </table>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Activity</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{/* <EditUser theUser={userinformation} /> */}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close Button
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal show={showDelete} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Delete User</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure to delete this User?</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              //handleClickDelete();
+            }}
+          >
+            OK
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

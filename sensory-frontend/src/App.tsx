@@ -5,7 +5,7 @@ import NotNavbar from "./components/__NAVBAR__";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/HomePage";
 import Article from "./pages/ArticlePage";
-import User from "./pages/UserManagement";
+import User from "./pages/UserManagement copy";
 import ArticleUser from "./pages/ArticleUserPage";
 import Campaign from "./pages/CampaignPage";
 import UserForum from "./pages/ForumPostPage";

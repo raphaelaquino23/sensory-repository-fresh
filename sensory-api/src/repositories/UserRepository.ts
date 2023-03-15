@@ -251,15 +251,24 @@ export class UserRepository {
     return data;
   }
 
-  async updateUser(User: User) {
+  async updateUser(User: User, UserInformation: UserInformation) {
     let data = {};
     try {
       User.User_DateEdited = new Date();
+      await this.userInformationRepository.update(
+        { ...UserInformation },
+        {
+          where: {
+            UserInformation_Id: UserInformation.UserInformation_Id,
+          },
+        }
+      );
+
       data = await this.userRepository.update(
         { ...User },
         {
           where: {
-            User_Id: User.id,
+            User_Id: User.User_Id,
           },
         }
       );

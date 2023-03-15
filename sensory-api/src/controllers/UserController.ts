@@ -69,9 +69,9 @@ export class UserController {
     return await this.userService.createApplication(application);
   }
 
-  async updateUser(user: User) {
+  async updateUser(user: User, userInformation: UserInformation) {
     winstonLogger.info("Controller: updateUser", null);
-    return await this.userService.updateUser(user);
+    return await this.userService.updateUser(user, userInformation);
   }
 
   async updateUserInformation(userinformation: UserInformation) {

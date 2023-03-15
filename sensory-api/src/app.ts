@@ -143,14 +143,6 @@ class App {
     this.express.get("/api/postcategory", (req, res) => {
       this.postController.getPostCategory().then((data: any) => res.json(data));
     });
-		this.express.get('/api/postcategory/:id', (req, res) => {
-      this.postController.getPostCategoryById(parseInt(req.params.id)).then((data: any) => res.json(data));
-    });
-    this.express.put('/api/postcategory', (req, res) => {
-      this.postController.createPostCategory(req.body.postcategory).then((data: any) => res.json(data));
-    })
-    this.express.post('/api/postcategory', (req, res) => {
-      this.postController.createPostCategory(req.body.postcategory).then((data: any) => res.json(data));
     this.express.put("/api/postcategory", (req, res) => {
       this.postController
         .createPostCategory(req.body.postcategory)
@@ -691,17 +683,6 @@ class App {
         .then((data) => res.json(data));
     });
 
-    // User
-    this.express.get("/api/user", (req: any, res: any) => {
-      this.userController.getUser().then((data) => res.json(data));
-    });
-
-    this.express.delete("/api/user/:id", (req: any, res: any) => {
-      this.userController
-        .deleteUser(parseInt(req.params.id))
-        .then((data: any) => res.json(data));
-    });
-
     // User Information
     this.express.get("/api/userinformation", (req: any, res: any) => {
       this.userController.getUserInformation().then((data) => res.json(data));
@@ -741,15 +722,23 @@ class App {
       });
     });
 
+    this.express.put("/api/user", (req, res) => {
+      this.userController
+        .updateUser(req.body.user, req.body.userInformation)
+        .then((data) => res.json(data));
+    });
+
+    this.express.delete("/api/user/:id", (req: any, res: any) => {
+      this.userController
+        .deleteUser(parseInt(req.params.id))
+        .then((data: any) => res.json(data));
+    });
+
     // User Type
     this.express.post("/api/createusertype", (req, res) => {
       this.userController
         .createUserType(req.body.usertype)
         .then((data) => res.json(data));
-    });
-
-    this.express.get("/api/usertype", (req: any, res: any) => {
-      this.userController.getUserType().then((data) => res.json(data));
     });
 
     this.express.get("/api/usertype/:id", (req: any, res: any) => {

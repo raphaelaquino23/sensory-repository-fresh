@@ -1,7 +1,7 @@
 import axios from "axios";
 const USERINFORMATION_API_URL = "http://localhost:3081/api/userinformation/";
-const USER_API_URL = "http://localhost:3081/api/user/";
-const Username_URL = "http://localhost:3081/api/getuserid";
+const USER_API_URL = "http://localhost:3081/api/user";
+const USERID_API_URL = "http://localhost:3081/api/getuserid/:username";
 
 class UserService {
   saveUserInformation(userInformation: any) {
@@ -16,8 +16,16 @@ class UserService {
     return axios.get(USERINFORMATION_API_URL, userInformation);
   }
 
-  deleteUser(user: any) {
-    return axios.delete(USER_API_URL, user);
+  deleteUser(id: number) {
+    return axios.delete(`${USER_API_URL}/${id}`);
+  }
+
+  getUser() {
+    return axios.get(USER_API_URL);
+  }
+
+  updateUser() {
+    return axios.put(USER_API_URL);
   }
 }
 
