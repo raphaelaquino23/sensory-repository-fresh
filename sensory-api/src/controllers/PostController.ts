@@ -34,7 +34,7 @@ export class PostController {
   }
 
   async getPostInformationByUserId(User_Id: number) {
-    this.logger.info('Controller: getPostInformationByUserId', null)
+    winstonLogger.info("Controller: getPostInformationByUserId", null);
     return await this.postService.getPostInformationByUserId(User_Id);
   }
 
