@@ -1,10 +1,20 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Box, Center, Text, Button, Badge, VStack, Input, InputGroup, InputLeftElement, IconButton } from "@chakra-ui/react";
+import {
+  Box,
+  Center,
+  Text,
+  Button,
+  Badge,
+  VStack,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  IconButton,
+} from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
-import './styles/UserProfile.css'
+import "./styles/UserProfile.css";
 import MessageForm from "./ProfileSendMessage";
-
 
 interface UserInformation {
   UserInformation_Id: number;
@@ -15,22 +25,74 @@ interface UserInformation {
   UserInformation_Description: string;
 }
 
+interface Post {
+  Post_Id: number;
+  PostInformation_Id: number;
+  PostStats_Id: number;
+  Post_DateCreated: string;
+  Post_DateEdited: string;
+  User_Id: number;
+  Post_DeactivatedStatus: boolean | undefined;
+  Post_DeactivatedBy: number;
+}
+
+interface PostInformation {
+  PostInformation_Id: number;
+  PostInformation_Title: string;
+  PostInformation_Content: string;
+  PostCategory_Id: number;
+}
+
 const ProfilePage: React.FC = () => {
-  const [currentUserInformation, setCurrentUserInformation] = useState<UserInformation | null>(null);
+  const [currentUserInformation, setCurrentUserInformation] =
+    useState<UserInformation | null>(null);
   const [searchUsername, setSearchUsername] = useState("");
-  const [searchResult, setSearchResult] = useState<UserInformation | null>(null);
+  const [searchResult, setSearchResult] = useState<UserInformation | null>(
+    null
+  );
   const [messageContent, setMessageContent] = useState("");
   const [showDialogBox, setShowDialogBox] = useState(false);
+  const [listPosts, setListPosts] = useState<Post[]>([]);
+  const [listPostInformation, setListPostInformation] = useState<
+    PostInformation[]
+  >([]);
+  const [listUserPosts, setListUserPosts] = useState<PostInformation[]>([]);
+
+  useEffect(() => {
+    axios.get<Post[]>(`http://localhost:3081/api/post`).then((response) => {
+      setListPosts(response.data);
+    });
+
+    axios.get(`http://localhost:3081/api/postinformation`)
+    .then((response) => {
+      const postInformationArray = response.data.filter((postInfo:any) => postInfo !== undefined);
+      setListPostInformation(postInformationArray);
+    });
+  }, []);
+
+  const filteredPosts = listPosts.filter(
+    (post) => post.User_Id === currentUserInformation?.UserInformation_Id
+  );
+  if(filteredPosts){
+    const postInformation = filteredPosts.map((post) =>
+    listPostInformation.find(
+      (info) => info?.PostInformation_Id === post.Post_Id
+    ));
+    if(postInformation){
+      setListUserPosts(postInformation);
+    }
+  }
 
   useEffect(() => {
     const username = localStorage.getItem("username");
-
     if (username) {
       axios
         .get(`http://localhost:3081/api/getuserid/${username}`)
         .then((response) => {
           const userId = response.data;
-          return axios.get(`http://localhost:3081/api/userinformation/${userId}`);
+          return axios.get(
+            `http://localhost:3081/api/userinformation/${userId}`
+          );
         })
         .then((response) => {
           setCurrentUserInformation(response.data);
@@ -112,7 +174,10 @@ const ProfilePage: React.FC = () => {
               />
             )}
             {!showDialogBox && (
-              <button className="send-message-button" onClick={handleOpenDialogBox}>
+              <button
+                className="send-message-button"
+                onClick={handleOpenDialogBox}
+              >
                 Send Message
               </button>
             )}
@@ -124,8 +189,7 @@ const ProfilePage: React.FC = () => {
             <strong>
               <h1>{currentUserInformation.UserInformation_Name}</h1>
             </strong>
-            <div className="badge-container">
-            </div>
+            <div className="badge-container"></div>
           </div>
           <div className="user-details">
             <p>
@@ -138,21 +202,32 @@ const ProfilePage: React.FC = () => {
             </p>
           </div>
           <span
-                style={{
-                  backgroundColor: getUserTypeColor(
-                    currentUserInformation.UserType_Id
-                  ),
-                  borderRadius: "9999px",
-                  color: "white",
-                  display: "inline-block",
-                  padding: "4px 8px",
-                  fontWeight: "bold",
-                  fontSize: "14px",
-                  textTransform: "uppercase",
-                }}
-              >
-                {getUserType(currentUserInformation.UserType_Id)}
+            style={{
+              backgroundColor: getUserTypeColor(
+                currentUserInformation.UserType_Id
+              ),
+              borderRadius: "9999px",
+              color: "white",
+              display: "inline-block",
+              padding: "4px 8px",
+              fontWeight: "bold",
+              fontSize: "14px",
+              textTransform: "uppercase",
+            }}
+          >
+            {getUserType(currentUserInformation.UserType_Id)}
           </span>
+
+          {/* <div>
+            {
+              listUserPosts.map((post) => (
+                <div key={post.PostInformation_Id}>
+                  <h3>{post.PostInformation_Title}</h3>
+                  <p>{post.PostInformation_Content}</p>
+                </div>
+              ))
+            }
+          </div> */}
         </div>
       ) : (
         <div className="loading-container">
@@ -161,9 +236,7 @@ const ProfilePage: React.FC = () => {
       )}
     </div>
   );
-  
-  
-}
+};
 
 const getUserTypeColor = (userTypeId: number) => {
   switch (userTypeId) {
