@@ -1,8 +1,12 @@
-import { Post, PostCategory, PostInformation, PostStats } from "../models/PostModel";
+import {
+  Post,
+  PostCategory,
+  PostInformation,
+  PostStats,
+} from "../models/PostModel";
 import { PostRepository } from "../repositories/PostRepository";
 
 export class PostService {
-
   private postRepository: PostRepository;
 
   constructor() {
@@ -32,11 +36,27 @@ export class PostService {
     return await this.postRepository.getPostStatsById(PostStats_Id);
   }
 
-  async createPost(post: Post, postInformation: PostInformation, postStats: PostStats) {
-    return await this.postRepository.createPost(post, postInformation, postStats);
+  async createPost(
+    post: Post,
+    postInformation: PostInformation,
+    postStats: PostStats,
+    postCat: PostCategory
+  ) {
+    return await this.postRepository.createPost(
+      post,
+      postInformation,
+      postStats,
+      postCat
+    );
   }
-  async createPostInformation(postinformation: PostInformation, poststats: PostStats) {
-    return await this.postRepository.createPostInformation(postinformation, poststats);
+  async createPostInformation(
+    postinformation: PostInformation,
+    poststats: PostStats
+  ) {
+    return await this.postRepository.createPostInformation(
+      postinformation,
+      poststats
+    );
   }
   async createPostCategory(postCategory: PostCategory) {
     return await this.postRepository.createPostCategory(postCategory);
@@ -45,8 +65,16 @@ export class PostService {
     return await this.postRepository.createPostStats(postStats);
   }
 
-  async updatePost(post: Post, postInformation: PostInformation, postStats: PostStats) {
-    return await this.postRepository.updatePost(post, postInformation, postStats);
+  async updatePost(
+    post: Post,
+    postInformation: PostInformation,
+    postStats: PostStats
+  ) {
+    return await this.postRepository.updatePost(
+      post,
+      postInformation,
+      postStats
+    );
   }
 
   async updatePostInformation(postinformation: PostInformation) {
@@ -75,6 +103,6 @@ export class PostService {
   }
 
   async postUpvoteTracker(Post: Post, User_Id: number) {
-		return await this.postRepository.postUpvoteTracker(Post, User_Id);
-	}
+    return await this.postRepository.postUpvoteTracker(Post, User_Id);
+  }
 }

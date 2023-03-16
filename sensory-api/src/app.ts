@@ -98,7 +98,12 @@ class App {
     });
     this.express.post("/api/post", (req, res) => {
       this.postController
-        .createPost(req.body.post, req.body.postInformation, req.body.postStats)
+        .createPost(
+          req.body.post,
+          req.body.postInformation,
+          req.body.postStats,
+          req.body.postCat
+        )
         .then((data: any) => res.json(data));
     });
     this.express.put("/api/post", (req, res) => {

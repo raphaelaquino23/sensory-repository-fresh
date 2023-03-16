@@ -5,7 +5,7 @@ import NotNavbar from "./components/__NAVBAR__";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/HomePage";
 import Article from "./pages/ArticlePage";
-import User from "./pages/UserManagement copy";
+import UserManagement from "./pages/UserManagement copy";
 import ArticleUser from "./pages/ArticleUserPage";
 import Campaign from "./pages/CampaignPage";
 import ArticleOptions from "./pages/ArticleOptions";
@@ -152,6 +152,10 @@ function App() {
             element={thisToken ? <UserProfile /> : <Home />}
           />
           <Route path="/user" element={thisToken ? <UserView /> : <LogIn />} />
+          <Route
+            path="/usermanage"
+            element={thisToken ? <UserManagement /> : <LogIn />}
+          />
         </Routes>
       </AuthProvider>
     </Router>

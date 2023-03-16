@@ -41,6 +41,18 @@ export class PostRepository {
     }
   }
 
+  async getPostCategoryToMap() {
+    let data;
+    try {
+      const postInfoId = await this.postRepository.findOne({
+        where: {},
+      });
+    } catch (error) {
+      winstonLogger.error("Error", error);
+    }
+    return data;
+  }
+
   async getPostById(Post_Id: number) {
     try {
       const posts = await this.postRepository.findOne({
@@ -57,10 +69,12 @@ export class PostRepository {
   async createPost(
     post: Post,
     postInformation: PostInformation,
-    postStats: PostStats
+    postStats: PostStats,
+    postCat: PostCategory
   ) {
     let pInfo,
       pStats,
+      pCat,
       data = {};
     try {
       post.Post_DateCreated = new Date();
@@ -68,6 +82,8 @@ export class PostRepository {
       post.PostInformation_Id = pInfo.getDataValue("PostInformation_Id");
       pStats = await this.postStatsRepository.create(postStats);
       post.PostStats_Id = pStats.getDataValue("PostStats_Id");
+      pCat = await this.postCategoryRepository.create(postCat);
+      postInformation.PostCategory_Id = pCat.getDataValue("PostCategory_Id");
       data = await this.postRepository.create(post);
       //       INSERT INTO "Posts" ("Post_Id","PostInformation_Id","PostStats_Id","Post_DateCreated","User_Id","Post_DeactivatedStatus",
       //        "Post_DeactivatedBy") VALUES (DEFAULT,$1,$2,$3,$4,$5,$6) RETURNING "Post_Id","PostInformation_Id","PostStats_Id","Post_DateCreated",

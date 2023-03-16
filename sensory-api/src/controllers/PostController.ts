@@ -51,10 +51,22 @@ export class PostController {
   async createPost(
     post: Post,
     postInformation: PostInformation,
-    postStats: PostStats
+    postStats: PostStats,
+    postCat: PostCategory
   ) {
-    winstonLogger.info("Controller: createPost", post);
-    return await this.postService.createPost(post, postInformation, postStats);
+    winstonLogger.info(
+      "Controller: createPost",
+      post,
+      postInformation,
+      postStats,
+      postCat
+    );
+    return await this.postService.createPost(
+      post,
+      postInformation,
+      postStats,
+      postCat
+    );
   }
 
   async createPostInformation(
