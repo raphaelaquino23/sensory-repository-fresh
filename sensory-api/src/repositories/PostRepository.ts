@@ -346,4 +346,17 @@ export class PostRepository {
 		}
 		return data;
 	}
+
+  async getPostInformationByUserId(User_Id: number) {
+    try {
+      const post = await this.postRepository.findOne({where: {User_Id: User_Id}});
+      const postInformation = await this.postInformationRepository.findAll({ where: {PostInformation_Id: post.PostInformation_Id }});
+      console.log('postStatsId::: ', postInformation);
+      return postInformation;
+    } catch (error) {
+      console.log("error");
+      return [];
+    }
+  }
+
 }

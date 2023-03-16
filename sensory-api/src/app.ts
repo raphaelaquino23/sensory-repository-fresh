@@ -109,6 +109,9 @@ class App {
     this.express.get('/api/postinformation/:id', (req, res) => {
       this.postController.getPostInformationById(parseInt(req.params.id)).then((data: any) => res.json(data));
     });
+		this.express.get('/api/postinformation/:id', (req, res) => {
+      this.postController.getPostInformationByUserId(parseInt(req.params.id)).then((data: any) => res.json(data));
+    });
     this.express.put('/api/postinformation', (req, res) => {
       this.postController.updatePostInformation(req.body.postinformation).then((data: any) => res.json(data));
     })
