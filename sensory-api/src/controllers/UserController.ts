@@ -72,7 +72,7 @@ export class UserController {
   }
 
   async updateUser(user: User, userInformation: UserInformation) {
-    winstonLogger.info("Controller: updateUser", null);
+    this.logger.info("Controller: updateUser", null);
     return await this.userService.updateUser(user, userInformation);
   }
 
@@ -87,7 +87,7 @@ export class UserController {
   }
 
   async updateUserInformationUserTypeId(userTypeId: number, userId: number) {
-    winstonLogger.info("Controller: updateUserInformationUserTypeId", null);
+    this.logger.info("Controller: updateUserInformationUserTypeId", null);
     return await this.userService.updateUserInformationUserType(
       userTypeId,
       userId
@@ -95,7 +95,7 @@ export class UserController {
   }
 
   async updateApplication(application: Application) {
-    winstonLogger.info("Controller: updateApplication", null);
+    this.logger.info("Controller: updateApplication", null);
     return await this.userService.updateApplication(application);
   }
 

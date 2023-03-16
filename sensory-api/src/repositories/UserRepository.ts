@@ -1,5 +1,6 @@
 import { connect } from "../config/db.config";
 import { APILogger } from "../logger/api.logger";
+import { winstonLogger } from "../logger/winston.logger";
 import {
   User,
   UserInformation,
@@ -178,7 +179,7 @@ export class UserRepository {
       console.log("UserType::: ", thisUserType);
       return Users;
     } catch (error) {
-      console.log(error);
+      winstonLogger.error("Error", error);
       return [];
     }
   }
@@ -189,7 +190,7 @@ export class UserRepository {
       console.log("Userinformation::: ", Userinformation);
       return Userinformation;
     } catch (error) {
-      console.log(error);
+      winstonLogger.error("Error", error);
       return [];
     }
   }
@@ -200,7 +201,7 @@ export class UserRepository {
       console.log("Users::: ", Users);
       return Users;
     } catch (error) {
-      console.log(error);
+      winstonLogger.error("Error", error);
       return [];
     }
   }
@@ -213,7 +214,7 @@ export class UserRepository {
       console.log("User by ID:: ", User);
       return User;
     } catch (error) {
-      console.log(error);
+      winstonLogger.error("Error", error);
       return [];
     }
   }
@@ -308,7 +309,7 @@ export class UserRepository {
       console.log("Userinformation::: ", Userinformation);
       return Userinformation;
     } catch (error) {
-      console.log(error);
+      winstonLogger.error("Error", error);
       return [];
     }
   }
@@ -321,7 +322,7 @@ export class UserRepository {
       console.log("User by ID:: ", Userinformation);
       return Userinformation;
     } catch (error) {
-      console.log(error);
+      winstonLogger.error("Error", error);
       return [];
     }
   }
@@ -391,7 +392,7 @@ export class UserRepository {
       console.log("User Type::: ", UserType);
       return UserType;
     } catch (error) {
-      console.log(error);
+      winstonLogger.error("Error", error);
       return [];
     }
   }
@@ -404,7 +405,7 @@ export class UserRepository {
       console.log("User by ID:: ", UserType);
       return UserType;
     } catch (error) {
-      console.log(error);
+      winstonLogger.error("Error", error);
       return [];
     }
   }
@@ -459,7 +460,7 @@ export class UserRepository {
       console.log("Applications::: ", Application);
       return Application;
     } catch (error) {
-      console.log(error);
+      winstonLogger.error("Error", error);
       return [];
     }
   }
