@@ -83,6 +83,12 @@ const ProfilePage: React.FC = () => {
         <div className="user-container">
           <div className="user-info">
             <h1>{searchResult.UserInformation_Name}</h1>
+          </div>
+          <div className="user-details">
+            <p>
+              <strong>Description:</strong>{" "}
+              {searchResult.UserInformation_Description}
+            </p>
             <div className="badge-container">
               <span
                 style={{
@@ -99,15 +105,6 @@ const ProfilePage: React.FC = () => {
                 {getUserType(searchResult.UserType_Id)}
               </span>
             </div>
-          </div>
-          <div className="user-details">
-            <p>
-              <strong>Email:</strong> {searchResult.UserInformation_Email}
-            </p>
-            <p>
-              <strong>Description:</strong>{" "}
-              {searchResult.UserInformation_Description}
-            </p>
             {showDialogBox && (
               <MessageForm
                 currentUsername={searchResult.UserInformation_Name}
@@ -132,8 +129,12 @@ const ProfilePage: React.FC = () => {
           </div>
           <div className="user-details">
             <p>
-              <strong>Description:</strong>{" "}
+              <strong>Your Description:</strong>{" "}
               {currentUserInformation.UserInformation_Description}
+            </p>
+            <p>
+              <strong>Your Email:</strong>{" "}
+              {currentUserInformation.UserInformation_Email}
             </p>
           </div>
           <span
