@@ -48,6 +48,12 @@ export class UserController {
     return await this.userService.getUserTypeById(UserType_Id);
   }
 
+  
+  async getApplication(){
+    this.logger.info('Controller: getApplication', null)
+    return await this.userService.getApplication();
+  }
+
   async createUser(user: User){
     this.logger.info('Controller: createUser', null)
     return await this.userService.createUser(user);

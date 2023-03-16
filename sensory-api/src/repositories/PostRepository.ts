@@ -1,6 +1,7 @@
 import { connect } from "../config/db.config";
 import { APILogger } from "../logger/api.logger";
 import { Post, PostInformation, PostCategory, PostStats, PostUpvoteTracker } from "../models/PostModel";
+import { User } from "../models/UserModel";
 
 export class PostRepository {
 
@@ -346,4 +347,20 @@ export class PostRepository {
 		}
 		return data;
 	}
+
+  async getPostInformationByUserId(User_Id: number) {
+    try {
+      const post = await this.postRepository.findAll({ 
+        where: {
+          User_Id: User_Id
+        }
+      });
+      console.log('postStatsId::: ', post);
+      return post;
+    } catch (error) {
+      console.log("error");
+      return [];
+    }
+  }
+
 }

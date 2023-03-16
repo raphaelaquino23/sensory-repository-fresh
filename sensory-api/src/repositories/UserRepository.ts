@@ -371,7 +371,7 @@ export class UserRepository {
       Application.Application_DateSubmitted = new Date();
       data = await this.applicationRepository.create(Application);
     } catch (error) {
-      this.logger.error('Error:: ' + error);
+      console.log(error);
     }
     return data;
   }
@@ -385,7 +385,7 @@ export class UserRepository {
         }
       });
     } catch (error) {
-      this.logger.error('Error::' + error);
+      console.log(error);
     }
     return data;
   }
@@ -399,7 +399,7 @@ export class UserRepository {
         }
       })
     } catch (error) {
-      this.logger.error('Error:: ' + error);
+      console.log(error);
     }
     return data;
   }

@@ -3,6 +3,7 @@ import axios from "axios";
 import { Box, Center, Text, Button, Badge, VStack, Input, InputGroup, InputLeftElement, IconButton } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import './styles/UserProfile.css'
+import MessageForm from "./ProfileSendMessage";
 
 
 interface UserInformation {
@@ -19,6 +20,7 @@ const ProfilePage: React.FC = () => {
   const [searchUsername, setSearchUsername] = useState("");
   const [searchResult, setSearchResult] = useState<UserInformation | null>(null);
   const [messageContent, setMessageContent] = useState("");
+  const [showDialogBox, setShowDialogBox] = useState(false);
 
   useEffect(() => {
     const username = localStorage.getItem("username");
@@ -54,21 +56,12 @@ const ProfilePage: React.FC = () => {
       });
   };
 
-  const handleSendMessage = () => {
-    // const messageObject = {
-    //   message: { Message_Content: messageContent },
-    //   SenderName: localStorage.getItem("username"),
-    //   ReceiverName: searchResult?.UserInformation_Name,
-    // };
-    // axios
-    //   .post("http://localhost:3081/api/message", messageObject)
-    //   .then((response) => {
-    //     console.log("Message sent successfully");
-    //     setMessageContent("");
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error sending message: ", error);
-    //   });
+  const handleCloseDialogBox = () => {
+    setShowDialogBox(false);
+  };
+
+  const handleOpenDialogBox = () => {
+    setShowDialogBox(true);
   };
 
   return (
@@ -90,64 +83,76 @@ const ProfilePage: React.FC = () => {
         <div className="user-container">
           <div className="user-info">
             <h1>{searchResult.UserInformation_Name}</h1>
-            <div className="badge-container">
-            <span 
-              style={{ 
-                backgroundColor: getUserTypeColor(searchResult.UserType_Id), 
-                borderRadius: '9999px', 
-                color: 'white', 
-                display: 'inline-block', 
-                padding: '4px 8px', 
-                fontWeight: 'bold', 
-                fontSize: '14px', 
-                textTransform: 'uppercase' 
-              }}
-            >
-              {getUserType(searchResult.UserType_Id)}
-            </span>
-            </div>
           </div>
           <div className="user-details">
             <p>
-              <strong>Email:</strong> {searchResult.UserInformation_Email}
+              <strong>Description:</strong>{" "}
+              {searchResult.UserInformation_Description}
             </p>
-            <p>
-              <strong>Description:</strong> {searchResult.UserInformation_Description}
-            </p>
-            <button className="send-message-button" onClick={handleSendMessage}>
-              Send Message
-            </button>
+            <div className="badge-container">
+              <span
+                style={{
+                  backgroundColor: getUserTypeColor(searchResult.UserType_Id),
+                  borderRadius: "9999px",
+                  color: "white",
+                  display: "inline-block",
+                  padding: "4px 8px",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                  textTransform: "uppercase",
+                }}
+              >
+                {getUserType(searchResult.UserType_Id)}
+              </span>
+            </div>
+            {showDialogBox && (
+              <MessageForm
+                currentUsername={searchResult.UserInformation_Name}
+                onClose={handleCloseDialogBox}
+              />
+            )}
+            {!showDialogBox && (
+              <button className="send-message-button" onClick={handleOpenDialogBox}>
+                Send Message
+              </button>
+            )}
           </div>
         </div>
       ) : currentUserInformation ? (
         <div className="user-container">
           <div className="user-info">
-            <strong><h1>{currentUserInformation.UserInformation_Name}</h1></strong>
+            <strong>
+              <h1>{currentUserInformation.UserInformation_Name}</h1>
+            </strong>
             <div className="badge-container">
-              <span 
-              style={{ 
-                backgroundColor: getUserTypeColor(currentUserInformation.UserType_Id), 
-                borderRadius: '9999px', 
-                color: 'white', 
-                display: 'inline-block', 
-                padding: '4px 8px', 
-                fontWeight: 'bold', 
-                fontSize: '14px', 
-                textTransform: 'uppercase' 
-              }}
-            >
-              {getUserType(currentUserInformation.UserType_Id)}
-            </span>
             </div>
           </div>
           <div className="user-details">
             <p>
-              <strong>Email:</strong> {currentUserInformation.UserInformation_Email}
+              <strong>Your Description:</strong>{" "}
+              {currentUserInformation.UserInformation_Description}
             </p>
             <p>
-              <strong>Description:</strong> {currentUserInformation.UserInformation_Description}
+              <strong>Your Email:</strong>{" "}
+              {currentUserInformation.UserInformation_Email}
             </p>
           </div>
+          <span
+                style={{
+                  backgroundColor: getUserTypeColor(
+                    currentUserInformation.UserType_Id
+                  ),
+                  borderRadius: "9999px",
+                  color: "white",
+                  display: "inline-block",
+                  padding: "4px 8px",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                  textTransform: "uppercase",
+                }}
+              >
+                {getUserType(currentUserInformation.UserType_Id)}
+          </span>
         </div>
       ) : (
         <div className="loading-container">
