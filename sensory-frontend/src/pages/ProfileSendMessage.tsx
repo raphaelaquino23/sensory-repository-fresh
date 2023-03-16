@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MessageService from "../services/MessageService";
+import "./styles/ProfileSendMessage.css";
 
 type MessageFormProps = {
   currentUsername: string;
@@ -74,20 +75,20 @@ const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
   };
 
   return (
-    <div>
+    <div className="message-form-container">
       <form onSubmit={handleSubmit}>
-        <label>
+        <label className="message-form-label">
           Subject:
-          <input type="text" value={subject} onChange={handleSubjectChange} />
+          <input className="message-form-input" type="text" value={message} onChange={handleSubjectChange} />
         </label>
-        <label>
+        <label className="message-form-label">
           Message:
-          <input type="text" value={message} onChange={handleContentChange} />
+          <input className="message-form-input" type="text" value={message} onChange={handleContentChange} />
         </label>
-        <button type="submit">Send Message</button>
-        <button type="button" onClick={onClose}>
-          Cancel
-        </button>
+        <div className="message-form-buttons">
+          <button className="message-form-button" type="submit">Send Message</button>
+          <button className="message-form-button" type="button" onClick={onClose}>Cancel</button>
+        </div>
       </form>
     </div>
   );

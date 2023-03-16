@@ -1,0 +1,41 @@
+.message-form-container {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.message-form-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.message-form-input {
+  display: block;
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.message-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.message-form-button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.message-form-button:hover {
+  background-color: #0069d9;
+}
