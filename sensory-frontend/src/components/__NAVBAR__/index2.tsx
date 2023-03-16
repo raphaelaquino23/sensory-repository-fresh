@@ -78,7 +78,7 @@ const Navbar = () => {
   					height: "100%",
 					}}>
           <NavDropdown.Item href="/profile" style={{color: "black"}}>My Profile</NavDropdown.Item>
-            <NavDropdown.Item href="/logout" style={{color: "black"}} onClick={logout}>
+            <NavDropdown.Item href="/" style={{color: "black"}} onClick={logout}>
               Log Out 
             </NavDropdown.Item>
           </NavDropdown>
