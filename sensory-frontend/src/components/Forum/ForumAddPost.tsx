@@ -14,7 +14,7 @@ const AddPost = () => {
   const [postinformation, setNewPostInformation] = useState({
     PostInformation_Title: "",
     PostInformation_Content: "",
-    PostCategory_Title: "",
+    PostCategory_Title: "Select Category",
   });
   const [selectedItem, setSelectedItem] = useState("");
 
@@ -158,17 +158,23 @@ const AddPost = () => {
       </Form.Group>
       <Form.Group>
         <Form.Select
-          size="lg"
+          style={{ width: "310px" }}
+          defaultValue={""}
+          placeholder={"Select Category"}
           onChange={(e) => {
             setSelectedItem(e.target.value);
           }}
         >
+          <option hidden value="">
+            Select Category
+          </option>
           <option value={"General"}>General</option>
           <option value={"News"}>News</option>
           <option value={"Update"}>Update</option>
           <option value={"Help"}>Help</option>
           <option value={"Question"}>Question</option>
         </Form.Select>
+        <br />
       </Form.Group>
 
       <Button variant="success" type="submit" style={{ width: "310px" }}>
