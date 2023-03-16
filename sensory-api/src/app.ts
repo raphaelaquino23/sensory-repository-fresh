@@ -553,6 +553,21 @@ class App {
 			}))
 		});
 
+    // Comment Stats
+		this.express.get('/api/application', (req, res) => {
+			this.userController.getApplication().then(data => res.json(data));
+		});
+		this.express.post('/api/application', (req, res) => {
+			this.userController.createApplication(req.body.application).then(data => res.json(data));
+		});
+		this.express.put('/api/application', (req, res) => {
+			this.userController.updateApplication(req.body.application).then(data => res.json(data));
+		});
+		this.express.delete('/api/application/:id', (req, res) => {
+			this.userController.deleteApplication(parseInt(req.params.id)).then(data => res.json(data));
+		});
+
+
     // swagger docs
     this.express.use('/api/docs', swaggerUi.serve,
     swaggerUi.setup(this.swaggerDocument, undefined, this.customCss));
