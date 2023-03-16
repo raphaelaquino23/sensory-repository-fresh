@@ -128,7 +128,15 @@ const ProfilePage: React.FC = () => {
               <h1>{currentUserInformation.UserInformation_Name}</h1>
             </strong>
             <div className="badge-container">
-              <span
+            </div>
+          </div>
+          <div className="user-details">
+            <p>
+              <strong>Description:</strong>{" "}
+              {currentUserInformation.UserInformation_Description}
+            </p>
+          </div>
+          <span
                 style={{
                   backgroundColor: getUserTypeColor(
                     currentUserInformation.UserType_Id
@@ -143,19 +151,7 @@ const ProfilePage: React.FC = () => {
                 }}
               >
                 {getUserType(currentUserInformation.UserType_Id)}
-              </span>
-            </div>
-          </div>
-          <div className="user-details">
-            <p>
-              <strong>Email:</strong>{" "}
-              {currentUserInformation.UserInformation_Email}
-            </p>
-            <p>
-              <strong>Description:</strong>{" "}
-              {currentUserInformation.UserInformation_Description}
-            </p>
-          </div>
+          </span>
         </div>
       ) : (
         <div className="loading-container">
