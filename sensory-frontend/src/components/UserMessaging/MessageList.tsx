@@ -101,11 +101,6 @@ const PostList = () => {
 				<Modal.Body>
 					<AddMessage />
 				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
-						Close Button
-					</Button>
-				</Modal.Footer>
 			</Modal>
 		</>
 	)

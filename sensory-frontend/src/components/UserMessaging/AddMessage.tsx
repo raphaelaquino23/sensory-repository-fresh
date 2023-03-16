@@ -7,7 +7,6 @@ const AddMessage = () => {
   const [newMessage, setNewMessage] = useState({
     sender:"",
 		receiver: "",
-		subject: "",
 		content: "",
   });
 
@@ -15,7 +14,7 @@ const AddMessage = () => {
     setNewMessage({...newMessage,[e.target.name]: e.target.value})
   };
 
-  const {sender, receiver, subject, content} = newMessage;
+  const {sender, receiver, content} = newMessage;
 
   const handleSubmit = async (e: React.ChangeEvent<any>) => {
     e.preventDefault();
@@ -36,8 +35,9 @@ const AddMessage = () => {
 			<Form.Group>
 				<Form.Control
 					type="text"
-					placeholder=" To: *"
+					placeholder="Recipient"
 					name="receiver"
+					style={{width: "350px"}}
 					value={receiver}
 					onChange = { (e) => onInputChange(e)}
 					required
@@ -45,22 +45,14 @@ const AddMessage = () => {
 			</Form.Group>
 			<Form.Group>
 				<Form.Control
-					type="text"
-					placeholder=" Subject *"
-					name="subject"
-					value={subject}
-					onChange = { (e) => onInputChange(e)}
-					required
-				/>
-			</Form.Group>
-			<Form.Group>
-				<Form.Control
 					as="textarea"
-					placeholder="Message *"
+					placeholder="Message"
 					rows={5} //changed row to rows
 					name="content"
 					value={content}
+					style={{width: "350px"}}
 					onChange = { (e) => onInputChange(e)}
+					required
 				/>
 			</Form.Group>
 				<Button variant="success" type="submit">
