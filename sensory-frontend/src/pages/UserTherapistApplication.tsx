@@ -32,7 +32,7 @@ const TherapistApplication = () => {
                 </legend>
               </div>
               <div className='card-body'>
-                Full Name:&nbsp;
+                Full Name (Last, First Middle):&nbsp;
                 <input
                   type='text'
                   name='name'

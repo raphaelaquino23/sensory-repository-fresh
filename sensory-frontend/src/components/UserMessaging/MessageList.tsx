@@ -6,7 +6,7 @@ import AddMessage from './AddMessage';
 import { axiosPrivate } from '../../api/axios';
 // import PostPagination from './PostPagination';
 
-const PostList = () => {
+const MessageList = () => {
 	const {sortedMessages} = useContext(MessageContext);
 
 	const [listMessage, setListMessage] = useState<any[]>([]);
@@ -42,6 +42,12 @@ const PostList = () => {
 		});
 	}
 
+	
+
+	const handleSearchMessage = (event: React.ChangeEvent<any>) => {
+		setSearch(event.target.value)
+	  }
+
 	useEffect(() => {
 		axiosPrivate.get(`http://localhost:3081/api/getuserid/${localStorage.getItem("username")}`).then(response => {
 			setId(response.data);
@@ -68,22 +74,54 @@ const PostList = () => {
 				</div>
 			</div>
 
+			<input 
+                className="inpt" 
+                placeholder="Search" 
+                style={{border: "2px solid black"}} 
+                value={search} 
+                onChange={handleSearchMessage}
+      />
+
 			<table className="table table-striped table-hover">
 				<thead>
 					<tr>
 						<th>Sender</th>
 						<th>Receiver</th>
 						<th>Content</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
-					{
+					{listMessage
+            .filter((message: { sender: string, receiver: string, Message_Content: string }) => {
+              if(message) {
+                if (search === "") {
+                  return message;
+                } else if (
+                    // message.sender.toLowerCase().includes(search.toLowerCase()) ||
+                    // message.receiver.toLowerCase().includes(search.toLowerCase()) ||
+                    message.Message_Content.toLowerCase().includes(search.toLowerCase())
+                ) {
+                  return message;
+                }
+              }
+            })
+            .map(
+              (
+                message: { Message_Id: Key | null | undefined}
+              ) => (
+                <tr key={message.Message_Id}>
+                  <Message message={message} />
+                </tr>
+              )
+            )}
+					{/* {
 						listMessage.map((message: { Message_Id: Key | null | undefined; }) => (
 							<tr key={message.Message_Id}>
               	<Message message={message} />
             	</tr>
 						))
-					}
+					} */}
 				</tbody>
 			</table>
 
@@ -106,4 +144,4 @@ const PostList = () => {
 	)
 }
 
-export default PostList;
+export default MessageList;
