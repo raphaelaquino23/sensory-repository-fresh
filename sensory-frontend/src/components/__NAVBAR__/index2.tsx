@@ -59,9 +59,6 @@ const Navbar = () => {
           <NavLink to='/forum'>
             Forum
           </NavLink>
-          <NavLink to='/forum-admin'>
-            Forum Management
-          </NavLink>
           <NavLink to='/message'>
             Messenger
           </NavLink>

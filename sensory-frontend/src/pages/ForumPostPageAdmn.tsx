@@ -1,9 +1,9 @@
 import PostContextProvider from '../contexts/PostContext';
-import PostList from '../components/Forum/ForumPostList';
+import PostList from '../components/Forum/ForumPostListAdmin';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '../theme';
 
-function UserForum() {
+function ForumAdmin() {
   return (
     <ChakraProvider resetCSS theme={theme}>
       <div className='container-xl'>
@@ -19,4 +19,4 @@ function UserForum() {
   );
 }
 
-export default UserForum;
+export default ForumAdmin;

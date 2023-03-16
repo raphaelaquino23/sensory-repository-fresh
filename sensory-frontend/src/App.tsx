@@ -8,7 +8,8 @@ import Article from './pages/ArticlePage';
 import ArticleUser from './pages/ArticleUserPage'
 import Campaign from './pages/CampaignPage';
 import ArticleOptions from './pages/ArticleOptions';
-import UserForum from './pages/ForumPostPage';
+import ForumAdmin from './pages/ForumPostPageAdmn';
+import ForumUser from './pages/ForumPostPageUser';
 import AdminForum from './pages/ForumPostAdminPage';
 import CampaignActivityPage from './pages/CampaignActivityPage';
 import Logout from './pages/UserLogoutPage';
@@ -54,7 +55,8 @@ function App() {
 				<Route path='/news-search' element={thisToken? <NewsSearch/> : <LogIn/>} />
         <Route path='/campaign' element={thisToken? <Campaign/> : <LogIn/>} />
 		<Route path='/ArticleOptions' element={thisToken? <ArticleOptions/> : <LogIn/>} />
-        <Route path='/forum' element={thisToken? <UserForum/>: <LogIn/>} />
+        <Route path='/forum' element={thisToken && (thisUserType === "2")? <ForumAdmin/>: <ForumUser/>} />
+		<Route path='/forumforuser' element={thisToken && (thisUserType === "2")? <ForumAdmin/>: <ForumUser/>} />
         <Route path='/forum-admin' element={thisToken && (thisUserType === "2")? <AdminForum/>: <LogIn/>} />
         <Route path='/postdetail' element={<PostDetailPage/>} />
         <Route path='/activity' element={thisToken && (thisUserType === "2")? <CampaignActivityPage/>: <ActivityInfo/>} /> 
