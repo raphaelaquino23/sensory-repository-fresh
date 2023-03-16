@@ -47,16 +47,34 @@ const CommentList = ({ comment }: { comment: any }) => {
         </Grid>
         <Grid justifyContent="left" item xs zeroMinWidth>
         <HStack mb={2} spacing={4}>
-            <Badge
-              fontSize="sm"
-              colorScheme={getUserTypeColor(commentUserType)}
-              shadow="md"
+            <span 
+              style={{ 
+                backgroundColor: 'grey', 
+                borderRadius: '9999px', 
+                color: 'white', 
+                display: 'inline-block', 
+                padding: '4px 8px', 
+                fontWeight: 'bold', 
+                fontSize: '14px', 
+                textTransform: 'uppercase' 
+              }}
             >
-            {commentUser}
-            </Badge>
-            <Tag color="grey" shadow="md">
-              {getUserType(commentUserType)}
-            </Tag>
+              {commentUser}
+            </span>
+            <span 
+              style={{ 
+                backgroundColor: getUserTypeColor(commentUserType), 
+                borderRadius: '9999px', 
+                color: 'white', 
+                display: 'inline-block', 
+                padding: '4px 8px', 
+                fontSize: '14px', 
+                fontWeight: 'bold', 
+                textTransform: 'uppercase' 
+              }}
+            >
+            {getUserType(commentUserType)}
+            </span>
           </HStack>
           <p style={{ textAlign: "left" }}>
             {commentDir ? filter.clean(commentDir) : ''}
