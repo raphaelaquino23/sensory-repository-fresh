@@ -33,6 +33,11 @@ export class PostController {
     return await this.postService.getPostInformationById(PostInformation_Id);
   }
 
+  async getPostInformationByUserId(User_Id: number) {
+    this.logger.info('Controller: getPostInformationByUserId', null)
+    return await this.postService.getPostInformationByUserId(User_Id);
+  }
+
   async getPostCategory() {
     winstonLogger.info("Controller: getPostInformation", null);
     return await this.postService.getPostCategory();

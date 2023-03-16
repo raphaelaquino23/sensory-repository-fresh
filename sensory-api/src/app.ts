@@ -128,9 +128,19 @@ class App {
         .getPostInformationById(parseInt(req.params.id))
         .then((data: any) => res.json(data));
     });
+    this.express.get("/api/postinformationbyuserid/:id", (req, res) => {
+      this.postController
+        .getPostInformationByUserId(parseInt(req.params.id))
+        .then((data: any) => res.json(data));
+    });
     this.express.put("/api/postinformation", (req, res) => {
       this.postController
         .updatePostInformation(req.body.postinformation)
+        .then((data: any) => res.json(data));
+    });
+    this.express.post("/api/postinformation", (req, res) => {
+      this.postController
+        .createPostInformation(req.body.postinformation, req.body.poststats)
         .then((data: any) => res.json(data));
     });
     this.express.post("/api/postinformation", (req, res) => {
@@ -762,6 +772,26 @@ class App {
       this.userController.getUserId(req.params.username).then((data) => {
         res.json(data);
       });
+    });
+
+    // Comment Stats
+    this.express.get("/api/application", (req, res) => {
+      this.userController.getApplication().then((data) => res.json(data));
+    });
+    this.express.post("/api/application", (req, res) => {
+      this.userController
+        .createApplication(req.body.application)
+        .then((data) => res.json(data));
+    });
+    this.express.put("/api/application", (req, res) => {
+      this.userController
+        .updateApplication(req.body.application)
+        .then((data) => res.json(data));
+    });
+    this.express.delete("/api/application/:id", (req, res) => {
+      this.userController
+        .deleteApplication(parseInt(req.params.id))
+        .then((data) => res.json(data));
     });
 
     // swagger docs
