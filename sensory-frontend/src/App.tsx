@@ -81,7 +81,7 @@ function App() {
           <Route
             path="/forum-admin"
             element={
-              thisToken && thisUserType === "2" ? <AdminForum /> : <LogIn />
+              thisToken && (thisUserType === "2" || thisUserType === "3") ? <AdminForum /> : <LogIn />
             }
           />
           <Route path="/postdetail" element={<PostDetailPage />} />
