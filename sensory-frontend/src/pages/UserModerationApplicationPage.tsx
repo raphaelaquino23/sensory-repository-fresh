@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import axios from '../api/axios';
 
 const RadioInput = ({
   label,
@@ -23,6 +24,15 @@ const RadioInput = ({
   );
 };
 
+interface UserInformation {
+  UserInformation_Id: number;
+  UserInformation_Name: string;
+  UserType_Id: number;
+  UserInformation_Password: string;
+  UserInformation_Email: string;
+  UserInformation_Description: string;
+}
+
 const ModeratorApplication = () => {
   const [siteModerator, setSiteModerator] = useState();
   const [role, setRole] = useState();
@@ -33,10 +43,46 @@ const ModeratorApplication = () => {
   });
   const [content, setContent] = useState("");
   const [tempContent, setTempContent] = useState('');
+  const [userId, setUserId] = useState(0);
+  const [currentUserInformation, setCurrentUserInformation] = useState<UserInformation | null>(null);
+
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+    axios
+    .get(`http://localhost:3081/api/getuserid/${username}`)
+    .then((response) => {
+      setUserId(response.data);
+      return axios.get(`http://localhost:3081/api/userinformation/${userId}`);
+    })
+    .then((response) => {
+      setCurrentUserInformation(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }, []);
 
   useEffect(() => {
     setContent(tempContent);
-  }, [tempContent]);
+  }, [tempContent])
+
+  const submitApplication = () => {
+    const applicationObject = {
+      application: {
+        User_Id: userId, 
+        UserType_Id: currentUserInformation?.UserType_Id, 
+        Application_Content: content,
+      }
+    }
+    axios
+    .post("http://localhost:3081/api/application/", applicationObject)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }
 
   const onInputChange = (e: React.ChangeEvent<any>) => {
     const { name, value } = e.target;
@@ -49,7 +95,7 @@ const ModeratorApplication = () => {
   const handleSubmit = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
     setContent(`${moderator.name}|${moderator.username}|${siteModerator}|${moderator.availability}|${role}`);
-    console.log(content);
+    submitApplication();
   };
 
   return (
