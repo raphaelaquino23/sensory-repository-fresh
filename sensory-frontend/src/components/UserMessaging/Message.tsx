@@ -52,14 +52,6 @@ const Message = ({message} : { message: any}) => {
           }>
             <button onClick={handleShow}  className="btn text-warning btn-act" data-toggle="modal"><i className="material-icons">&#xE254;</i></button>
         </OverlayTrigger> */}
-        <OverlayTrigger
-          overlay={
-            <Tooltip id={`tooltip-top`}>
-              Delete
-          	</Tooltip>
-          }>
-            <button onClick={() => deleteMessage(message.id)}  className="btn text-danger btn-act" data-toggle="modal"><i className="material-icons">&#xE872;</i></button>
-        </OverlayTrigger>
                 
       </td>
   	</>

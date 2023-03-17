@@ -14,11 +14,14 @@ const Terms = () => {
 				<p>Your use of the services and any content you share including adherence to all relevant laws, rules, and regulations, are your responsibility. Only submit posts that you feel confident sharing with others. We have the right to delete any content that violates policies such as impersonation, harassment, or infringement of copyright, or other intellectual property.
 				</p>
 				<p><b>4. Deactivation of Account</b></p>
-				<p>You may end your usage of SensAware anytime and permanently remove your account from the system immediately by clicking 
-					‘Deactivate account’ on the user profile page of the system. We may suspend or remove your account from the system if it was proven 
+				<p>We may suspend or remove your account from the system if it was proven 
 					that you <br /> 1.) Posted false information on the forum feature and its comments. <br /> 2.) Used foul languages when communicating with fellow 
 					users <br /> 3.) Harassed others through posts, comments, and personal messages. and <br /> 4.) Posted information not related to Sensory Processing 
-					Disorder. Termination is subject to investigation and you will be informed if your account will be terminated.</p>
+					Disorder. Termination is subject to investigation and you will be informed if your account will be deactivated.</p>
+				<p><b>5. Partner Organizations</b></p>
+				<p>Partner orgnaizations who are hosting campaign events will be able to access your information such as your username and Email
+					once you join an event on our Campaign Awareness page. Your information will only be used to help with the process of organizing the event of the host organization.
+				</p>
 			</div>
 		</div>
 	)

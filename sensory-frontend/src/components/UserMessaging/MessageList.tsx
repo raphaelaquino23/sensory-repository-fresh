@@ -78,7 +78,6 @@ const MessageList = () => {
 						<th>Sender</th>
 						<th>Receiver</th>
 						<th>Content</th>
-						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
