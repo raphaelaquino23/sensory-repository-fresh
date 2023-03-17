@@ -31,6 +31,7 @@
 .search-bar {
   flex-grow: 1;
   margin-right: 10px;
+  margin-bottom: 20px;
 }
 
 .search-button {
