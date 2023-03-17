@@ -147,7 +147,9 @@ const ProfilePage: React.FC = () => {
       {searchResult ? (
         <div className="user-container">
           <div className="user-info">
-            <h1>{searchResult.UserInformation_Name}</h1>
+            <h1>
+              <strong>You are viewing the profile of {searchResult.UserInformation_Name}</strong>
+            </h1>
           </div>
           <div className="user-details">
             <p>
