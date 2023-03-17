@@ -145,7 +145,7 @@ const TherapistApplication = () => {
                   style={{ marginTop: '10px' }}
                 />
                 <br />
-                <button type='submit' style={{ width: '470px' }}>
+                <button type='submit' style={{ width: '470px', display: 'block', margin: '0 auto' }}>
                   Submit
                 </button>
               </div>
