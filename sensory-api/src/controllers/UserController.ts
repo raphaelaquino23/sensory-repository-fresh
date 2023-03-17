@@ -1,9 +1,13 @@
 import { APILogger } from "../logger/api.logger";
-import { Application, User, UserInformation, UserType } from "../models/UserModel";
+import {
+  Application,
+  User,
+  UserInformation,
+  UserType,
+} from "../models/UserModel";
 import { UserService } from "../service/UserService";
 
 export class UserController {
-
   private userService: UserService;
   private logger: APILogger;
 
@@ -12,111 +16,115 @@ export class UserController {
     this.logger = new APILogger();
   }
 
-  async getUser(){
-    this.logger.info('Controller: getUser', null)
+  async getUser() {
+    this.logger.info("Controller: getUser", null);
     return await this.userService.getUser();
   }
 
-  async getUserById(User_Id: number){
-    this.logger.info('Controller: getUserById', null)
+  async getUserById(User_Id: number) {
+    this.logger.info("Controller: getUserById", null);
     return await this.userService.getUserById(User_Id);
   }
 
-  async getUserId(username: string){
-    this.logger.info('Controller: getUserId', null)
+  async getUserId(username: string) {
+    this.logger.info("Controller: getUserId", null);
     return await this.userService.getUserId(username);
   }
 
-  async getUserInformation(){
-    this.logger.info('Controller: getUserInformation', null)
+  async getUserInformation() {
+    this.logger.info("Controller: getUserInformation", null);
     return await this.userService.getUserInformation();
   }
-  
-  async getUserInformationById(id: number){
-    this.logger.info('Controller: getUserInformation', null)
+
+  async getUserInformationById(id: number) {
+    this.logger.info("Controller: getUserInformation", null);
     return await this.userService.getUserInformationById(id);
   }
 
-
-  async getUserType(){
-    this.logger.info('Controller: getUserType', null)
+  async getUserType() {
+    this.logger.info("Controller: getUserType", null);
     return await this.userService.getUserType();
   }
 
-  async getUserTypeById(UserType_Id: number){
-    this.logger.info('Controller: getUserTypeById', null)
+  async getUserTypeById(UserType_Id: number) {
+    this.logger.info("Controller: getUserTypeById", null);
     return await this.userService.getUserTypeById(UserType_Id);
   }
 
-  
-  async getApplication(){
-    this.logger.info('Controller: getApplication', null)
+  async getApplication() {
+    this.logger.info("Controller: getApplication", null);
     return await this.userService.getApplication();
   }
 
-  async createUser(user: User){
-    this.logger.info('Controller: createUser', null)
+  async createUser(user: User) {
+    this.logger.info("Controller: createUser", null);
     return await this.userService.createUser(user);
   }
 
-  async createUserInformation(userinformation: UserInformation){
-    this.logger.info('Controller: createUserInformation', null)
+  async createUserInformation(userinformation: UserInformation) {
+    this.logger.info("Controller: createUserInformation", null);
     return await this.userService.createUserInformation(userinformation);
   }
 
-  async createUserType(usertype: UserType){
-    this.logger.info('Controller: createUserType', null)
+  async createUserType(usertype: UserType) {
+    this.logger.info("Controller: createUserType", null);
     return await this.userService.createUserType(usertype);
   }
 
-  async createApplication(application: Application){
-    this.logger.info('Controller: createApplication', null)
+  async createApplication(application: Application) {
+    this.logger.info("Controller: createApplication", null);
     return await this.userService.createApplication(application);
   }
 
-  async updateUser(user: User){
-    this.logger.info('Controller: updateUser', null)
-    return await this.userService.updateUser(user);
+  async updateUser(user: User, userInformation: UserInformation) {
+    this.logger.info("Controller: updateUser", null);
+    return await this.userService.updateUser(user, userInformation);
   }
 
-  async updateUserInformation(userinformation: UserInformation){
-    this.logger.info('Controller: updateUserInformation', null)
+  async updateUserInformation(userinformation: UserInformation) {
+    this.logger.info("Controller: updateUserInformation", null);
     return await this.userService.updateUserInformation(userinformation);
   }
 
-  async updateUserType(usertype: UserType){
-    this.logger.info('Controller: updateUserType', null)
+  async updateUserType(usertype: UserType) {
+    this.logger.info("Controller: updateUserType", null);
     return await this.userService.updateUserType(usertype);
   }
 
-  async updateApplication(application: Application){
-    this.logger.info('Controller: updateApplication', null)
+  async updateUserInformationUserTypeId(userTypeId: number, userId: number) {
+    this.logger.info("Controller: updateUserInformationUserTypeId", null);
+    return await this.userService.updateUserInformationUserType(
+      userTypeId,
+      userId
+    );
+  }
+
+  async updateApplication(application: Application) {
+    this.logger.info("Controller: updateApplication", null);
     return await this.userService.updateApplication(application);
   }
 
-  async deleteUser(User_Id: number){
-    this.logger.info('Controller: deleteUser', null)
+  async deleteUser(User_Id: number) {
+    this.logger.info("Controller: deleteUser", null);
     return await this.userService.deleteUser(User_Id);
   }
 
-  async deleteUserInformation(UserInformation_Id: number){
-    this.logger.info('Controller: deleteUserInformation', null)
+  async deleteUserInformation(UserInformation_Id: number) {
+    this.logger.info("Controller: deleteUserInformation", null);
     return await this.userService.deleteUserInformation(UserInformation_Id);
   }
 
-  async deleteUserType(UserType_Id: number){
-    this.logger.info('Controller: deleteUserType', null)
+  async deleteUserType(UserType_Id: number) {
+    this.logger.info("Controller: deleteUserType", null);
     return await this.userService.deleteUserType(UserType_Id);
   }
 
-  async deleteApplication(Application_Id: number){
-    this.logger.info('Controller: deleteApplication', null)
+  async deleteApplication(Application_Id: number) {
+    this.logger.info("Controller: deleteApplication", null);
     return await this.userService.deleteApplication(Application_Id);
   }
 
-  
-	async register(user: User, userinformation: UserInformation){
-		return await this.userService.register(user, userinformation)
-	}
-
+  async register(user: User, userinformation: UserInformation) {
+    return await this.userService.register(user, userinformation);
+  }
 }
