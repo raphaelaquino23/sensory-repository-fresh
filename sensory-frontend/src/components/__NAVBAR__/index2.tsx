@@ -53,7 +53,7 @@ const Navbar = () => {
             <NavLink to="/ArticleOptions">Repository</NavLink>
             <NavLink to="/campaign">Campaigns</NavLink>
             <NavLink to="/forum">Forum</NavLink>
-            <NavLink to="/forum-admin">Forum Management</NavLink>
+            {/* <NavLink to="/forum-admin">Forum Management</NavLink> */}
             <NavLink to="/message">Messenger</NavLink>
           </NavMenu>
           <Badge
@@ -89,7 +89,7 @@ const Navbar = () => {
               User Management
             </NavDropdown.Item>
             <NavDropdown.Item
-              href="/logout"
+              href="/"
               style={{ color: "black" }}
               onClick={logout}
             >

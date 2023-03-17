@@ -11,6 +11,7 @@ import Campaign from "./pages/CampaignPage";
 import ArticleOptions from "./pages/ArticleOptions";
 import UserForum from "./pages/ForumPostPageUser";
 import AdminForum from "./pages/ForumPostAdminPage";
+import ForumAdmin from "./pages/ForumPostPageAdmn";
 import CampaignActivityPage from "./pages/CampaignActivityPage";
 import Logout from "./pages/UserLogoutPage";
 import ActivityInfo from "./pages/CampaignActivityInfoPage";
@@ -37,6 +38,7 @@ import NewsSearch from "./components/NewsAPI/newsapi";
 import TherapistDirectory from "./pages/TherapistDirectory";
 import Terms from "./pages/TermsOfService";
 import Privacy from "./pages/PrivacyPolicy";
+import ForumUser from "./pages/ForumPostPageUser";
 //Test
 
 function App() {
@@ -74,14 +76,22 @@ function App() {
             path="/ArticleOptions"
             element={thisToken ? <ArticleOptions /> : <LogIn />}
           />
-          <Route
-            path="/forum"
-            element={thisToken ? <UserForum /> : <LogIn />}
-          />
-          <Route
-            path="/forum-admin"
+          {/* <Route
+            path="/forum-user"
+            element={
+              thisToken && thisUserType === "2" ? <AdminForum /> : <UserForum />
+            }
+          /> */}
+		  <Route
+            path="/forum-manage"
             element={
               thisToken && (thisUserType === "2" || thisUserType === "3") ? <AdminForum /> : <LogIn />
+            }
+          />
+          <Route
+            path="/forum"
+            element={
+              thisToken && thisUserType === "2" ? <ForumAdmin /> : <ForumUser />
             }
           />
           <Route path="/postdetail" element={<PostDetailPage />} />

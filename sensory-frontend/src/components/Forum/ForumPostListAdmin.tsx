@@ -61,7 +61,7 @@ const PostList = () => {
 						<h2>Post <b>Repository</b></h2>
 					</div>
 					<div>
-            <Button className="btn btn-success" data-toggle="modal"><a href='/forum-admin'><span>Forum Management</span></a></Button>&nbsp;
+            			<Button className="btn btn-success" data-toggle="modal"><a href='/forum-manage'><span>Forum Management</span></a></Button>&nbsp;
 						<Button style={{marginRight: "-45px"}} onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Post</span></Button>					
 					</div>
 				</div>
