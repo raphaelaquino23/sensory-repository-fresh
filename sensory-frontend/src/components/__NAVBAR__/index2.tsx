@@ -36,50 +36,64 @@ const Navbar = () => {
 
   return (
     <>
-    <ChakraProvider resetCSS theme={theme}>
-      <Nav>
-        <Box ml={{ base: "0%", md: "0%", lg: "-5%" }} fontWeight="bold">
-          <NavLink to={'/home'}>
-            <HStack _hover={{ color: "#1BD3A7" }}>
-              <Box>
-                <GiAnatomy size="3em" />
-              </Box>
-              <Heading size="2xl">SensAware</Heading>
-            </HStack>
-          </NavLink>
-        </Box>
-        <Bars />
-        <NavMenu>
-          <NavLink to='/ArticleOptions'>
-            Repository
-          </NavLink>
-          <NavLink to='/campaign'>
-            Campaigns
-          </NavLink>
-          <NavLink to='/forum'>
-            Forum
-          </NavLink>
-          <NavLink to='/forum-admin'>
-            Forum Management
-          </NavLink>
-          <NavLink to='/message'>
-            Messenger
-          </NavLink>
-					
-        </NavMenu>
-        <Badge style={{marginTop: "15px", height: "50%", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "0 1rem", marginLeft: "50px"}}>{userType?.UserType_Name}</Badge>
-        <NavDropdown title={localStorage.getItem("username")} id="navbarScrollingDropdown" style={{
-						color: "#fff",
-						display: "flex",
-  					alignItems: "center",
-						justifyContent: "flex-end",
-  					textDecoration: "none",
-  					padding: "0 1rem",
-  					height: "100%",
-					}}>
-          <NavDropdown.Item href="/profile" style={{color: "black"}}>My Profile</NavDropdown.Item>
-            <NavDropdown.Item href="/logout" style={{color: "black"}} onClick={logout}>
-              Log Out 
+      <ChakraProvider resetCSS theme={theme}>
+        <Nav>
+          <Box ml={{ base: "0%", md: "0%", lg: "-5%" }} fontWeight="bold">
+            <NavLink to={"/home"}>
+              <HStack _hover={{ color: "#1BD3A7" }}>
+                <Box>
+                  <GiAnatomy size="3em" />
+                </Box>
+                <Heading size="2xl">SensAware</Heading>
+              </HStack>
+            </NavLink>
+          </Box>
+          <Bars />
+          <NavMenu>
+            <NavLink to="/ArticleOptions">Repository</NavLink>
+            <NavLink to="/campaign">Campaigns</NavLink>
+            <NavLink to="/forum">Forum</NavLink>
+            <NavLink to="/forum-admin">Forum Management</NavLink>
+            <NavLink to="/message">Messenger</NavLink>
+          </NavMenu>
+          <Badge
+            style={{
+              marginTop: "15px",
+              height: "50%",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              padding: "0 1rem",
+              marginLeft: "50px",
+            }}
+          >
+            {userType?.UserType_Name}
+          </Badge>
+          <NavDropdown
+            title={localStorage.getItem("username")}
+            id="navbarScrollingDropdown"
+            style={{
+              color: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              textDecoration: "none",
+              padding: "0 1rem",
+              height: "100%",
+            }}
+          >
+            <NavDropdown.Item href="/profile" style={{ color: "black" }}>
+              My Profile
+            </NavDropdown.Item>
+            <NavDropdown.Item href="/usermanage" style={{ color: "black" }}>
+              User Management
+            </NavDropdown.Item>
+            <NavDropdown.Item
+              href="/logout"
+              style={{ color: "black" }}
+              onClick={logout}
+            >
+              Log Out
             </NavDropdown.Item>
           </NavDropdown>
       </Nav>

@@ -1,14 +1,30 @@
-import { Table, Column, Model, PrimaryKey, HasOne, CreatedAt, UpdatedAt, NotNull, ForeignKey, BelongsTo, AutoIncrement, AllowNull, NotEmpty, Unique, HasMany } from 'sequelize-typescript';
-import { Post } from './PostModel';
-//COMPLETE 
+import {
+  Table,
+  Column,
+  Model,
+  PrimaryKey,
+  HasOne,
+  CreatedAt,
+  UpdatedAt,
+  NotNull,
+  ForeignKey,
+  BelongsTo,
+  AutoIncrement,
+  AllowNull,
+  NotEmpty,
+  Unique,
+  HasMany,
+} from "sequelize-typescript";
+import { Post } from "./PostModel";
+//COMPLETE
 //Model for User, UserInformation, UserType, and Application
 
 //User
-@Table({ createdAt: false, updatedAt: false})
+@Table({ createdAt: false, updatedAt: false })
 export class User extends Model {
   @AutoIncrement
   @PrimaryKey
-  @Column 
+  @Column
   User_Id: number;
 
   @ForeignKey(() => UserInformation)
@@ -29,8 +45,8 @@ export class User extends Model {
 }
 
 //UserInformation
-@Table({ createdAt: false, updatedAt: false})
-export class UserInformation extends Model{
+@Table({ createdAt: false, updatedAt: false })
+export class UserInformation extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
@@ -41,8 +57,8 @@ export class UserInformation extends Model{
 
   @ForeignKey(() => UserType)
   @Column
-  get UserType_Id(): number{
-    return this.getDataValue('UserType_Id');
+  get UserType_Id(): number {
+    return this.getDataValue("UserType_Id");
   }
   //UserType_Id: number;
 
@@ -60,7 +76,7 @@ export class UserInformation extends Model{
 }
 
 //User Type
-@Table({ createdAt: false, updatedAt: false})
+@Table({ createdAt: false, updatedAt: false })
 export class UserType extends Model {
   @AutoIncrement
   @PrimaryKey
@@ -75,7 +91,7 @@ export class UserType extends Model {
 }
 
 //Application
-@Table({ createdAt: false, updatedAt: false})
+@Table({ createdAt: false, updatedAt: false })
 export class Application extends Model {
   @AutoIncrement
   @PrimaryKey
@@ -91,7 +107,7 @@ export class Application extends Model {
   UserType_Id: number;
 
   @Column
-  Appliction_Content: String;
+  Application_Content: String;
 
   @Column
   Application_DateSubmitted: Date;

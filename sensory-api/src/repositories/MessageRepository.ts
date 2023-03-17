@@ -1,10 +1,10 @@
 import { Op } from "sequelize";
 import { connect } from "../config/db.config";
+import { winstonLogger } from "../logger/winston.logger";
 import { Message } from "../models/MessageModel";
 import { User, UserInformation } from "../models/UserModel";
 
 import CryptoJS from "crypto-js";
-
 
 export class MessageRepository {
   private db: any = {};
@@ -51,7 +51,7 @@ export class MessageRepository {
 
       return Message;
     } catch (error) {
-      console.log("error");
+      winstonLogger.error("Error", error);
       return [];
     }
   }
@@ -158,6 +158,7 @@ export class MessageRepository {
         }
       }
     } catch (error) {
+      winstonLogger.error("Error", error);
     }
     return data;
   }
@@ -174,6 +175,7 @@ export class MessageRepository {
         }
       );
     } catch (error) {
+      winstonLogger.error("Error", error);
     }
     return data;
   }
@@ -187,6 +189,7 @@ export class MessageRepository {
         },
       });
     } catch (error) {
+      winstonLogger.error("Error", error);
     }
     return data;
   }

@@ -26,7 +26,7 @@ const Logout = () => {
         </Link>
         <p>
           Already using SensAware? &nbsp;
-          <Link to={'/signin'} style={{ color: '#8eb572' }}>
+          <Link to={'/login'} style={{ color: '#8eb572' }}>
             Sign In.
           </Link>
         </p>
