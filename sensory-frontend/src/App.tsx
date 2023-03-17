@@ -154,7 +154,7 @@ function App() {
           <Route path="/user" element={thisToken ? <UserView /> : <LogIn />} />
           <Route
             path="/usermanage"
-            element={thisToken ? <UserManagement /> : <LogIn />}
+            element={thisToken && thisUserType === "2"? <UserManagement /> : <LogIn />}
           />
         </Routes>
       </AuthProvider>
