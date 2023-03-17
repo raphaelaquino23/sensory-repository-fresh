@@ -31,7 +31,6 @@ const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
   const [message, setMessage] = useState("");
   const [subject, setSubject] = useState("");
   const [currentUserInformation, setCurrentUserInformation] = useState<UserInformation | null>(null);
-  const [messageSent, setMessageSent] = useState(false);
 
 
   useEffect(() => {
@@ -65,8 +64,6 @@ const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
       ReceiverName: currentUsername,
     };
     MessageService.create(messageObject).then((returnedMessage: any) => returnedMessage);
-    setMessage('');
-    setMessageSent(true);
   };
 
   const handleSubjectChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -75,14 +72,14 @@ const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
 
   const handleContentChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
-    setMessageSent(false);
   };
 
   return (
     <div className="message-form-container">
       <form onSubmit={handleSubmit}>
         <label className="message-form-label">
-          You are sending a message to: {currentUserInformation?.UserInformation_Name}
+          Subject:
+          <input className="message-form-input" type="text" value={message} onChange={handleSubjectChange} />
         </label>
         <label className="message-form-label">
           Message:
@@ -92,12 +89,6 @@ const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
           <button className="message-form-button" type="submit">Send Message</button>
           <button className="message-form-button" type="button" onClick={onClose}>Cancel</button>
         </div>
-        {
-          messageSent? (
-          <label className="message-form-label">
-            Message successfully sent to: {currentUserInformation?.UserInformation_Name}
-          </label>): <p></p>
-        }
       </form>
     </div>
   );
