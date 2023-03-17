@@ -70,18 +70,18 @@ const ProfilePage: React.FC = () => {
     });
   }, []);
 
-  const filteredPosts = listPosts.filter(
-    (post) => post.User_Id === currentUserInformation?.UserInformation_Id
-  );
-  if(filteredPosts){
-    const postInformation = filteredPosts.map((post) =>
-    listPostInformation.find(
-      (info) => info?.PostInformation_Id === post.Post_Id
-    ));
-    if(postInformation){
-      setListUserPosts(postInformation);
-    }
-  }
+  // const filteredPosts = listPosts.filter(
+  //   (post) => post.User_Id === currentUserInformation?.UserInformation_Id
+  // );
+  // if(filteredPosts){
+  //   const postInformation = filteredPosts.map((post) =>
+  //   listPostInformation.find(
+  //     (info) => info?.PostInformation_Id === post.Post_Id
+  //   ));
+  //   if(postInformation){
+  //     setListUserPosts(postInformation);
+  //   }
+  // }
 
   useEffect(() => {
     const username = localStorage.getItem("username");
