@@ -62,23 +62,6 @@ const AdminArticles = () => {
   );
 };
 
-// const Articles = () => {
-//   return (
-//     <div className="card">
-//       <div className="card__body">
-//         <img src="images/articles.jpg" className="card__image" alt="img" />
-//         <h2 className="card__title">Articles</h2>
-//         <p className="card__description">
-//           Discover and read articles related to Sensory Processing Disorder.
-//         </p>
-//       </div>
-//       <Link to={"/article-user"}>
-//         <button className="card__btn">View Articles</button>
-//       </Link>
-//     </div>
-//   );
-// };
-
 const Campaigns = () => {
   return (
     <div className="card">
@@ -124,7 +107,7 @@ const Home = () => {
 				{/* <h1 style={{ textAlign: "center", marginTop: "20px" }}>
 					Welcome to SensAware
 				</h1> */}
-				<h1 className="centered" style={{position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%"}}>Welcome to SensAware</h1>
+				<h1 className="centered" style={{border: "2px solid", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%", padding: "10px"}}>Welcome to SensAware</h1>
 				</div>
       <h1 style={{ textAlign: "center", marginTop: "20px", fontSize: "30px"}}>
         Get started 
