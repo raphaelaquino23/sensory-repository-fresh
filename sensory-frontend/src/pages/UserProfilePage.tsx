@@ -16,6 +16,7 @@ import { SearchIcon } from "@chakra-ui/icons";
 import "./styles/UserProfile.css";
 import MessageForm from "./ProfileSendMessage";
 import { Link } from "react-router-dom";
+import UserPostsDialog from "./UserProfilePagePostDialogBox";
 
 interface UserInformation {
   UserInformation_Id: number;
@@ -53,23 +54,17 @@ const ProfilePage: React.FC = () => {
   );
   const [messageContent, setMessageContent] = useState("");
   const [showDialogBox, setShowDialogBox] = useState(false);
-  const [listPosts, setListPosts] = useState<Post[]>([]);
-  const [listPostInformation, setListPostInformation] = useState<
-    PostInformation[]
-  >([]);
-  const [listUserPosts, setListUserPosts] = useState<PostInformation[]>([]);
+  const [showPostDialogBox, setShowPostDialogBox] = useState(false);
+  const [showYourPostDialogBox, setShowYourPostDialogBox] = useState(false);
+ 
+  const [listPostInformation, setListPostInformation] = useState<PostInformation[]>([]);
+  
+  const [listUserPosts, setListUserPosts] = useState<Post[]>([]);
+  const [listUserPostInformation, setListUserPostInformation] = useState<PostInformation[]>([]);
 
-  useEffect(() => {
-    axios.get<Post[]>(`http://localhost:3081/api/post`).then((response) => {
-      setListPosts(response.data);
-    });
+  const [listSearchPosts, setListSearchPosts] = useState<Post[]>([]);
+  const [listSearchPostInformation, setListSearchPostInformation] = useState<PostInformation[]>([]);
 
-    axios.get(`http://localhost:3081/api/postinformation`)
-    .then((response) => {
-      const postInformationArray = response.data.filter((postInfo:any) => postInfo !== undefined);
-      setListPostInformation(postInformationArray);
-    });
-  }, []);
 
   // const filteredPosts = listPosts.filter(
   //   (post) => post.User_Id === currentUserInformation?.UserInformation_Id
@@ -101,24 +96,81 @@ const ProfilePage: React.FC = () => {
         .catch((error) => {
           console.error(error);
         });
+  
+      Promise.all([
+        axios.get(`http://localhost:3081/api/postinformationbyuserid/${currentUserInformation?.UserInformation_Id}`),
+        axios.get(`http://localhost:3081/api/postinformation`)
+      ])
+        .then((responses) => {
+          const listUserPosts = responses[0].data;
+          const listPostInformation = responses[1].data;
+          const postInformationIds = listUserPosts.map((post:any) => post.PostInformation_Id);
+          const filteredPosts = listPostInformation.filter((post:any) => postInformationIds.includes(post.PostInformation_Id));
+          setListUserPosts(listUserPosts);
+          setListPostInformation(listPostInformation);
+          setListUserPostInformation(filteredPosts);
+          console.log(listUserPostInformation);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
-  }, []);
+  }, [currentUserInformation?.UserInformation_Id]);
+  
+
+  const handleViewPostClick = () => {
+    fetchPosts(); 
+  }
+
+  const fetchPosts = () => {
+    axios.get(`http://localhost:3081/api/postinformationbyuserid/${currentUserInformation?.UserInformation_Id}`)
+    .then((response) => {
+      setListUserPosts(response.data);
+    });
+
+    axios.get(`http://localhost:3081/api/postinformation`)
+      .then((response) => {
+        setListPostInformation(response.data);
+      })
+      .then(() => {
+        const postInformationIds = listUserPosts.map((post) => post.PostInformation_Id);
+        const filteredPosts = listPostInformation.filter((post) => postInformationIds.includes(post.PostInformation_Id));
+        setListUserPostInformation(filteredPosts);
+        console.log(listUserPostInformation);
+      })
+  }
 
   const handleSearch = () => {
     axios
       .get(`http://localhost:3081/api/getuserid/${searchUsername}`)
       .then((response) => {
-        const userId = response.data;
-        return axios.get(`http://localhost:3081/api/userinformation/${userId}`);
+        const searchedUserId = response.data;
+        return axios.get(
+          `http://localhost:3081/api/userinformation/${searchedUserId}`
+        );
       })
       .then((response) => {
         setSearchResult(response.data);
+  
+        return Promise.all([
+          axios.get(`http://localhost:3081/api/postinformationbyuserid/${response.data?.UserInformation_Id}`),
+          axios.get(`http://localhost:3081/api/postinformation`)
+        ]);
+      })
+      .then((responses) => {
+        const listUserPosts = responses[0].data;
+        const listPostInformation = responses[1].data;
+        const postInformationIds = listUserPosts.map((post:any) => post.PostInformation_Id);
+        const filteredPosts = listPostInformation.filter((post:any) => postInformationIds.includes(post.PostInformation_Id));
+        setListSearchPosts(listUserPosts);
+        setListSearchPostInformation(filteredPosts);
+        console.log(listSearchPostInformation);
       })
       .catch((error) => {
         console.error(error);
       });
   };
-
+  
   const handleCloseDialogBox = () => {
     setShowDialogBox(false);
   };
@@ -127,8 +179,16 @@ const ProfilePage: React.FC = () => {
     setShowDialogBox(true);
   };
 
+  const handleClosePostDialogBox = () => {
+    setShowPostDialogBox(false);
+  }
+
+  const handleOpenPostDialogBox = () => {
+    setShowPostDialogBox(true);
+  }
+
   return (
-    <div className="bontainer" style={{marginTop: "30px"}}>
+    <div className="bontainer">
       <div className="search-container" style={{alignItems: "center", margin: "0"}}>
         <div className="search-bar">
           <input
@@ -184,6 +244,23 @@ const ProfilePage: React.FC = () => {
               >
                 Send Message
               </button>
+            )}
+            {showPostDialogBox && (
+              <UserPostsDialog 
+                isOpen={showPostDialogBox}
+                onClose={handleClosePostDialogBox}
+                listUserPostInformation={listSearchPostInformation}
+              />
+            )}
+            {!showPostDialogBox && (
+              <div>
+                <button
+                  className="view-posts-button"
+                  onClick={handleOpenPostDialogBox}
+                >
+                  View {searchResult.UserInformation_Name}'s Posts
+                </button>
+              </div>
             )}
           </div>
         </div>

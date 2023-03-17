@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
   max-width: 800px;
   margin: 20px auto 0;
@@ -79,6 +79,16 @@
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
+}
+
+.view-posts-button {
+  margin-top: 10px;
+  background-color: blue;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .message-form-label {
