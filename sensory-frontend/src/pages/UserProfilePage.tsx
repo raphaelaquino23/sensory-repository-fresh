@@ -65,8 +65,10 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <div className="bontainer">
-      <div className="search-container">
+    <div className="cards" style={{height: "470px", display: "block", marginLeft: "auto", marginRight: "auto", marginTop: "40px"}}>
+    <div className="bontainer" style={{marginTop: "30px"}}>
+      
+      <div className="search-container" style={{alignItems: "center", margin: "0"}}>
         <div className="search-bar">
           <input
             type="text"
@@ -79,6 +81,7 @@ const ProfilePage: React.FC = () => {
           </button>
         </div>
       </div>
+      <br />
       {searchResult ? (
         <div className="user-container">
           <div className="user-info">
@@ -153,12 +156,18 @@ const ProfilePage: React.FC = () => {
               >
                 {getUserType(currentUserInformation.UserType_Id)}
           </span>
+          <div>
+            <br />
+            <p>Apply as a <a href='/therapist' style={{color: "blue"}}>therapist</a></p>
+            <p>Apply as a <a href='/moderator' style={{color: "blue"}}>moderator</a></p>
+          </div>
         </div>
       ) : (
         <div className="loading-container">
           <p>Loading...</p>
         </div>
       )}
+    </div>
     </div>
   );
   

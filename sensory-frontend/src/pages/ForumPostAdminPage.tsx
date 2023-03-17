@@ -3,7 +3,7 @@ import PostList from '../components/Forum/ForumAdminPostList';
 import { ChakraProvider } from '@chakra-ui/react';
 import theme from '../theme';
 
-function UserForum() {
+function AdminForum() {
   return (
     <ChakraProvider resetCSS theme={theme}>
       <div className='container-xl'>
@@ -19,4 +19,4 @@ function UserForum() {
   );
 }
 
-export default UserForum;
+export default AdminForum;
