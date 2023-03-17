@@ -71,7 +71,7 @@ const ModeratorApplication = () => {
       application: {
         User_Id: userId, 
         UserType_Id: 3,
-        Application_Content: content,
+        Application_Content: `${moderator.name}|${moderator.username}|${siteModerator}|${moderator.availability}|${role}`
       }
     }
     axios
@@ -90,6 +90,7 @@ const ModeratorApplication = () => {
       ...prevModerator,
       [name]: value,
     }));
+    setContent(`${moderator.name}|${moderator.username}|${siteModerator}|${moderator.availability}|${role}`);
   };
 
   const handleSubmit = (e: React.ChangeEvent<any>) => {

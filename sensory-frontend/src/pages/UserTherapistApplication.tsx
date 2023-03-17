@@ -50,6 +50,7 @@ const TherapistApplication = () => {
       ...prevTherapist,
       [name]: value,
     }));
+    setContent(`${therapist.name}|${therapist.username}|${therapist.workplace}|${therapist.license}|${therapist.regdate}|${therapist.valid}`);
   };
 
   const submitApplication = () => {
@@ -58,7 +59,7 @@ const TherapistApplication = () => {
       application: {
         User_Id: userId, 
         UserType_Id: 1,
-        Application_Content: content,
+        Application_Content: `${therapist.name}|${therapist.username}|${therapist.workplace}|${therapist.license}|${therapist.regdate}|${therapist.valid}`,
       }
     }
     axios

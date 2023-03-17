@@ -107,7 +107,7 @@ export class Application extends Model {
   UserType_Id: number;
 
   @Column
-  Appliction_Content: String;
+  Application_Content: String;
 
   @Column
   Application_DateSubmitted: Date;
