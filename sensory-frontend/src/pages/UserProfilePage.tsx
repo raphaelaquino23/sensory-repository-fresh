@@ -128,9 +128,7 @@ const ProfilePage: React.FC = () => {
   };
 
   return (
-    <div className="cards" style={{height: "470px", display: "block", marginLeft: "auto", marginRight: "auto", marginTop: "40px"}}>
     <div className="bontainer" style={{marginTop: "30px"}}>
-      
       <div className="search-container" style={{alignItems: "center", margin: "0"}}>
         <div className="search-bar">
           <input
@@ -242,7 +240,6 @@ const ProfilePage: React.FC = () => {
           <p>Loading...</p>
         </div>
       )}
-    </div>
     </div>
   );
 };

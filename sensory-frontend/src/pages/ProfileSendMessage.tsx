@@ -89,8 +89,8 @@ const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
           <input className="message-form-input" type="text" value={message} onChange={handleContentChange} />
         </label>
         <div className="message-form-buttons">
-          <button className="message-form-button" type="submit">Send Message</button>
-          <button className="message-form-button" type="button" onClick={onClose}>Cancel</button>
+          <button className="message-submit-button" type="button">Send Message</button>
+          <button className="message-cancel-button" type="button" onClick={onClose}>Cancel</button>
         </div>
         {
           messageSent? (
