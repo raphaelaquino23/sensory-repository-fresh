@@ -20,20 +20,8 @@ const MessageList = () => {
 	const handleShow = () => setShow(true);
 	const handleClose = () => setShow(false);
 
-
-	// const handleShowAlert = () => {
-	// 	setShowAlert(true);
-	// 	setTimeout(()=> {
-	// 		setShowAlert(false);
-	// 	}, 2000)
-	// }
-
 	useEffect(() => {
 		handleClose();
-
-		// return () => {
-		// 	handleShowAlert();
-		// }
 	}, [sortedMessages])
 
 	const fetchMessages = async() => {
@@ -41,8 +29,6 @@ const MessageList = () => {
 			setListMessage(response.data);
 		});
 	}
-
-	
 
 	const handleSearchMessage = (event: React.ChangeEvent<any>) => {
 		setSearch(event.target.value)
@@ -55,6 +41,10 @@ const MessageList = () => {
 		)
 		fetchMessages();
 	}, [id]);
+
+	useEffect(() => {
+		fetchMessages();
+	}, [])
 
 	const indexOfLastMessage = currentPage * messagesPerPage;
 	const indexOfFirstMessage = indexOfLastMessage - messagesPerPage;
