@@ -2,6 +2,7 @@
   background-color: #f0f0f0;
   border: 1px solid #ccc;
   padding: 20px;
+  margin-top: 10px;
 }
 
 .message-form-label {
@@ -25,8 +26,19 @@
   justify-content: flex-end;
 }
 
-.message-form-button {
-  background-color: #007bff;
+.message-cancel-button {
+  background-color: #e73040;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.message-submit-button {
+  background-color: #008CBA;
   color: #fff;
   border: none;
   padding: 10px 20px;
