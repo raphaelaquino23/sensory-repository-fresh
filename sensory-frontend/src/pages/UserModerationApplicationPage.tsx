@@ -70,7 +70,7 @@ const ModeratorApplication = () => {
     const applicationObject = {
       application: {
         User_Id: userId, 
-        UserType_Id: currentUserInformation?.UserType_Id, 
+        UserType_Id: 3,
         Application_Content: content,
       }
     }
