@@ -7,6 +7,7 @@ import {
   PostStats,
   PostUpvoteTracker,
 } from "../models/PostModel";
+import { User } from "../models/UserModel";
 
 export class PostRepository {
   private db: any = {};
@@ -442,13 +443,12 @@ export class PostRepository {
   async getPostInformationByUserId(User_Id: number) {
     try {
       const post = await this.postRepository.findAll({
-        where: { User_Id: User_Id },
+        where: {
+          User_Id: User_Id,
+        },
       });
-      const postInformation = await this.postInformationRepository.findAll({
-        where: { PostInformation_Id: post.PostInformation_Id },
-      });
-      console.log("postStatsId::: ", postInformation);
-      return postInformation;
+      console.log("postStatsId::: ", post);
+      return post;
     } catch (error) {
       console.log("error");
       return [];
