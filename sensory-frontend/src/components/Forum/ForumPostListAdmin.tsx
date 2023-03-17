@@ -1,7 +1,7 @@
 import { Modal, Button, Alert} from 'react-bootstrap';
 import { Key, useContext, useEffect, useState } from 'react';
 import {PostContext} from '../../contexts/PostContext';
-import Post from './ForumPost';
+import Post from './ForumPostAdmin';
 import AddPost from './ForumAddPost';
 import PostPagination from './ForumPagination';
 import axios from 'axios';
@@ -20,6 +20,7 @@ const PostList = () => {
 	const [postsPerPage] = useState(10)
 
 	const handleShow = () => setShow(true);
+	const handleShow1 = () => setShow(true);
 	const handleClose = () => setShow(false);
 
 	const handleSearchPost = (event: React.ChangeEvent<any>) => {
@@ -60,11 +61,12 @@ const PostList = () => {
 						<h2>Post <b>Repository</b></h2>
 					</div>
 					<div>
-						<Button onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Post</span></Button>					
+            <Button className="btn btn-success" data-toggle="modal"><a href='/forum-admin'><span>Forum Management</span></a></Button>&nbsp;
+						<Button style={{marginRight: "-45px"}} onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Post</span></Button>					
 					</div>
 				</div>
 			</div>
-
+			
 			<input 
                 className="inpt" 
                 placeholder="Search" 
@@ -72,6 +74,7 @@ const PostList = () => {
                 value={search} 
                 onChange={handleSearchPost}
       		/>
+
 			<Alert show={showAlert} variant="success">
 				Post Repository Updated Successfully!
 			</Alert>

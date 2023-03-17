@@ -9,7 +9,7 @@ import UserManagement from "./pages/UserManagement copy";
 import ArticleUser from "./pages/ArticleUserPage";
 import Campaign from "./pages/CampaignPage";
 import ArticleOptions from "./pages/ArticleOptions";
-import UserForum from "./pages/ForumPostPage";
+import UserForum from "./pages/ForumPostPageUser";
 import AdminForum from "./pages/ForumPostAdminPage";
 import CampaignActivityPage from "./pages/CampaignActivityPage";
 import Logout from "./pages/UserLogoutPage";
@@ -151,15 +151,10 @@ function App() {
             path="/profile"
             element={thisToken ? <UserProfile /> : <Home />}
           />
+          <Route path="/user" element={thisToken ? <UserView /> : <LogIn />} />
           <Route
             path="/usermanage"
-            element={
-              thisToken && thisUserType === "2" ? (
-                <UserManagement />
-              ) : (
-                <UserProfile />
-              )
-            }
+            element={thisToken ? <UserManagement /> : <LogIn />}
           />
         </Routes>
       </AuthProvider>

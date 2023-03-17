@@ -108,7 +108,7 @@ const Forum = () => {
           related with Sensory Processing Disorder.
         </p>
       </div>
-      <Link to={"/post"}>
+      <Link to={"/forum"}>
         <button className="card__btn">View Forum</button>
       </Link>
     </div>
