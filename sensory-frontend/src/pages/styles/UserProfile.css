@@ -80,3 +80,29 @@
   cursor: pointer;
   margin-top: 10px;
 }
+
+.message-form-label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.apply-moderator-button {
+  background-color: orange;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.apply-therapist-button {
+  background-color: blue;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}

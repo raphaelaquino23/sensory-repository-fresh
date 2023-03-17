@@ -15,6 +15,7 @@ import {
 import { SearchIcon } from "@chakra-ui/icons";
 import "./styles/UserProfile.css";
 import MessageForm from "./ProfileSendMessage";
+import { Link } from "react-router-dom";
 
 interface UserInformation {
   UserInformation_Id: number;
@@ -206,6 +207,7 @@ const ProfilePage: React.FC = () => {
               {currentUserInformation.UserInformation_Email}
             </p>
           </div>
+          <strong>Your current role:</strong>
           <span
             style={{
               backgroundColor: getUserTypeColor(
@@ -224,8 +226,15 @@ const ProfilePage: React.FC = () => {
           </span>
           <div>
             <br />
-            <p>Apply as a <a href='/therapist' style={{color: "blue"}}>therapist</a></p>
-            <p>Apply as a <a href='/moderator' style={{color: "blue"}}>moderator</a></p>
+            {currentUserInformation.UserType_Id !== 1 && <Link to="/therapist" className="apply-therapist-button">
+              Apply as a therapist
+            </Link>
+            }
+            <br />
+            <br />
+            {currentUserInformation.UserType_Id !== 3 && <Link to="/moderator" className="apply-moderator-button">
+              Apply as a moderator
+            </Link>}
           </div>
         </div>
       ) : (
