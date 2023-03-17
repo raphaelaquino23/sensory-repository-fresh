@@ -82,7 +82,7 @@ const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
     <div className="message-form-container">
       <form onSubmit={handleSubmit}>
         <label className="message-form-label">
-          You are sending a message to: {currentUserInformation?.UserInformation_Name}
+          You are sending a message to: {currentUsername}
         </label>
         <label className="message-form-label">
           Message:
