@@ -85,7 +85,7 @@ function App() {
 		  <Route
             path="/forum-manage"
             element={
-              thisToken && thisUserType === "2" ? <AdminForum /> : <LogIn />
+              thisToken && (thisUserType === "2" || thisUserType === "3") ? <AdminForum /> : <LogIn />
             }
           />
           <Route
@@ -164,7 +164,7 @@ function App() {
           <Route path="/user" element={thisToken ? <UserView /> : <LogIn />} />
           <Route
             path="/usermanage"
-            element={thisToken ? <UserManagement /> : <LogIn />}
+            element={thisToken && thisUserType === "2"? <UserManagement /> : <LogIn />}
           />
         </Routes>
       </AuthProvider>

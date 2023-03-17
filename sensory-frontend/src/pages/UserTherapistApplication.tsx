@@ -1,4 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from '../api/axios';
+
+interface UserInformation {
+  UserInformation_Id: number;
+  UserInformation_Name: string;
+  UserType_Id: number;
+  UserInformation_Password: string;
+  UserInformation_Email: string;
+  UserInformation_Description: string;
+}
 
 const TherapistApplication = () => {
   const [therapist, setTherapist] = useState({
@@ -9,14 +19,64 @@ const TherapistApplication = () => {
     regdate: '',
     valid: '',
   });
+  const [content, setContent] = useState("");
+  const [tempContent, setTempContent] = useState('');
+  const [userId, setUserId] = useState(0);
+  const [currentUserInformation, setCurrentUserInformation] = useState<UserInformation | null>(null);
+
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+    axios
+    .get(`http://localhost:3081/api/getuserid/${username}`)
+    .then((response) => {
+      setUserId(response.data);
+      return axios.get(`http://localhost:3081/api/userinformation/${userId}`);
+    })
+    .then((response) => {
+      setCurrentUserInformation(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+  }, []);
+
+  useEffect(() => {
+    setContent(tempContent);
+  }, [tempContent])
 
   const onInputChange = (e: React.ChangeEvent<any>) => {
-    //e returns an error
-    setTherapist({ ...therapist, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setTherapist((prevTherapist) => ({
+      ...prevTherapist,
+      [name]: value,
+    }));
+    setContent(`${therapist.name}|${therapist.username}|${therapist.workplace}|${therapist.license}|${therapist.regdate}|${therapist.valid}`);
   };
+
+  const submitApplication = () => {
+    console.log(content);
+    const applicationObject = {
+      application: {
+        User_Id: userId, 
+        UserType_Id: 1,
+        Application_Content: `${therapist.name}|${therapist.username}|${therapist.workplace}|${therapist.license}|${therapist.regdate}|${therapist.valid}`,
+      }
+    }
+    axios
+    .post("http://localhost:3081/api/application/", applicationObject)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    
+  }
 
   const handleSubmit = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
+    setContent(`${therapist.name}|${therapist.username}|${therapist.workplace}|${therapist.license}|${therapist.regdate}|${therapist.valid}`);
+    submitApplication();
   };
 
   return (
@@ -85,7 +145,7 @@ const TherapistApplication = () => {
                   style={{ marginTop: '10px' }}
                 />
                 <br />
-                <button type='submit' style={{ width: '470px' }}>
+                <button type='submit' style={{ width: '470px', display: 'block', margin: '0 auto' }}>
                   Submit
                 </button>
               </div>

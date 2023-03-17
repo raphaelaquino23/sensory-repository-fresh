@@ -110,14 +110,7 @@ const Login2 = () => {
   return (
     <>
       {success && captchaSuccess === true ? (
-        <section>
-          <h1>You are logged in!</h1>
-          <p>Welcome {localStorage.getItem("username")}</p>
-          <br />
-          <p>
-            <a href="/home">Click here to continue</a>
-          </p>
-        </section>
+        window.location.replace('http://localhost:3000/home')
       ) : (
         <section
           style={{
