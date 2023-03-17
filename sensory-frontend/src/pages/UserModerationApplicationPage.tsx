@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const RadioInput = ({
   label,
@@ -31,18 +31,25 @@ const ModeratorApplication = () => {
     username: '',
     availability: '',
   });
+  const [content, setContent] = useState("");
+  const [tempContent, setTempContent] = useState('');
+
+  useEffect(() => {
+    setContent(tempContent);
+  }, [tempContent]);
 
   const onInputChange = (e: React.ChangeEvent<any>) => {
-    //e returns an error
-    setModerator({ ...moderator, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setModerator((prevModerator) => ({
+      ...prevModerator,
+      [name]: value,
+    }));
   };
-
-  const { name, username, availability } = moderator;
 
   const handleSubmit = (e: React.ChangeEvent<any>) => {
     e.preventDefault();
-    const data = { siteModerator, role };
-    const json = JSON.stringify(data, null, 4);
+    setContent(`${moderator.name}|${moderator.username}|${siteModerator}|${moderator.availability}|${role}`);
+    console.log(content);
   };
 
   return (
