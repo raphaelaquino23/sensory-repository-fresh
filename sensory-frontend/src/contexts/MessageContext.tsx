@@ -1,4 +1,6 @@
+import axios from 'axios';
 import { createContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 type MessageContextType = {
@@ -11,6 +13,7 @@ export const MessageContext = createContext<MessageContextType>({}); //https://s
 
 const MessageContextProvider = (props: any) => {
   const [messages, setMessages] = useState<any[]>([]);
+  const history = useNavigate();
 
   useEffect(() => {
     setMessages(JSON.parse(localStorage.getItem('messages')!));
@@ -43,8 +46,17 @@ const MessageContextProvider = (props: any) => {
   };
 
   const deleteMessage = (id: number) => {
-    setMessages(messages.filter((message) => message.id !== id));
-  };
+    setMessages(
+      messages.filter(
+        (message) => message.id !== id
+    )
+  );
+  axios.delete(
+    `http://localhost:3081/api/message/${id}`
+  );
+  window.location.reload();
+  history('/message');
+};
 
   // const updatePost = (id: number, updatedPost: string) => {
   // 	setPosts(posts.map((post) => post.id === id ? updatedPost : post))

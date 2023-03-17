@@ -9,6 +9,7 @@ const Message = ({message} : { message: any}) => {
 	const [show, setShow] = useState(false);
   const [receiver, setReceiver] = useState('');
   const [sender, setSender] = useState('');
+  const [subject, setSubject] = useState('');
 		
   const handleShow = () => setShow(true);
 	const handleClose = () => setShow(false);
@@ -61,22 +62,6 @@ const Message = ({message} : { message: any}) => {
         </OverlayTrigger>
                 
       </td>
-
-        {/* <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            Edit Post
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <EditPost thePost={post} />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close Button
-          </Button>
-        </Modal.Footer>
-  	  </Modal> */}
   	</>
   )
 }

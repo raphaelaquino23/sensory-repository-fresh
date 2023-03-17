@@ -1,14 +1,24 @@
-import { ChakraProvider } from "@chakra-ui/react";
-import theme from "../../theme";
-import { Badge, NavDropdown } from "react-bootstrap";
-import { Nav, NavLink, Bars, NavMenu } from "./NavbarElements";
-import { Box, Heading, HStack } from "@chakra-ui/react";
-import { GiAnatomy } from "react-icons/gi";
-import { useState } from "react";
-import AuthProvider, { useAuth } from "../../contexts/AuthProvider";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { setDefaultResultOrder } from "dns/promises";
+import { ChakraProvider } from '@chakra-ui/react';
+import theme from '../../theme';
+import { Badge, NavDropdown } from 'react-bootstrap';
+import {
+  Nav,
+  NavLink,
+  Bars,
+  NavMenu,
+} from './NavbarElements';
+import {
+  Box,
+  Heading,
+  HStack,
+} from "@chakra-ui/react";
+import { GiAnatomy } from "react-icons/gi"
+import { useState } from 'react';
+import AuthProvider, { useAuth } from '../../contexts/AuthProvider';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { setDefaultResultOrder } from 'dns/promises';
+
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -17,12 +27,12 @@ const Navbar = () => {
   const logout = async () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("auth");
-    localStorage.removeItem("role");
+    localStorage.removeItem("role");  
     localStorage.removeItem("_grecaptcha");
     localStorage.removeItem("user");
     localStorage.removeItem("username");
-    navigate("/");
-  };
+    navigate('/');
+  }
 
   return (
     <>
@@ -86,7 +96,7 @@ const Navbar = () => {
               Log Out
             </NavDropdown.Item>
           </NavDropdown>
-        </Nav>
+      </Nav>
       </ChakraProvider>
     </>
   );
