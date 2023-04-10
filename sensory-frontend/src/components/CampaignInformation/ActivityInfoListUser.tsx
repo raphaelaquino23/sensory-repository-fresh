@@ -111,10 +111,14 @@ const ActivityList = () => {
             onClick={ () => setOpen (open => !open)}
             style={{border: "2px solid black"}}
         />
+        </div>
+        <div style={{display: "flex", justifyContent: "center"}}>
         {open &&
             <DateRangePicker
                 ranges={[selectionRange]}
                 onChange={handleSelect}
+                staticRanges={[]}
+                inputRanges={[]}
             />
         }
         </div>
@@ -174,5 +178,3 @@ const ActivityList = () => {
 
 
 export default ActivityList;
-
-
