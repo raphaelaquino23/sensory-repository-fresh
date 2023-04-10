@@ -22,7 +22,8 @@ import { setDefaultResultOrder } from 'dns/promises';
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { user, userType } = useAuth();
+  const { user, userType } = useAuth()
+  const thisUserType = localStorage.getItem("role");
 
   const logout = async () => {
     localStorage.removeItem("accessToken");
@@ -55,6 +56,7 @@ const Navbar = () => {
             <NavLink to="/forum">Forum</NavLink>
             {/* <NavLink to="/forum-admin">Forum Management</NavLink> */}
             <NavLink to="/message">Messenger</NavLink>
+            <NavLink to="/contactus">Contact Us</NavLink>
           </NavMenu>
           <Badge
             style={{
@@ -85,9 +87,10 @@ const Navbar = () => {
             <NavDropdown.Item href="/profile" style={{ color: "black" }}>
               My Profile
             </NavDropdown.Item>
+            {thisUserType === "2" &&
             <NavDropdown.Item href="/usermanage" style={{ color: "black" }}>
               User Management
-            </NavDropdown.Item>
+            </NavDropdown.Item>}
             <NavDropdown.Item
               href="/"
               style={{ color: "black" }}

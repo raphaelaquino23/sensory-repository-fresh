@@ -10,16 +10,38 @@ const Message = ({message} : { message: any}) => {
   const [receiver, setReceiver] = useState('');
   const [sender, setSender] = useState('');
   const [subject, setSubject] = useState('');
+  const [id, setId] = useState(0);
+  const [isSender, setIsSender] = useState(false);
+  const [isReceiver, setIsReceiver] = useState(false);
 		
   const handleShow = () => setShow(true);
 	const handleClose = () => setShow(false);
 
   const fetchNames = async() => {
+    axiosPrivate.get(`http://localhost:3081/api/getuserid/${localStorage.getItem("username")}`).then(response => {
+			setId(response.data);
+      if(id === message.Sender_Id){
+        setIsSender(true);
+      }
+      if(id === message.Receiver_Id){
+        setIsReceiver(true);
+      }}
+		)
     axiosPrivate.get(`http://localhost:3081/api/userinformation/${message.Sender_Id}`).then(response => {
-      setSender(response.data.UserInformation_Name);
+      if(isSender){
+        setSender(response.data.UserInformation_Name + " (You)");
+      }
+      else {
+        setSender(response.data.UserInformation_Name);
+      }
     })
     axiosPrivate.get(`http://localhost:3081/api/userinformation/${message.Receiver_Id}`).then(response => {
-      setReceiver(response.data.UserInformation_Name);
+      if(isReceiver){
+        setReceiver(response.data.UserInformation_Name + " (You)");
+      }
+      else {
+        setReceiver(response.data.UserInformation_Name);
+      }
     })
   }
   useEffect(() => {
@@ -44,15 +66,6 @@ const Message = ({message} : { message: any}) => {
         {message.Message_Content}
       </td>
       <td>
-        {/* <OverlayTrigger
-          overlay={
-            <Tooltip id={`tooltip-top`}>
-              Edit
-            </Tooltip>
-          }>
-            <button onClick={handleShow}  className="btn text-warning btn-act" data-toggle="modal"><i className="material-icons">&#xE254;</i></button>
-        </OverlayTrigger> */}
-                
       </td>
   	</>
   )
