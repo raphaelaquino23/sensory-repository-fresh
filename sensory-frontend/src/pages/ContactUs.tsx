@@ -39,7 +39,7 @@ const ContactUs = () => {
     event.preventDefault();
     const form = event.target;
     const data = new FormData(form);
-    const email = "sensawaree@gmail.com";
+    const email = "sensaware@gmail.com";
     const subject = "Contact Us Form Submission";
     const body = `Name: ${data.get("name")}\nEmail: ${data.get(
       "email"
