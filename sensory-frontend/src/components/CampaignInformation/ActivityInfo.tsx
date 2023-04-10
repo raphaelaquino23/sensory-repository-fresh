@@ -21,9 +21,16 @@ const ActivityInfo = ({activity}: {activity : any}) => {
   }, [activity])
 
 
+  // const handleClick = (event: any) => {
+  //   event.currentTarget.disabled = true;
+  //   console.log(event);
+  //   console.log("button clicked");
+  // }
 
-
-  const displayAlert = async () => {
+  const displayAlert = async (event: any) => {
+    event.currentTarget.disabled = true;
+    console.log(event);
+    console.log("button clicked");
     alert("You have successfully joined this campaign! Please check the poster for more details.")
     const resUser = await axiosPrivate.get(`http://localhost:3081/api/getuserid/${localStorage.getItem("username")}`)
     const userId = resUser.data
@@ -65,7 +72,7 @@ const ActivityInfo = ({activity}: {activity : any}) => {
       <td>{activity.CampaignInformation_Description}</td>
       <td>{date.toLocaleDateString()}</td>
       <td><Button onClick={(e)=>onClickChange(e)}>Download</Button></td>
-      <td><p onClick={displayAlert} style={{cursor: 'pointer', color: 'blue'}}>Join Event</p></td>
+      <td><Button onClick={displayAlert} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>
 
 
         <Modal show={show} onHide={handleClose}>
@@ -89,4 +96,3 @@ const ActivityInfo = ({activity}: {activity : any}) => {
 
 
 export default ActivityInfo;
-
