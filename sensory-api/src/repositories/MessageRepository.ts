@@ -88,6 +88,37 @@ export class MessageRepository {
     }
   }
 
+  
+  async getAllSentMessagesFromUserId(UserId: number) {
+    try {
+      const Messages = await this.messageRepository.findAll({
+        where: {Sender_Id: UserId},
+      });
+
+      Messages.forEach(function (Message: any) {
+        //decrypt message content
+        let decryptedData = Message.Message_Content;
+        const secretPass = "XkhZG4fW2t2W";
+
+        const decryptData = () => {
+          const bytes = CryptoJS.AES.decrypt(
+            Message.Message_Content,
+            secretPass
+          );
+          const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+          decryptedData = decrypted;
+        };
+        decryptData();
+        Message.Message_Content = decryptedData;
+      });
+
+      console.log("Messages:::", Messages);
+      return Messages;
+    } catch (error) {
+      return [];
+    }
+  }
+
   async createMessage(
     Message: Message,
     SenderName: String,

@@ -406,6 +406,11 @@ class App {
         .getAllMessageFromUserId(parseInt(req.params.id))
         .then((data) => res.json(data));
     });
+    this.express.get("/api/sentmessages/:id", (req, res) => {
+      this.messageController
+        .getAllSentMessagesFromUserId(parseInt(req.params.id))
+        .then((data) => res.json(data));
+    });
     this.express.post("/api/message", (req, res) => {
       this.messageController
         .createMessage(

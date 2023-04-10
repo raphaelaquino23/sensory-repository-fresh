@@ -16,17 +16,29 @@ const MessageList = () => {
 	const [messagesPerPage] = useState(10)
 	const [id, setId] = useState<any>(null);
 	const [filteredMessages, setFilteredMessages] = useState<any[]>([]);
+	const [sentMessages, setSentMessages] = useState<any[]>([]);
+	const [showSent, setShowSent] = useState(false);
 
 	const handleShow = () => setShow(true);
 	const handleClose = () => setShow(false);
 
+	const handleShowSent = () => setShowSent(true);
+	const handleCloseSent = () => setShowSent(false);
+
 	useEffect(() => {
 		handleClose();
+		handleCloseSent();
 	}, [sortedMessages])
 
 	const fetchMessages = async() => {
 		axiosPrivate.get(`http://localhost:3081/api/messages/${id}`).then((response) => {
 			setListMessage(response.data);
+		});
+	}
+
+	const fetchSent = async() => {
+		axiosPrivate.get(`http://localhost:3081/api/sentmessages/${id}`).then((response) => {
+			setSentMessages(response.data);
 		});
 	}
 
@@ -40,6 +52,9 @@ const MessageList = () => {
 			}
 		)
 		fetchMessages();
+		if(id !== null){
+			fetchSent();
+		}
 	}, [id]);
 
 	useEffect(() => {
@@ -52,85 +67,139 @@ const MessageList = () => {
 	const totalPagesNum = Math.ceil(sortedMessages.length / messagesPerPage);
 
 	return (
-		<>
-			<div className="table-title">
-				<div className="row">
-					<div className="col-sm-6">
-						<h2><b>Messages</b></h2>
-					</div>
-					<div>
-						<Button onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Compose a message</span></Button>					
-					</div>
-				</div>
-			</div>
+    <>
+      <div className="table-title">
+        <div className="row">
+          <div className="col-sm-6">
+            <h2>
+              <b>Messages</b>
+            </h2>
+          </div>
+          <div>
+            <Button
+              onClick={handleShow}
+              className="btn btn-success"
+              data-toggle="modal"
+            >
+              <i className="material-icons">&#xE147;</i>
+              <span>Compose a message</span>
+            </Button>
+          </div>
+        </div>
+      </div>
 
-			<input 
-                className="inpt" 
-                placeholder="Search" 
-                style={{border: "2px solid black"}} 
-                value={search} 
-                onChange={handleSearchMessage}
+      <input
+        className="inpt"
+        placeholder="Search"
+        style={{ border: "2px solid black" }}
+        value={search}
+        onChange={handleSearchMessage}
       />
+			<br/><br/>
+			{ !showSent &&
+				<Button
+				onClick={handleShowSent}
+				className="btn btn-success"
+				data-toggle="modal"
+				>
+				<span>Show Only Sent</span>
+				</Button>
+			}
 
-			<table className="table table-striped table-hover">
-				<thead>
-					<tr>
-						<th>Sender</th>
-						<th>Receiver</th>
-						<th>Content</th>
-					</tr>
-				</thead>
-				<tbody>
-					{listMessage
-            .filter((message: { sender: string, receiver: string, Message_Content: string }) => {
-              if(message) {
-                if (search === "") {
-                  return message;
-                } else if (
-                    // message.sender.toLowerCase().includes(search.toLowerCase()) ||
-                    // message.receiver.toLowerCase().includes(search.toLowerCase()) ||
-                    message.Message_Content.toLowerCase().includes(search.toLowerCase())
-                ) {
-                  return message;
+			{ showSent &&
+				<Button
+				onClick={handleCloseSent}
+				className="btn"
+				data-toggle="modal"
+				>
+				<span>Show All</span>
+				</Button>
+			}
+
+      <table className="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Sender</th>
+            <th>Receiver</th>
+            <th>Content</th>
+          </tr>
+        </thead>
+        <tbody>
+          {!showSent && listMessage
+            .filter(
+              (message: {
+                sender: string;
+                receiver: string;
+                Message_Content: string;
+              }) => {
+                if (message) {
+                  if (search === "") {
+                    return message;
+                  } else if (
+                    message.Message_Content.toLowerCase().includes(
+                      search.toLowerCase()
+                    )
+                  ) {
+                    return message;
+                  }
                 }
               }
-            })
-            .map(
-              (
-                message: { Message_Id: Key | null | undefined}
-              ) => (
-                <tr key={message.Message_Id}>
-                  <Message message={message} />
-                </tr>
-              )
-            )}
-					{/* {
+            )
+            .map((message: { Message_Id: Key | null | undefined }) => (
+              <tr key={message.Message_Id}>
+                <Message message={message} />
+              </tr>
+            ))}
+					{showSent && sentMessages
+            .filter(
+              (message: {
+                sender: string;
+                receiver: string;
+                Message_Content: string;
+              }) => {
+                if (message) {
+                  if (search === "") {
+                    return message;
+                  } else if (
+                    message.Message_Content.toLowerCase().includes(
+                      search.toLowerCase()
+                    )
+                  ) {
+                    return message;
+                  }
+                }
+              }
+            )
+            .map((message: { Message_Id: Key | null | undefined }) => (
+              <tr key={message.Message_Id}>
+                <Message message={message} />
+              </tr>
+            ))}
+          {/* {
 						listMessage.map((message: { Message_Id: Key | null | undefined; }) => (
 							<tr key={message.Message_Id}>
               	<Message message={message} />
             	</tr>
 						))
 					} */}
-				</tbody>
-			</table>
+        </tbody>
+      </table>
 
-			{/* <PostPagination pages = {totalPagesNum}
+      {/* <PostPagination pages = {totalPagesNum}
 				setCurrentPage={setCurrentPage}
 				currentPosts ={currentPosts}
 				sortedPosts = {sortedPosts} /> */}
 
-			<Modal show={show} onHide={handleClose}>
-				<Modal.Header closeButton>
-					<Modal.Title>
-						Compose a message
-					</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<AddMessage />
-				</Modal.Body>
-			</Modal>
-		</>
-	)
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Compose a message</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <AddMessage />
+        </Modal.Body>
+      </Modal>
+    </>
+  );
 }
 
 export default MessageList;
