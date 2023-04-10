@@ -7,7 +7,6 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import fileUpload, { UploadedFile } from "express-fileupload";
-import path from "path";
 
 import { ArticleController } from "./controllers/ArticleController";
 import { PostController } from "./controllers/PostController";
@@ -17,8 +16,7 @@ import { AwarenessTestController } from "./controllers/AwarenessTestController";
 import { CommentController } from "./controllers/CommentController";
 import { AuthController } from "./controllers/AuthController";
 import { UserController } from "./controllers/UserController";
-import { Message } from "./models/MessageModel";
-import { checkJwt } from "./middleware/checkJwt";
+import { AuditTrailController } from "./controllers/AuditTrailController";
 ///import { ArticleInformationController } from "./controllers/ArticleInformationController";
 
 class App {
@@ -32,6 +30,7 @@ class App {
   public messageController: MessageController;
   public authController: AuthController;
   public userController: UserController;
+  public auditTrailController: AuditTrailController;
   //public articleinformationController: ArticleInformationController
 
   /* Swagger files start */
@@ -59,6 +58,7 @@ class App {
     this.commentController = new CommentController();
     this.authController = new AuthController();
     this.userController = new UserController();
+    this.auditTrailController = new AuditTrailController();
     //this.articleinformationController = new ArticleInformationController();
   }
 
@@ -792,6 +792,20 @@ class App {
       this.userController
         .deleteApplication(parseInt(req.params.id))
         .then((data) => res.json(data));
+    });
+
+    // audit trail
+    this.express.get("/api/audit", (req, res) => {
+      this.auditTrailController.getAudits().then((data) => res.json(data));
+    });
+
+    this.express.delete("/api/audit/:id", (req, res) => {
+      this.auditTrailController
+        .deleteAudit(parseInt(req.params.id))
+        .then((data) => {
+          res.send("Successfully deleted audit.");
+          res.json(data);
+        });
     });
 
     // swagger docs
