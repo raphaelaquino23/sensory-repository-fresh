@@ -102,12 +102,7 @@ const Register = () => {
   return (
     <>
       {success ? (
-        <section>
-          <h1>Success!</h1>
-          <p>
-            <a href="/login">Sign In</a>
-          </p>
-        </section>
+        window.location.replace('http://localhost:3000/login')
       ) : (
         <section
           style={{

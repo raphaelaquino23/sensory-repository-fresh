@@ -56,7 +56,6 @@ const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const messageObject: MessageObject = {
       message: {
         Message_Content: message
@@ -89,13 +88,13 @@ const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
           <input className="message-form-input" type="text" value={message} onChange={handleContentChange} />
         </label>
         <div className="message-form-buttons">
-          <button className="message-submit-button" type="button">Send Message</button>
+          <button className="message-submit-button" type="submit">Send Message</button>
           <button className="message-cancel-button" type="button" onClick={onClose}>Cancel</button>
         </div>
         {
           messageSent? (
           <label className="message-form-label">
-            Message successfully sent to: {currentUserInformation?.UserInformation_Name}
+            Message successfully sent to: {currentUsername}
           </label>): <p></p>
         }
       </form>
