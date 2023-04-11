@@ -146,10 +146,7 @@ function App() {
             element={thisToken ? <Home /> : <Register />}
           />
           <Route path="/login" element={thisToken ? <Home /> : <LogIn />} />
-          <Route
-            path="/reactivate"
-            element={thisToken ? <Reactivation /> : <LogIn />}
-          />
+          <Route path="/reactivate" element={<Reactivation />} />
           <Route
             path="/activate-account"
             element={thisToken ? <ActivateAccount /> : <LogIn />}

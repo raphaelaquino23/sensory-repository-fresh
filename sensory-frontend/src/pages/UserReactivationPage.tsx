@@ -1,13 +1,12 @@
 const Reactivation = () => {
+  const handleSubmit = () => {};
+
   return (
     <div>
-      <h5 style={{ textAlign: 'center', marginTop: '50px' }}>
-        Your account has been inactivated.
+      <h5 style={{ textAlign: "center", marginTop: "50px" }}>
+        Your account is deactivated.
         <br />
-        Click the{' '}
-        <a href='#' style={{ color: 'blue' }}>
-          link
-        </a>{' '}
+        Click <button onClick={handleSubmit}>here</button>
         to reactivate your account.
       </h5>
     </div>

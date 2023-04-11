@@ -9,6 +9,7 @@ import { Form, Button } from "react-bootstrap";
 import "./styles//Register.css";
 import axios from "../api/axios";
 import RegisterService from "../services/RegisterService";
+import emailjs from "@emailjs/browser";
 // import { GoogleLogin } from 'react-google-login';
 // import { gapi } from 'gapi-script';
 // import FacebookLoginComponent from '../components/User/facebooklogin.component';
@@ -96,13 +97,31 @@ const Register = () => {
       },
     };
     setSuccess(true);
-    RegisterService.create(userObject).then((returnedUser) => returnedUser);
+    emailjs
+      .sendForm(
+        "service_zvndk1m",
+        "template_mxpn6n9",
+        e.target,
+        "AU_WL4qpXwe7jrxk_"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+    e.target.reset();
+    RegisterService.create(userObject).then(
+      (returnedUser: any) => returnedUser
+    );
   };
 
   return (
     <>
       {success ? (
-        window.location.replace('http://localhost:3000/login')
+        window.location.replace("http://localhost:3000/login")
       ) : (
         <section
           style={{
@@ -137,6 +156,7 @@ const Register = () => {
                 type="text"
                 id="username"
                 placeholder="User Name"
+                name="user_name"
                 ref={userRef}
                 autoComplete="off"
                 onChange={(e) => setUser(e.target.value)}
@@ -248,6 +268,7 @@ const Register = () => {
             <Form.Control
               type="text"
               id="email"
+              name="user_email"
               placeholder="Email Address"
               ref={emailRef} //not sure if emailRef is needed
               autoComplete="off"

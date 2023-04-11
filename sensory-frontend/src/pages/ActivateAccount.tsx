@@ -1,5 +1,4 @@
 import emailjs from "@emailjs/browser";
-import { useRef } from "react";
 
 const ActivateAccount = () => {
   const sendEmail = async (e: any) => {
