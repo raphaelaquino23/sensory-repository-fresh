@@ -81,6 +81,23 @@ const PostUser = ({post} : { post: any}) => {
     navigate(`/postdetail/`) 
   }
 
+  const getCategoryTitle = (categoryId: number): string => {
+    switch (categoryId) {
+      case 1:
+        return "General";
+      case 2:
+        return "News";
+      case 3:
+        return "Update";
+      case 4:
+        return "Help";
+      case 5:
+        return "Question";
+      default:
+        return "";
+    }
+  };
+  
   return (
     <>
     <Flex m={2} mb={8}>
@@ -112,7 +129,6 @@ const PostUser = ({post} : { post: any}) => {
             </Box>
             <Spacer />
             <Box>
-              {postClicks}
             </Box>
           </VStack>
           <Box
@@ -133,7 +149,7 @@ const PostUser = ({post} : { post: any}) => {
                       shadow="md"
                       _hover={{ shadow: "1px 1px 8px #888888", cursor: "pointer" }}
                     >
-                      Category Sample
+                      {getCategoryTitle(post.PostCategory_Id)}
                     </Badge>
                   </NextLink>
                   <Badge

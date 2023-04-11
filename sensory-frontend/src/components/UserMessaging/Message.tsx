@@ -1,61 +1,71 @@
-import {useContext, useState, useEffect} from 'react';
-import { MessageContext } from '../../contexts/MessageContext';
-import { Modal, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { axiosPrivate } from '../../api/axios';
+import { useContext, useState, useEffect } from "react";
+import { MessageContext } from "../../contexts/MessageContext";
+import { Modal, Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { axiosPrivate } from "../../api/axios";
 // import EditPost from './EditPost'
 
-const Message = ({message} : { message: any}) => {
-	const {deleteMessage} = useContext(MessageContext)
-	const [show, setShow] = useState(false);
-  const [receiver, setReceiver] = useState('');
-  const [sender, setSender] = useState('');
-  const [subject, setSubject] = useState('');
-		
-  const handleShow = () => setShow(true);
-	const handleClose = () => setShow(false);
+const Message = ({ message, username }: any) => {
+  const { deleteMessage } = useContext(MessageContext);
+  const [show, setShow] = useState(false);
+  const [receiver, setReceiver] = useState("");
+  const [sender, setSender] = useState("");
+  const [id, setId] = useState(0);
+  const [isSender, setIsSender] = useState(false);
+  const [isReceiver, setIsReceiver] = useState(false);
 
-  const fetchNames = async() => {
-    axiosPrivate.get(`http://localhost:3081/api/userinformation/${message.Sender_Id}`).then(response => {
-      setSender(response.data.UserInformation_Name);
-    })
-    axiosPrivate.get(`http://localhost:3081/api/userinformation/${message.Receiver_Id}`).then(response => {
-      setReceiver(response.data.UserInformation_Name);
-    })
-  }
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+
+  const fetchNames = async () => {
+    const [senderResponse, receiverResponse, userIdResponse] =
+      await Promise.all([
+        axiosPrivate.get(
+          `http://localhost:3081/api/userinformation/${message.Sender_Id}`
+        ),
+        axiosPrivate.get(
+          `http://localhost:3081/api/userinformation/${message.Receiver_Id}`
+        ),
+        axiosPrivate.get(`http://localhost:3081/api/getuserid/${username}`),
+      ]);
+
+    setId(userIdResponse.data);
+    const userId = userIdResponse.data;
+
+    if (userId === message.Sender_Id) {
+      setIsSender(true);
+    }
+
+    if (userId === message.Receiver_Id) {
+      setIsReceiver(true);
+    }
+
+    const senderName = isSender
+      ? `${senderResponse.data.UserInformation_Name} (You)`
+      : senderResponse.data.UserInformation_Name;
+    const receiverName = isReceiver
+      ? `${receiverResponse.data.UserInformation_Name} (You)`
+      : receiverResponse.data.UserInformation_Name;
+
+    setSender(senderName);
+    setReceiver(receiverName);
+  };
+
   useEffect(() => {
     fetchNames();
-  }, [message])
+  }, []);
 
   useEffect(() => {
-     handleClose()
-  }, [message])
+    handleClose();
+  }, [message]);
 
-  useEffect(() => {
- }, [message])
   return (
     <>
-    	<td>
-				{sender}
-			</td>
-    	<td>
-				{receiver}
-			</td>
-      <td>
-        {message.Message_Content}
-      </td>
-      <td>
-        {/* <OverlayTrigger
-          overlay={
-            <Tooltip id={`tooltip-top`}>
-              Edit
-            </Tooltip>
-          }>
-            <button onClick={handleShow}  className="btn text-warning btn-act" data-toggle="modal"><i className="material-icons">&#xE254;</i></button>
-        </OverlayTrigger> */}
-                
-      </td>
-  	</>
-  )
-}
+      <td>{message.Sender_Id === id ? `${sender} (You)` : sender}</td>
+      <td>{message.Receiver_Id === id ? `${receiver} (You)` : receiver}</td>
+      <td>{message.Message_Content}</td>
+      <td></td>
+    </>
+  );
+};
 
 export default Message;

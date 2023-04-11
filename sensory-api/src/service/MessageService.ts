@@ -17,6 +17,10 @@ export class MessageService {
     return await this.messageRepository.getAllMessageFromUserId(id);
   }
 
+	async getAllSentMessagesFromUserId(id: number){
+    return await this.messageRepository.getAllSentMessagesFromUserId(id);
+  }
+
   async createMessage(message: Message, SenderName: String, ReceiverName: String) {
 		return await this.messageRepository.createMessage(message, SenderName, ReceiverName);
 	}

@@ -17,6 +17,6 @@
     "jsx": "react-jsx",
     "typeRoots": ["morgan"]
   },
-  "include": ["src"],
+  "include": ["src", "src/config.ts"],
   "exclude": ["node_modules"]
 }

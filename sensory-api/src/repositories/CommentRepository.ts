@@ -5,12 +5,14 @@ import {
   CommentInformation,
   CommentStats,
 } from "../models/CommentModel";
+import { AuditTrail } from "../models/AuditModel";
 
 export class CommentRepository {
   private db: any = {};
   private commentRepository: any;
   private commentInformationRepository: any;
   private commentStatsRepository: any;
+  private auditTrailRepository: any;
 
   constructor() {
     this.db = connect();
@@ -18,6 +20,7 @@ export class CommentRepository {
     this.commentInformationRepository =
       this.db.sequelize.getRepository(CommentInformation);
     this.commentStatsRepository = this.db.sequelize.getRepository(CommentStats);
+    this.auditTrailRepository = this.db.sequelize.getRepository(AuditTrail);
   }
 
   async getComment() {
@@ -79,6 +82,12 @@ export class CommentRepository {
       comStats = await this.commentStatsRepository.create(commentStats);
       comment.CommentStats_Id = comStats.getDataValue("CommentStats_Id");
       data = await this.commentRepository.create(comment);
+      await this.auditTrailRepository.create({
+        type: "Comment",
+        actor: 1,
+        action: "Create Comment",
+        time_performed: new Date(),
+      });
     } catch (error) {
       winstonLogger.error("Error", error);
     }
@@ -120,6 +129,12 @@ export class CommentRepository {
           },
         }
       );
+      await this.auditTrailRepository.create({
+        type: "Comment",
+        actor: 4,
+        action: "Update Comment",
+        time_performed: new Date(),
+      });
     } catch (error) {
       winstonLogger.error("Error", error);
     }
@@ -158,6 +173,12 @@ export class CommentRepository {
         where: {
           Comment_Id: Comment_Id,
         },
+      });
+      await this.auditTrailRepository.create({
+        type: "Comment",
+        actor: 4,
+        action: "Delete Comment",
+        time_performed: new Date(),
       });
     } catch (error) {
       winstonLogger.error("Error", error);

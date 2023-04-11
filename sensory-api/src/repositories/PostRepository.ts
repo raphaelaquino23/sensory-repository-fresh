@@ -7,7 +7,7 @@ import {
   PostStats,
   PostUpvoteTracker,
 } from "../models/PostModel";
-import { User } from "../models/UserModel";
+import { AuditTrail } from "../models/AuditModel";
 
 export class PostRepository {
   private db: any = {};
@@ -16,6 +16,7 @@ export class PostRepository {
   private postCategoryRepository: any;
   private postStatsRepository: any;
   private postUpvoteTrackerRepository: any;
+  private auditTrailRepository: any;
 
   constructor() {
     this.db = connect();
@@ -29,6 +30,7 @@ export class PostRepository {
     this.postStatsRepository = this.db.sequelize.getRepository(PostStats);
     this.postUpvoteTrackerRepository =
       this.db.sequelize.getRepository(PostUpvoteTracker);
+    this.auditTrailRepository = this.db.sequelize.getRepository(AuditTrail);
   }
 
   async getPosts() {
@@ -86,6 +88,12 @@ export class PostRepository {
       pCat = await this.postCategoryRepository.create(postCat);
       postInformation.PostCategory_Id = pCat.getDataValue("PostCategory_Id");
       data = await this.postRepository.create(post);
+      await this.auditTrailRepository.create({
+        type: "Forum",
+        actor: post.User_Id,
+        action: "Create Post",
+        time_performed: post.Post_DateCreated,
+      });
       //       INSERT INTO "Posts" ("Post_Id","PostInformation_Id","PostStats_Id","Post_DateCreated","User_Id","Post_DeactivatedStatus",
       //        "Post_DeactivatedBy") VALUES (DEFAULT,$1,$2,$3,$4,$5,$6) RETURNING "Post_Id","PostInformation_Id","PostStats_Id","Post_DateCreated",
       //        "Post_DateEdited","User_Id","Post_DeactivatedStatus","Post_DeactivatedBy";
@@ -128,6 +136,12 @@ export class PostRepository {
           },
         }
       );
+      await this.auditTrailRepository.create({
+        type: "Forum",
+        actor: "moderator",
+        action: "Update Post",
+        time_performed: new Date(),
+      });
     } catch (error) {
       winstonLogger.error("Error", error);
     }
@@ -161,6 +175,12 @@ export class PostRepository {
         where: {
           Post_Id: Post_Id,
         },
+      });
+      await this.auditTrailRepository.create({
+        type: "Forum",
+        actor: "user",
+        action: "Delete Post",
+        time_performed: new Date(),
       });
     } catch (error) {
       winstonLogger.error("Error", error);
@@ -399,7 +419,12 @@ export class PostRepository {
             },
           }
         );
-
+        await this.auditTrailRepository.create({
+          type: "Forum",
+          actor: user_Id,
+          action: "Upvote Post",
+          time_performed: new Date(),
+        });
         console.log("-------------------------------THE post has been upvoted");
         return data;
       } else {
@@ -427,7 +452,6 @@ export class PostRepository {
             },
           }
         );
-
         return data;
       } else {
         console.log(

@@ -39,7 +39,7 @@ export class MessageRepository {
       console.log("Messages:::", Message);
       //decrypt message content
       let decryptedData = Message.Message_Content;
-      const secretPass = "XkhZG4fW2t2W";
+      const secretPass = process.env.REACT_APP_MESSAGE_SECRET!;
 
       const decryptData = () => {
         const bytes = CryptoJS.AES.decrypt(Message.Message_Content, secretPass);
@@ -62,6 +62,37 @@ export class MessageRepository {
         where: {
           [Op.or]: [{ Sender_Id: UserId }, { Receiver_Id: UserId }],
         },
+      });
+
+      Messages.forEach(function (Message: any) {
+        //decrypt message content
+        let decryptedData = Message.Message_Content;
+        const secretPass = process.env.REACT_APP_MESSAGE_SECRET!;
+
+        const decryptData = () => {
+          const bytes = CryptoJS.AES.decrypt(
+            Message.Message_Content,
+            secretPass
+          );
+          const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+          decryptedData = decrypted;
+        };
+        decryptData();
+        Message.Message_Content = decryptedData;
+      });
+
+      console.log("Messages:::", Messages);
+      return Messages;
+    } catch (error) {
+      return [];
+    }
+  }
+
+  
+  async getAllSentMessagesFromUserId(UserId: number) {
+    try {
+      const Messages = await this.messageRepository.findAll({
+        where: {Sender_Id: UserId},
       });
 
       Messages.forEach(function (Message: any) {
@@ -102,7 +133,7 @@ export class MessageRepository {
       data = {};
     let encryptedData: string;
 
-    const secretPass = "XkhZG4fW2t2W";
+    const secretPass = process.env.REACT_APP_MESSAGE_SECRET!;
 
     try {
       console.log("---------------USER SEARCH");

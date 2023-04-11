@@ -6,6 +6,7 @@ import {
   AwarenessTestStats,
   AwarenessTestType,
 } from "../models/AwarenessTestModel";
+import { AuditTrail } from "../models/AuditModel";
 //AwarenessTest, AwarenessTestResult, AwarenessTestStats,and AwarenessTestType
 
 export class AwarenessTestRepository {
@@ -14,6 +15,7 @@ export class AwarenessTestRepository {
   private awarenessTestResultRepository: any;
   private awarenessTestStatsRepository: any;
   private awarenessTestTypeRepository: any;
+  private auditTrailRepository: any;
 
   constructor() {
     this.db = connect();
@@ -25,6 +27,7 @@ export class AwarenessTestRepository {
       this.db.sequelize.getRepository(AwarenessTestStats);
     this.awarenessTestTypeRepository =
       this.db.sequelize.getRepository(AwarenessTestType);
+    this.auditTrailRepository = this.db.sequelize.getRepository(AuditTrail);
   }
 
   //GET AWARENESSTEST
@@ -64,6 +67,12 @@ export class AwarenessTestRepository {
       );
       AwarenessTest.TestStats_Id = testStats.getDataValue("TestStats_Id");
       data = await this.awarenessTestRepository.create(AwarenessTest);
+      await this.auditTrailRepository.create({
+        type: "Awareness Test",
+        actor: 1,
+        action: "Create Awareness Test",
+        time_performed: new Date(),
+      });
     } catch (error) {
       winstonLogger.error("Error:: ", error);
     }
@@ -93,6 +102,12 @@ export class AwarenessTestRepository {
           },
         }
       );
+      await this.auditTrailRepository.create({
+        type: "Awareness Test",
+        actor: 1,
+        action: "Update Awareness Test",
+        time_performed: new Date(),
+      });
     } catch (error) {
       winstonLogger.error("Error:: ", error);
     }
@@ -120,6 +135,12 @@ export class AwarenessTestRepository {
         where: {
           Test_Id: AwarenessTest_Id,
         },
+      });
+      await this.auditTrailRepository.create({
+        type: "Awareness Test",
+        actor: 4,
+        action: "Delete Awareness Test",
+        time_performed: new Date(),
       });
     } catch (error) {
       winstonLogger.error("Error:: ", error);
@@ -159,6 +180,12 @@ export class AwarenessTestRepository {
       data = await this.awarenessTestResultRepository.create(
         AwarenessTestResult
       );
+      await this.auditTrailRepository.create({
+        type: "Awareness Test",
+        actor: 1,
+        action: "Create Awareness Test Result",
+        time_performed: new Date(),
+      });
     } catch (error) {
       winstonLogger.error("Error:: ", error);
     }

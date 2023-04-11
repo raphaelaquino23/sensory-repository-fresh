@@ -9,6 +9,7 @@ import {
 import express from "express";
 import { winstonLogger } from "../logger/winston.logger";
 import fileUpload, { UploadedFile } from "express-fileupload";
+import { AuditTrail } from "../models/AuditModel";
 
 export class ArticleRepository {
   private db: any = {};
@@ -17,6 +18,7 @@ export class ArticleRepository {
   private articleStatsRepository: any;
   private articleTopicRepository: any;
   private articleUpvoteTrackerRepository: any;
+  private auditTrailRepository: any;
   private express: express.Application;
 
   constructor() {
@@ -29,7 +31,7 @@ export class ArticleRepository {
     this.articleTopicRepository = this.db.sequelize.getRepository(ArticleTopic);
     this.articleUpvoteTrackerRepository =
       this.db.sequelize.getRepository(ArticleUpvoteTracker);
-
+    this.auditTrailRepository = this.db.sequelize.getRepository(AuditTrail);
     this.express.use(fileUpload());
   }
 
@@ -109,6 +111,12 @@ export class ArticleRepository {
       aStats = await this.articleStatsRepository.create(articleStats);
       article.ArticleStats_Id = aStats.getDataValue("ArticleStats_Id");
       data = await this.articleRepository.create(article);
+      await this.auditTrailRepository.create({
+        type: "Article",
+        actor: article.User_Id,
+        action: "Create Article",
+        time_performed: new Date(),
+      });
     } catch (error) {
       winstonLogger.error("Error:: ", error);
     }
@@ -149,6 +157,12 @@ export class ArticleRepository {
           },
         }
       );
+      await this.auditTrailRepository.create({
+        type: "Article",
+        actor: article.User_Id,
+        action: "Update Article",
+        time_performed: new Date(),
+      });
     } catch (error) {
       winstonLogger.error("Error:: ", error);
     }
@@ -187,6 +201,12 @@ export class ArticleRepository {
         where: {
           Article_Id: Article_Id,
         },
+      });
+      await this.auditTrailRepository.create({
+        type: "Article",
+        actor: 4,
+        action: "Delete Article",
+        time_performed: new Date(),
       });
     } catch (error) {
       winstonLogger.error("Error:: ", error);
@@ -475,6 +495,12 @@ export class ArticleRepository {
         return data;
       } else {
       }
+      await this.auditTrailRepository.create({
+        type: "Article",
+        actor: article.User_Id,
+        action: "Upvote Article",
+        time_performed: new Date(),
+      });
     } catch (error) {
       winstonLogger.error("Error:: ", error);
     }
