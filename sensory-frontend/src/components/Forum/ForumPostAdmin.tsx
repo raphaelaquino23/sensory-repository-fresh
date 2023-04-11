@@ -221,7 +221,7 @@ const Post = ({ post }: { post: any }) => {
                 {/* {post.PostInformation_Content
                   ? filter.clean(post.PostInformation_Content)
                   : ""} <br /> */}
-                <Button onClick={(e) => onInputChange(e)} >Uncensor</Button>
+                <Button onClick={(e) => onInputChange(e)}>{censor ? 'Uncensor' : 'Censor'}</Button>
                 {/* <Button variant="secondary" onClick={handleUncensor}>Uncensor</Button> */}
               </Box>
             </Box>

@@ -25,11 +25,26 @@ const ActivityList = () => {
 	const [endDate,setEndDate]= useState(new Date());
     const [open, setOpen] = useState(false)
     const [calendar, setCalendar] = useState("Select a date")
+    // const [joined, setJoined] = useState(true)
 
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
+    // useEffect(() => {
+    //     setJoined(true)
+    // }, [joined])
+
+    // useEffect(() => {
+    //     const data = window.localStorage.getItem('MY_APP_STATE');
+    //     if ( data !== null ) setJoined(JSON.parse(data));
+    //   }, []);
+    
+    //   useEffect(() => {
+    //     window.localStorage.setItem('MY_APP_STATE', JSON.stringify(joined));
+    //   }, [joined]);
+
+    const joined = true;
 
     const handleSearchActivity = (event: React.ChangeEvent<any>) => {
         setSearch(event.target.value)

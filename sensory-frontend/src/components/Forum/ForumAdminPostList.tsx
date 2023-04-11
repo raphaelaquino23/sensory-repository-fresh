@@ -126,7 +126,6 @@ const PostList = () => {
             <Box key={post.PostInformation_Id} p="4" bg="gray.50" borderRadius="md" mb="4">
               <Heading as="h2" size="md" mb="2">
                 {post.PostInformation_Title}
-                {uncensor ? (post.PostInformation_Title) : (post.PostInformation_Title ? filter.clean(post.PostInformation_Title) : "")}
               </Heading>
               <Text mb="2">{post.PostInformation_Content}</Text>
               <Button colorScheme="red" onClick={() => handleDelete(post)}>
