@@ -1,39 +1,29 @@
-import { ChakraProvider } from '@chakra-ui/react';
-import theme from '../../theme';
-import { Badge, NavDropdown } from 'react-bootstrap';
-import {
-  Nav,
-  NavLink,
-  Bars,
-  NavMenu,
-} from './NavbarElements';
-import {
-  Box,
-  Heading,
-  HStack,
-} from "@chakra-ui/react";
-import { GiAnatomy } from "react-icons/gi"
-import { useState } from 'react';
-import AuthProvider, { useAuth } from '../../contexts/AuthProvider';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { setDefaultResultOrder } from 'dns/promises';
-
+import { ChakraProvider } from "@chakra-ui/react";
+import theme from "../../theme";
+import { Badge, NavDropdown } from "react-bootstrap";
+import { Nav, NavLink, Bars, NavMenu } from "./NavbarElements";
+import { Box, Heading, HStack } from "@chakra-ui/react";
+import { GiAnatomy } from "react-icons/gi";
+import { useState } from "react";
+import AuthProvider, { useAuth } from "../../contexts/AuthProvider";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { setDefaultResultOrder } from "dns/promises";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const { user, userType } = useAuth()
+  const { user, userType } = useAuth();
   const thisUserType = localStorage.getItem("role");
 
   const logout = async () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("auth");
-    localStorage.removeItem("role");  
+    localStorage.removeItem("role");
     localStorage.removeItem("_grecaptcha");
     localStorage.removeItem("user");
     localStorage.removeItem("username");
-    navigate('/');
-  }
+    navigate("/");
+  };
 
   return (
     <>
@@ -87,10 +77,16 @@ const Navbar = () => {
             <NavDropdown.Item href="/profile" style={{ color: "black" }}>
               My Profile
             </NavDropdown.Item>
-            {thisUserType === "2" &&
-            <NavDropdown.Item href="/usermanage" style={{ color: "black" }}>
-              User Management
-            </NavDropdown.Item>}
+            {thisUserType === "2" && (
+              <NavDropdown.Item href="/usermanage" style={{ color: "black" }}>
+                User Management
+              </NavDropdown.Item>
+            )}
+            {thisUserType === "2" && (
+              <NavDropdown.Item href="/audit-trail" style={{ color: "black" }}>
+                Audit Trail
+              </NavDropdown.Item>
+            )}
             <NavDropdown.Item
               href="/"
               style={{ color: "black" }}
@@ -99,7 +95,7 @@ const Navbar = () => {
               Log Out
             </NavDropdown.Item>
           </NavDropdown>
-      </Nav>
+        </Nav>
       </ChakraProvider>
     </>
   );
