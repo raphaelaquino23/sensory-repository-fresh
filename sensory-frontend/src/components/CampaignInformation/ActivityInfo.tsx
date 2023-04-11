@@ -11,15 +11,20 @@ import Axios from 'axios';
 const ActivityInfo = ({activity}: {activity : any}) => {
   const {deleteActivity} = useContext(ActivityContext)
   const [show, setShow] = useState(false);
-   
-  const handleShow = () => setShow(true);
+  const [disableButton, setDisableButton] = useState<boolean>(true);
+
+  // const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
 
-  useEffect(() => {
-     handleClose()
-  }, [activity])
+  // useEffect(() => {
+  //   const data = window.localStorage.getItem("MY_APP_STATE");
+  //   if ( data !== null ) setDisableButton(JSON.parse(data));
+  // }, []);
 
+  // useEffect(() => {
+  //   window.localStorage.setItem("MY_APP_STATE", JSON.stringify(disableButton));
+  // }, [disableButton]);
 
   // const handleClick = (event: any) => {
   //   event.currentTarget.disabled = true;
@@ -27,8 +32,25 @@ const ActivityInfo = ({activity}: {activity : any}) => {
   //   console.log("button clicked");
   // }
 
+  useEffect(() => {
+    const isButtonDisabled = localStorage.getItem('isButtonDisabled');
+    if (isButtonDisabled) {
+      setDisableButton(JSON.parse(isButtonDisabled));
+    }
+  }, [])
+
+  // const handleClick = () => {
+  //   setDisableButton(true);
+  //   localStorage.setItem('isButtonDisabled', JSON.stringify(true));
+  // }
+
   const displayAlert = async (event: any) => {
-    event.currentTarget.disabled = true;
+    // event.currentTarget.disabled = true;
+    // setDisableButton(event.currentTarget.disabled)
+  // localStorage.setItem("name", event.currentTarget.disabled );
+    // setDisableButton(true);
+    setDisableButton(false);
+    localStorage.setItem('isButtonDisabled', JSON.stringify(true));
     console.log(event);
     console.log("button clicked");
     alert("You have successfully joined this campaign! Please check the poster for more details.")
@@ -43,13 +65,17 @@ const ActivityInfo = ({activity}: {activity : any}) => {
     await axiosPrivate.post('http://localhost:3081/api/campaignsignup', registerObject);
   };
 
+  // useEffect(() => {
+  //   const data = window.localStorage.getItem("MY_APP_STATE");
+  //   if ( data !== null ) setDisableButton(JSON.parse(data));
+  // }, []);
+
+  // useEffect(() => {
+  //   window.localStorage.setItem("MY_APP_STATE", JSON.stringify(disableButton));
+  // }, [disableButton]);
+
 
   const onClickChange = (e:any) => {    
-    //   axiosPrivate.get(`http://localhost:3081/api/getFile/${article.ArticleInformation_Id}`).then((response) => {
-    //   setFile(response.data.file);
-    //   console.log("THE RESPONSE FILE" + response);
-    //   saveAs(response.data);
-    //  })
       e.preventDefault();
       // setFile(response.data.file);
       Axios({
@@ -72,7 +98,12 @@ const ActivityInfo = ({activity}: {activity : any}) => {
       <td>{activity.CampaignInformation_Description}</td>
       <td>{date.toLocaleDateString()}</td>
       <td><Button onClick={(e)=>onClickChange(e)}>Download</Button></td>
-      <td><Button onClick={displayAlert} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>
+      {/* {disableButton ? null : (
+        <td><Button onClick={displayAlert} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>
+      )}  */}
+      <td><Button onClick={displayAlert} disabled={disableButton} style={{cursor: 'pointer', color: 'white'}}>{disableButton ? 'Join Event' : 'Join Event'}</Button></td>
+    
+      
 
 
         <Modal show={show} onHide={handleClose}>
