@@ -72,7 +72,10 @@ const MessageList = () => {
         <div className="row">
           <div className="col-sm-6">
             <h2>
-              <b>Messages</b>
+              {!showSent && <b>All Your Messages</b>}
+            </h2>
+            <h2>
+              {showSent && <b>Your Sent Messages</b>}
             </h2>
           </div>
           <div>
