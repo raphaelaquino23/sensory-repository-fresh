@@ -23,6 +23,7 @@ import Register from "./pages/UserRegistrationPage";
 import LogIn from "./pages/UserLoginPage";
 // import FacebookLoginComponent from './components/User/facebooklogin.component';
 import Reactivation from "./pages/UserReactivationPage";
+import ActivateAccount from "./pages/ActivateAccount";
 import ModeratorApplication from "./pages/UserModerationApplicationPage";
 import TherapistApplication from "./pages/UserTherapistApplication";
 import Message from "./pages/UserMessagingPage";
@@ -82,10 +83,14 @@ function App() {
               thisToken && thisUserType === "2" ? <AdminForum /> : <UserForum />
             }
           /> */}
-		  <Route
+          <Route
             path="/forum-manage"
             element={
-              thisToken && (thisUserType === "2" || thisUserType === "3") ? <AdminForum /> : <LogIn />
+              thisToken && (thisUserType === "2" || thisUserType === "3") ? (
+                <AdminForum />
+              ) : (
+                <LogIn />
+              )
             }
           />
           <Route
@@ -146,6 +151,10 @@ function App() {
             element={thisToken ? <Reactivation /> : <LogIn />}
           />
           <Route
+            path="/activate-account"
+            element={thisToken ? <ActivateAccount /> : <LogIn />}
+          />
+          <Route
             path="/moderator"
             element={thisToken ? <ModeratorApplication /> : <LogIn />}
           />
@@ -164,7 +173,9 @@ function App() {
           <Route path="/user" element={thisToken ? <UserView /> : <LogIn />} />
           <Route
             path="/usermanage"
-            element={thisToken && thisUserType === "2"? <UserManagement /> : <LogIn />}
+            element={
+              thisToken && thisUserType === "2" ? <UserManagement /> : <LogIn />
+            }
           />
         </Routes>
       </AuthProvider>
