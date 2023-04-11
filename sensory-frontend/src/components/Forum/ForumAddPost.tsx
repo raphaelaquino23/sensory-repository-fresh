@@ -1,7 +1,5 @@
 import { Form, Button } from "react-bootstrap";
-import { PostContext } from "../../contexts/PostContext";
-import { useContext, useState, useCallback, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { axiosPrivate } from "../../api/axios";
 import ForumService from "../../services/ForumService";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
@@ -15,6 +13,7 @@ const AddPost = () => {
     PostInformation_Title: "",
     PostInformation_Content: "",
     PostCategory_Title: "Select Category",
+    PostInformation_Censor: true
   });
   const [selectedItem, setSelectedItem] = useState("");
 
@@ -36,7 +35,7 @@ const AddPost = () => {
     setErrMsg("");
   }, [postinformation]);
 
-  const { PostInformation_Title, PostInformation_Content, PostCategory_Title } =
+  const { PostInformation_Title, PostInformation_Content, PostCategory_Title, PostInformation_Censor } =
     postinformation;
 
   useEffect(() => {
@@ -87,6 +86,7 @@ const AddPost = () => {
         PostInformation_Title: PostInformation_Title,
         PostInformation_Content: PostInformation_Content,
         PostCategory_Id: getCategoryId(selectedItem),
+        PostInformation_Censor: PostInformation_Censor
       },
       postStats: {
         PostStats_Upvotes: 0,

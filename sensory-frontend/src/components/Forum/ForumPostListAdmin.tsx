@@ -61,19 +61,19 @@ const PostList = () => {
 						<h2>Post <b>Repository</b></h2>
 					</div>
 					<div>
-            			<Button className="btn btn-success" data-toggle="modal"><a href='/forum-manage'><span>Forum Management</span></a></Button>&nbsp;
+            <Button className="btn btn-success" data-toggle="modal"><a href='/forum-manage'><span>Forum Management</span></a></Button>&nbsp;
 						<Button style={{marginRight: "-45px"}} onClick={handleShow} className="btn btn-success" data-toggle="modal"><i className="material-icons">&#xE147;</i> <span>Add New Post</span></Button>					
 					</div>
 				</div>
 			</div>
 			
 			<input 
-                className="inpt" 
-                placeholder="Search" 
-                style={{border: "2px solid black"}} 
-                value={search} 
-                onChange={handleSearchPost}
-      		/>
+        className="inpt" 
+        placeholder="Search" 
+        style={{border: "2px solid black"}} 
+        value={search} 
+        onChange={handleSearchPost}
+      />
 
 			<Alert show={showAlert} variant="success">
 				Post Repository Updated Successfully!
@@ -82,9 +82,7 @@ const PostList = () => {
 			<table className="table table-striped table-hover">
 				<thead>
 					<tr>
-						<th>Name</th>
-						{/* <th>Content</th>
-						<th>Actions</th> */}
+						<th>Post</th>
 					</tr>
 				</thead>
 				<tbody>

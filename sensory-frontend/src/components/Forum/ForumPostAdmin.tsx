@@ -23,6 +23,7 @@ import { axiosPrivate } from "../../api/axios";
 import { response } from "express";
 import PostDetailPage from "./ForumPostDetail";
 import Filter from "bad-words";
+import ForumService from "../../services/ForumService";
 
 const Post = ({ post }: { post: any }) => {
   const { deletePost } = useContext(PostContext);
@@ -33,12 +34,25 @@ const Post = ({ post }: { post: any }) => {
   const [posterId, setPostUserId] = useState(0);
   const [posterUserType, setPosterUserType] = useState(0);
   const [postId, setPostId] = useState("");
+  const [censor, setCensor] = useState(true);
 
   const filter = new Filter();
-
+  
   const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
+	const handleClose = () => setShow(false);
   const navigate = useNavigate();
+
+  // const onInputChange = (e: any) => {
+  //   const postObject = {
+  //     post: {},
+  //     postinformation: {
+  //       PostInformation_Id: thePost.PostInformation_Id,
+  //       PostInformation_Censor: censor
+  //     }
+  //   };
+  //   ForumService.update(postObject).then((returnedPost: any) => returnedPost);
+  // };
+
 
   useEffect(() => {
     console.log("POST CATEGORY ID::  " + post.PostCategory_Id);
@@ -62,6 +76,22 @@ const Post = ({ post }: { post: any }) => {
         setPosterUserType(response.data.UserType_Id);
       });
   });
+
+  // const { censor } = newPost;
+
+  const onInputChange = (e: any) => {
+    // return setUncensor(!uncensor);
+
+    const postObject = {
+      post: {},
+      postInformation: {
+        PostInformation_Id: post.PostInformation_Id,
+        PostInformation_Censor: censor
+      }
+    }
+    ForumService.update(postObject).then((returnedPost: any) => returnedPost);
+    return setCensor(!censor);
+  }
 
   const handleUpvote = async (e: any) => {
     e.preventDefault();
@@ -97,6 +127,7 @@ const Post = ({ post }: { post: any }) => {
     localStorage.setItem("post", post.PostInformation_Id);
     navigate(`/postdetail/`);
   };
+  
   const getCategoryTitle = (categoryId: number): string => {
     switch (categoryId) {
       case 1:
@@ -113,6 +144,7 @@ const Post = ({ post }: { post: any }) => {
         return "";
     }
   };
+
 
   return (
     <>
@@ -144,7 +176,7 @@ const Post = ({ post }: { post: any }) => {
             </Box>
           </Box>
           <Spacer />
-          <Box>{postClicks}</Box>
+          
         </VStack>
         <Box
           p={4}
@@ -183,15 +215,14 @@ const Post = ({ post }: { post: any }) => {
               </HStack>
               <Box fontSize="xl">
                 <strong>
-                  {post.PostInformation_Title
-                    ? filter.clean(post.PostInformation_Title)
-                    : ""}
-                </strong>
-              </Box>
-              <Box>
-                {post.PostInformation_Content
+                {censor ? (post.PostInformation_Title ? filter.clean(post.PostInformation_Title) : "") : (post.PostInformation_Title)}
+                </strong> <br />
+                {censor ? (post.PostInformation_Content ? filter.clean(post.PostInformation_Content) : "") : (post.PostInformation_Content)} <br />
+                {/* {post.PostInformation_Content
                   ? filter.clean(post.PostInformation_Content)
-                  : ""}
+                  : ""} <br /> */}
+                <Button onClick={(e) => onInputChange(e)} >Uncensor</Button>
+                {/* <Button variant="secondary" onClick={handleUncensor}>Uncensor</Button> */}
               </Box>
             </Box>
             <Box>
@@ -217,7 +248,7 @@ const Post = ({ post }: { post: any }) => {
           </SimpleGrid>
         </Box>
       </Flex>
-      <Modal show={show} onHide={handleClose}>
+      {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add Comment</Modal.Title>
         </Modal.Header>
@@ -229,7 +260,17 @@ const Post = ({ post }: { post: any }) => {
             Close Button
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Edit Post
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <EditPost thePost={post} />
+        </Modal.Body>
+  	  </Modal>
     </>
   );
 };

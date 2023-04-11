@@ -21,6 +21,9 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import CommentListView from './CommentListView'
+import Post from './ForumPostAdmin'
+import Filter from 'bad-words';
+
 
 interface Post {
   PostInformation_Id: number;
@@ -50,6 +53,9 @@ const PostList = () => {
   const [isViewCommentOpen, setIsViewCommentOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef = React.useRef<HTMLButtonElement>(null);
+  const [uncensor, setUncensor] = useState(true);
+
+  const filter = new Filter();
 
   useEffect(() => {
     async function fetchPosts() {
@@ -62,6 +68,10 @@ const PostList = () => {
     }
     fetchPosts();
   }, []);
+
+  const handleChange = () => {
+    return setUncensor(!uncensor);
+  }
 
   const handleDelete = async (post: Post) => {
     setSelectedPost(post);
@@ -90,6 +100,16 @@ const PostList = () => {
     setIsViewCommentOpen(true);
   };
 
+  const handleUncensorTitle = (post: Post) => {
+    setSelectedPost(post);
+    handleChange();
+  }
+
+  const handleUncensorContent = (post: Post) => {
+    setSelectedPost(post);
+    
+  }
+
   return (
     <Flex justify="center" align="center" height="100%">
       <Box w="80%">
@@ -106,6 +126,7 @@ const PostList = () => {
             <Box key={post.PostInformation_Id} p="4" bg="gray.50" borderRadius="md" mb="4">
               <Heading as="h2" size="md" mb="2">
                 {post.PostInformation_Title}
+                {uncensor ? (post.PostInformation_Title) : (post.PostInformation_Title ? filter.clean(post.PostInformation_Title) : "")}
               </Heading>
               <Text mb="2">{post.PostInformation_Content}</Text>
               <Button colorScheme="red" onClick={() => handleDelete(post)}>
@@ -113,6 +134,12 @@ const PostList = () => {
               </Button>
               <Button colorScheme="blue" onClick={() => handleViewComment(post)} ml="4">
                 View Comments
+              </Button>
+              <Button colorScheme="green" onClick={() => handleUncensorTitle(post)} ml="4">
+                Uncensor Title
+              </Button>
+              <Button colorScheme="yellow" onClick={() => handleUncensorContent(post)} ml="4">
+                Uncensor Content
               </Button>
             </Box>
           ))}
