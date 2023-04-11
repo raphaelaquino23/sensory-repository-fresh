@@ -16,7 +16,7 @@ type MessageObject = {
 
 type Message = {
   Message_Content: string;
-}
+};
 
 interface UserInformation {
   UserInformation_Id: number;
@@ -30,9 +30,9 @@ interface UserInformation {
 const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
   const [message, setMessage] = useState("");
   const [subject, setSubject] = useState("");
-  const [currentUserInformation, setCurrentUserInformation] = useState<UserInformation | null>(null);
+  const [currentUserInformation, setCurrentUserInformation] =
+    useState<UserInformation | null>(null);
   const [messageSent, setMessageSent] = useState(false);
-
 
   useEffect(() => {
     const username = localStorage.getItem("username");
@@ -42,7 +42,9 @@ const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
         .get(`http://localhost:3081/api/getuserid/${username}`)
         .then((response) => {
           const userId = response.data;
-          return axios.get(`http://localhost:3081/api/userinformation/${userId}`);
+          return axios.get(
+            `http://localhost:3081/api/userinformation/${userId}`
+          );
         })
         .then((response) => {
           setCurrentUserInformation(response.data);
@@ -53,18 +55,19 @@ const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
     }
   }, []);
 
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const messageObject: MessageObject = {
       message: {
-        Message_Content: message
+        Message_Content: message,
       },
       SenderName: currentUserInformation?.UserInformation_Name,
       ReceiverName: currentUsername,
     };
-    MessageService.create(messageObject).then((returnedMessage: any) => returnedMessage);
-    setMessage('');
+    MessageService.create(messageObject).then(
+      (returnedMessage: any) => returnedMessage
+    );
+    setMessage("");
     setMessageSent(true);
   };
 
@@ -85,18 +88,32 @@ const MessageForm = ({ currentUsername, onClose }: MessageFormProps) => {
         </label>
         <label className="message-form-label">
           Message:
-          <input className="message-form-input" type="text" value={message} onChange={handleContentChange} />
+          <input
+            className="message-form-input"
+            type="text"
+            value={message}
+            onChange={handleContentChange}
+          />
         </label>
         <div className="message-form-buttons">
-          <button className="message-submit-button" type="submit">Send Message</button>
-          <button className="message-cancel-button" type="button" onClick={onClose}>Cancel</button>
+          <button className="message-submit-button" type="submit">
+            Send Message
+          </button>
+          <button
+            className="message-cancel-button"
+            type="button"
+            onClick={onClose}
+          >
+            Cancel
+          </button>
         </div>
-        {
-          messageSent? (
+        {messageSent ? (
           <label className="message-form-label">
             Message successfully sent to: {currentUsername}
-          </label>): <p></p>
-        }
+          </label>
+        ) : (
+          <p></p>
+        )}
       </form>
     </div>
   );

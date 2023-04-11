@@ -1,7 +1,5 @@
 import { Form, Button } from "react-bootstrap";
-import { PostContext } from "../../contexts/PostContext";
-import { useContext, useState, useCallback, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect } from "react";
 import { axiosPrivate } from "../../api/axios";
 import ForumService from "../../services/ForumService";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
