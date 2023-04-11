@@ -8,7 +8,7 @@ import FileDownload from 'js-file-download';
 import Axios from 'axios';
 
 
-const ActivityInfo = ({activity}: {activity : any}) => {
+const ActivityInfo = ({activity, joined}: {activity : any, joined: any}) => {
   const {deleteActivity} = useContext(ActivityContext)
   const [show, setShow] = useState(false);
   const [disableButton, setDisableButton] = useState<boolean>(true);
@@ -32,12 +32,12 @@ const ActivityInfo = ({activity}: {activity : any}) => {
   //   console.log("button clicked");
   // }
 
-  useEffect(() => {
-    const isButtonDisabled = localStorage.getItem('isButtonDisabled');
-    if (isButtonDisabled) {
-      setDisableButton(JSON.parse(isButtonDisabled));
-    }
-  }, [])
+  // useEffect(() => {
+  //   const isButtonDisabled = localStorage.getItem('isButtonDisabled');
+  //   if (isButtonDisabled) {
+  //     setDisableButton(JSON.parse(isButtonDisabled));
+  //   }
+  // }, [])
 
   // const handleClick = () => {
   //   setDisableButton(true);
@@ -49,8 +49,8 @@ const ActivityInfo = ({activity}: {activity : any}) => {
     // setDisableButton(event.currentTarget.disabled)
   // localStorage.setItem("name", event.currentTarget.disabled );
     // setDisableButton(true);
-    setDisableButton(false);
-    localStorage.setItem('isButtonDisabled', JSON.stringify(true));
+    // setDisableButton(false);
+    // localStorage.setItem('isButtonDisabled', JSON.stringify(true));
     console.log(event);
     console.log("button clicked");
     alert("You have successfully joined this campaign! Please check the poster for more details.")
@@ -101,7 +101,8 @@ const ActivityInfo = ({activity}: {activity : any}) => {
       {/* {disableButton ? null : (
         <td><Button onClick={displayAlert} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>
       )}  */}
-      <td><Button onClick={displayAlert} disabled={disableButton} style={{cursor: 'pointer', color: 'white'}}>{disableButton ? 'Join Event' : 'Join Event'}</Button></td>
+      {/* <td><Button onClick={displayAlert} disabled={disableButton} style={{cursor: 'pointer', color: 'white'}}>{disableButton ? 'Join Event' : 'Join Event'}</Button></td> */}
+      {!joined && <td><Button onClick={displayAlert} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>}
     
       
 

@@ -143,7 +143,7 @@ const ActivityList = () => {
                 }
                   }).map((activity: { CampaignInformation_Id: Key | null | undefined; }) => ( //quick fix
                     <tr key={activity.CampaignInformation_Id}>
-                <ActivityInfo activity={activity} />
+                <ActivityInfo activity={activity} joined={true}/>
                 </tr>
                         ))
                     }
