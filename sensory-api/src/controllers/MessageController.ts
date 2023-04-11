@@ -19,6 +19,11 @@ export class MessageController {
     return await this.messageService.getAllMessageFromUserId(id);
   }
 
+  async getAllSentMessagesFromUserId(id: number) {
+    winstonLogger.info("", null);
+    return await this.messageService.getAllSentMessagesFromUserId(id);
+  }
+
   async createMessage(
     message: Message,
     SenderName: String,
