@@ -9,9 +9,9 @@ import UserManagement from "./pages/UserManagement copy";
 import ArticleUser from "./pages/ArticleUserPage";
 import Campaign from "./pages/CampaignPage";
 import ArticleOptions from "./pages/ArticleOptions";
-import UserForum from "./pages/ForumPostPageUser";
 import AdminForum from "./pages/ForumPostAdminPage";
 import ForumAdmin from "./pages/ForumPostPageAdmn";
+import AuditTrail from "./pages/AuditTrailManagementPage";
 import CampaignActivityPage from "./pages/CampaignActivityPage";
 import Logout from "./pages/UserLogoutPage";
 import ActivityInfo from "./pages/CampaignActivityInfoPage";
@@ -30,16 +30,13 @@ import Message from "./pages/UserMessagingPage";
 import UserView from "./pages/UserViewPage";
 import UserProfile from "./pages/UserProfilePage";
 import { AuthProvider } from "./contexts/AuthProvider";
-import { useState } from "react";
 import PostDetailPage from "./components/Forum/ForumPostDetail";
-import CommentListDown from "./components/Forum/CommentList";
-import CommentCard from "./components/Forum/CommentCard";
-import Unauthorized from "./pages/UnauthorizedPage";
 import NewsSearch from "./components/NewsAPI/newsapi";
 import TherapistDirectory from "./pages/TherapistDirectory";
 import Terms from "./pages/TermsOfService";
 import Privacy from "./pages/PrivacyPolicy";
 import ForumUser from "./pages/ForumPostPageUser";
+import ContactUs from "./pages/ContactUs";
 //Test
 
 function App() {
@@ -94,9 +91,23 @@ function App() {
             }
           />
           <Route
+            path="/audit-trail"
+            element={
+              thisToken && (thisUserType === "2" || thisUserType === "3") ? (
+                <AuditTrail />
+              ) : (
+                <LogIn />
+              )
+            }
+          />
+          <Route
             path="/forum"
             element={
-              thisToken && thisUserType === "2" ? <ForumAdmin /> : <ForumUser />
+              thisToken && (thisUserType === "2" || thisUserType === "3") ? (
+                <ForumAdmin />
+              ) : (
+                <ForumUser />
+              )
             }
           />
           <Route path="/postdetail" element={<PostDetailPage />} />
@@ -173,6 +184,10 @@ function App() {
             element={
               thisToken && thisUserType === "2" ? <UserManagement /> : <LogIn />
             }
+          />
+          <Route
+            path="/contactus"
+            element={thisToken ? <ContactUs /> : <LogIn />}
           />
         </Routes>
       </AuthProvider>

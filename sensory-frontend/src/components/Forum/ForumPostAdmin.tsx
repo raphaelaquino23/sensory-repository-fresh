@@ -144,7 +144,7 @@ const Post = ({ post }: { post: any }) => {
             </Box>
           </Box>
           <Spacer />
-          <Box>{postClicks}</Box>
+          
         </VStack>
         <Box
           p={4}

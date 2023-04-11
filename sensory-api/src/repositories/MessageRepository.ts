@@ -39,7 +39,7 @@ export class MessageRepository {
       console.log("Messages:::", Message);
       //decrypt message content
       let decryptedData = Message.Message_Content;
-      const secretPass = "XkhZG4fW2t2W";
+      const secretPass = process.env.REACT_APP_MESSAGE_SECRET!;
 
       const decryptData = () => {
         const bytes = CryptoJS.AES.decrypt(Message.Message_Content, secretPass);
@@ -67,7 +67,7 @@ export class MessageRepository {
       Messages.forEach(function (Message: any) {
         //decrypt message content
         let decryptedData = Message.Message_Content;
-        const secretPass = "XkhZG4fW2t2W";
+        const secretPass = process.env.REACT_APP_MESSAGE_SECRET!;
 
         const decryptData = () => {
           const bytes = CryptoJS.AES.decrypt(
@@ -133,7 +133,7 @@ export class MessageRepository {
       data = {};
     let encryptedData: string;
 
-    const secretPass = "XkhZG4fW2t2W";
+    const secretPass = process.env.REACT_APP_MESSAGE_SECRET!;
 
     try {
       console.log("---------------USER SEARCH");

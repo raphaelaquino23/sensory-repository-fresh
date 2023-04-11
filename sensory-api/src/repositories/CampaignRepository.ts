@@ -9,6 +9,7 @@ import {
   Partner,
 } from "../models/CampaignModel";
 import { User, UserInformation } from "../models/UserModel";
+import { AuditTrail } from "../models/AuditModel";
 
 export class CampaignRepository {
   private db: any = {};
@@ -20,6 +21,7 @@ export class CampaignRepository {
   private partnerRepository: any;
   private userRepository: any;
   private userInformationRepository: any;
+  private auditTrailRepository: any;
 
   constructor() {
     this.db = connect();
@@ -35,6 +37,7 @@ export class CampaignRepository {
     this.userRepository = this.db.sequelize.getRepository(User);
     this.userInformationRepository =
       this.db.sequelize.getRepository(UserInformation);
+    this.auditTrailRepository = this.db.sequelize.getRepository(AuditTrail);
   }
 
   //GET CAMPAIGN
@@ -89,6 +92,12 @@ export class CampaignRepository {
 
       console.log("INSERT CSTATS VALUE FINISHED");
       data = await this.campaignRepository.create(campaign);
+      await this.auditTrailRepository.create({
+        type: "Campaign",
+        actor: 4,
+        action: "Create Campaign",
+        time_performed: new Date(),
+      });
     } catch (error) {
       winstonLogger.error("Error", error);
     }
@@ -102,6 +111,12 @@ export class CampaignRepository {
       });
       let fileUrl = aInfo.getDataValue("CampaignInformation_Url");
       console.log("-----------------------fileUrl" + fileUrl);
+      await this.auditTrailRepository.create({
+        type: "Campaign",
+        actor: 4,
+        action: "Upload Campaign",
+        time_performed: new Date(),
+      });
       return fileUrl;
     } catch (error) {
       winstonLogger.error("Error", error);
@@ -157,6 +172,12 @@ export class CampaignRepository {
           },
         }
       );
+      await this.auditTrailRepository.create({
+        type: "Campaign",
+        actor: 4,
+        action: "Update Campaign",
+        time_performed: new Date(),
+      });
     } catch (error) {
       console.log("Error::");
     }
@@ -195,6 +216,12 @@ export class CampaignRepository {
         where: {
           Campaign_Id: Campaign_Id,
         },
+      });
+      await this.auditTrailRepository.create({
+        type: "Campaign",
+        actor: 4,
+        action: "Delete Campaign",
+        time_performed: new Date(),
       });
     } catch (error) {
       winstonLogger.error("Error:: ", error);
@@ -474,6 +501,12 @@ export class CampaignRepository {
       data = await this.campaignListRepository.create({
         Campaign_Id: campaignId,
         User_Id: userid,
+      });
+      await this.auditTrailRepository.create({
+        type: "Campaign",
+        actor: 1,
+        action: "Sign Up Campaign",
+        time_performed: new Date(),
       });
     } catch (error) {
       winstonLogger.error("Error:: ", error);

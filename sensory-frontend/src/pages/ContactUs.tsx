@@ -1,33 +1,33 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, TextField, Button } from '@material-ui/core';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { Container, Grid, TextField, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   hero: {
     backgroundColor: theme.palette.primary.main,
-    color: 'white',
+    color: "white",
     paddingTop: theme.spacing(15),
     paddingBottom: theme.spacing(15),
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       paddingTop: theme.spacing(8),
       paddingBottom: theme.spacing(8),
     },
   },
   form: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     borderRadius: theme.spacing(1),
     padding: theme.spacing(4),
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       padding: theme.spacing(2),
     },
   },
   submitButton: {
     marginTop: theme.spacing(2),
     marginLeft: theme.spacing(1),
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       marginTop: theme.spacing(1),
       marginLeft: 0,
-      width: '100%',
+      width: "100%",
     },
   },
 }));
@@ -35,14 +35,18 @@ const useStyles = makeStyles((theme) => ({
 const ContactUs = () => {
   const classes = useStyles();
 
-  const handleSubmit = (event:any) => {
+  const handleSubmit = (event: any) => {
     event.preventDefault();
     const form = event.target;
     const data = new FormData(form);
-    const email = 'sensaware@gmail.com';
-    const subject = 'Contact Us Form Submission';
-    const body = `Name: ${data.get('name')}\nEmail: ${data.get('email')}\nMessage: ${data.get('message')}`;
-    window.location.href = `mailto:${email}?subject=${subject}&body=${encodeURIComponent(body)}`;
+    const email = "sensaware@gmail.com";
+    const subject = "Contact Us Form Submission";
+    const body = `Name: ${data.get("name")}\nEmail: ${data.get(
+      "email"
+    )}\nMessage: ${data.get("message")}`;
+    window.location.href = `mailto:${email}?subject=${subject}&body=${encodeURIComponent(
+      body
+    )}`;
   };
 
   return (

@@ -1,3 +1,3 @@
 export default {
-  jwtSecret: "isproj2"
+  jwtSecret: process.env.REACT_APP_JWT_SECRET!,
 };

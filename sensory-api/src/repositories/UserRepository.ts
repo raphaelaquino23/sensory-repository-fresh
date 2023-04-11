@@ -7,6 +7,7 @@ import {
   UserType,
   Application,
 } from "../models/UserModel";
+import { AuditTrail } from "../models/AuditModel";
 import bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import config from "../middleware/config";
@@ -18,6 +19,7 @@ export class UserRepository {
   private userInformationRepository: any;
   private userTypeRepository: any;
   private applicationRepository: any;
+  private auditTrailRepository: any;
 
   constructor() {
     this.db = connect();
@@ -26,6 +28,7 @@ export class UserRepository {
       this.db.sequelize.getRepository(UserInformation);
     this.userTypeRepository = this.db.sequelize.getRepository(UserType);
     this.applicationRepository = this.db.sequelize.getRepository(Application);
+    this.auditTrailRepository = this.db.sequelize.getRepository(AuditTrail);
   }
 
   async login(userinformation: UserInformation) {
@@ -65,6 +68,12 @@ export class UserRepository {
           console.log("======Token Signed=======");
           thisUser = foundUser.UserInformation_Name;
           console.log("this is the foundUser ======= " + thisUser);
+          await this.auditTrailRepository.create({
+            type: "User",
+            actor: userinformation.UserInformation_Id,
+            action: "Login User",
+            time_performed: new Date(),
+          });
           return token;
           //return {token, thisUser}
         } else {
@@ -120,6 +129,12 @@ export class UserRepository {
           await this.userRepository.create(user);
 
           data = uInfo;
+          await this.auditTrailRepository.create({
+            type: "User",
+            actor: user.User_Id,
+            action: "Register User",
+            time_performed: new Date(),
+          });
         } catch (error) {
           console.log("Error:: ");
         }
@@ -151,6 +166,12 @@ export class UserRepository {
       await this.userRepository.create(user);
 
       data = uInfo;
+      await this.auditTrailRepository.create({
+        type: "User",
+        actor: user.User_Id,
+        action: "Register Admin",
+        time_performed: new Date(),
+      });
     } catch (error) {
       console.log("Error:: ");
     }
@@ -272,6 +293,12 @@ export class UserRepository {
           },
         }
       );
+      await this.auditTrailRepository.create({
+        type: "User",
+        actor: User.User_Id,
+        action: "Update User",
+        time_performed: new Date(),
+      });
     } catch (error) {
       console.log("Error in updateUser Repo:: ", error);
     }
@@ -296,6 +323,12 @@ export class UserRepository {
         where: {
           User_Id: User_Id,
         },
+      });
+      await this.auditTrailRepository.create({
+        type: "User",
+        actor: User_Id,
+        action: "Delete User",
+        time_performed: new Date(),
       });
     } catch (error) {
       this.logger.error("Error:: " + error);
@@ -367,6 +400,12 @@ export class UserRepository {
           },
         }
       );
+      await this.auditTrailRepository.create({
+        type: "User",
+        actor: userId,
+        action: "Update User Type ID",
+        time_performed: new Date(),
+      });
     } catch (error) {
       this.logger.error("Error::" + error);
     }
@@ -416,6 +455,12 @@ export class UserRepository {
       data = await this.userTypeRepository.create({
         UserType_Name: usertype.UserType_Name,
         UserType_Description: usertype.UserType_Description,
+      });
+      await this.auditTrailRepository.create({
+        type: "User",
+        actor: 4,
+        action: "Create User Type",
+        time_performed: new Date(),
       });
     } catch (error) {
       this.logger.error("Error:: " + error);
@@ -470,6 +515,12 @@ export class UserRepository {
     try {
       Application.Application_DateSubmitted = new Date();
       data = await this.applicationRepository.create(Application);
+      await this.auditTrailRepository.create({
+        type: "User Application",
+        actor: 1,
+        action: "Create Application",
+        time_performed: new Date(),
+      });
     } catch (error) {
       console.log(error);
     }
@@ -487,6 +538,12 @@ export class UserRepository {
           },
         }
       );
+      await this.auditTrailRepository.create({
+        type: "User Application",
+        actor: 1,
+        action: "Update Application",
+        time_performed: new Date(),
+      });
     } catch (error) {
       this.logger.error("Error::" + error);
     }
@@ -500,6 +557,12 @@ export class UserRepository {
         where: {
           id: Application_Id,
         },
+      });
+      await this.auditTrailRepository.create({
+        type: "User Application",
+        actor: 4,
+        action: "Delete Application",
+        time_performed: new Date(),
       });
     } catch (error) {
       this.logger.error("Error:: " + error);
