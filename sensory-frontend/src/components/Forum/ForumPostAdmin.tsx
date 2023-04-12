@@ -34,7 +34,7 @@ const Post = ({ post }: { post: any }) => {
   const [posterId, setPostUserId] = useState(0);
   const [posterUserType, setPosterUserType] = useState(0);
   const [postId, setPostId] = useState("");
-  const [censor, setCensor] = useState(true);
+  const [censor, setCensor] = useState<boolean>();
 
   const filter = new Filter();
   
@@ -86,7 +86,7 @@ const Post = ({ post }: { post: any }) => {
       post: {},
       postInformation: {
         PostInformation_Id: post.PostInformation_Id,
-        PostInformation_Censor: censor
+        PostInformation_Censor: !censor
       }
     }
     ForumService.update(postObject).then((returnedPost: any) => returnedPost);

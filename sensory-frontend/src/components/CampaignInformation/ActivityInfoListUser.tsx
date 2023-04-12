@@ -21,6 +21,7 @@ const ActivityList = () => {
     const [activitiesPerPage] = useState(5)
 
     const [allListActivities, setAllListActivities] = useState([]);
+    const [campaignList, setCampaignList] = useState([]);
 	const [startDate,setStartDate]= useState(new Date());
 	const [endDate,setEndDate]= useState(new Date());
     const [open, setOpen] = useState(false)
@@ -74,6 +75,9 @@ const ActivityList = () => {
             setListActivities(response.data);
             setAllListActivities(response.data);
         });
+        axios.get(`http://localhost:3081/api/campaignlist`).then((res) => {
+            setCampaignList(res.data);
+        })
     }, []);
 
 
