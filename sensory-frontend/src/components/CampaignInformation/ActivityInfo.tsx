@@ -6,12 +6,15 @@ import { axiosPrivate } from '../../api/axios';
 import ActivityService from '../../services/ActivityService';
 import FileDownload from 'js-file-download';
 import Axios from 'axios';
+import axios from 'axios';
 
 
-const ActivityInfo = ({activity, joined}: {activity : any, joined: any}) => {
+const ActivityInfo = ({activity}: {activity : any}) => {
   const {deleteActivity} = useContext(ActivityContext)
   const [show, setShow] = useState(false);
   const [showButton, setShowButton] = useState<boolean>(true);
+  const [campaignList, setCampaignList] = useState([]);
+  const [userId, setUserId] = useState<number>(0);
 
   // const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -75,6 +78,20 @@ const ActivityInfo = ({activity, joined}: {activity : any, joined: any}) => {
   //   window.localStorage.setItem("MY_APP_STATE", JSON.stringify(disableButton));
   // }, [disableButton]);
 
+  useEffect(() => {
+    axios.get(`http://localhost:3081/api/campaignlist`).then((res) => {
+        setCampaignList(res.data);
+    })
+    axiosPrivate.get(`http://localhost:3081/api/getuserid/${localStorage.getItem("username")}`).then((res) => {
+        setUserId(res.data);
+    })
+}, []);
+
+  // this returns an object joined events as logged user
+  const checkCampaignExists = campaignList.find((element: {User_Id: number; Campaign_Id: number}) => 
+  element.User_Id === userId && element.Campaign_Id === activity.CampaignInformation_Id)
+  
+  console.log("cehckcampaign exists:: ", checkCampaignExists)
 
   const onClickChange = (e:any) => {    
       e.preventDefault();
@@ -103,10 +120,8 @@ const ActivityInfo = ({activity, joined}: {activity : any, joined: any}) => {
         <td><Button onClick={displayAlert} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>
       )}  */}
       {/* <td><Button onClick={displayAlert} disabled={disableButton} style={{cursor: 'pointer', color: 'white'}}>{disableButton ? 'Join Event' : 'Join Event'}</Button></td> */}
-      {showButton === false ? <td></td> : <td><Button onClick={(event) => displayAlert(event)} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>}
-    
-      
-
+      {/* if (checkCampaignExists) */ }
+      {!showButton ? <td></td> : <td><Button onClick={(event) => displayAlert(event)} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>}
 
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
