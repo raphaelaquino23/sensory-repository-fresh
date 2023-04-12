@@ -134,12 +134,6 @@ const PostList = () => {
               <Button colorScheme="blue" onClick={() => handleViewComment(post)} ml="4">
                 View Comments
               </Button>
-              <Button colorScheme="green" onClick={() => handleUncensorTitle(post)} ml="4">
-                Uncensor Title
-              </Button>
-              <Button colorScheme="yellow" onClick={() => handleUncensorContent(post)} ml="4">
-                Uncensor Content
-              </Button>
             </Box>
           ))}
         </Box>
