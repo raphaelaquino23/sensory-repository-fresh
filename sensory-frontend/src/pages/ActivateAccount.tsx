@@ -19,6 +19,7 @@ const ActivateAccount = () => {
           console.log(error.text);
         }
       );
+    alert("Kindly check your email to verify your account.");
     e.target.reset();
   };
 

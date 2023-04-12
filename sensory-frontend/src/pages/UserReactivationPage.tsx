@@ -1,13 +1,12 @@
 const Reactivation = () => {
-  const handleSubmit = () => {};
 
   return (
     <div>
       <h5 style={{ textAlign: "center", marginTop: "50px" }}>
-        Your account is deactivated.
+        Your account has been successfully verified!
         <br />
-        Click <button onClick={handleSubmit}>here</button>
-        to reactivate your account.
+        Click <a href={"/login"} style={{ color: 'blue' }}> here </a>
+        to login.
       </h5>
     </div>
   );

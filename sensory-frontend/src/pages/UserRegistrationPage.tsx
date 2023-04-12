@@ -112,7 +112,7 @@ const Register = () => {
           console.log(error.text);
         }
       );
-    e.target.reset();
+      alert("Kindly check your email to verify your account.");
     RegisterService.create(userObject).then(
       (returnedUser: any) => returnedUser
     );
@@ -121,7 +121,7 @@ const Register = () => {
   return (
     <>
       {success ? (
-        window.location.replace("http://localhost:3000/login")
+        window.location.replace("https://www.gmail.com")
       ) : (
         <section
           style={{

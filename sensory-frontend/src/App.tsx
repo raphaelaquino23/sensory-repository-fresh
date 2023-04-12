@@ -160,7 +160,7 @@ function App() {
           <Route path="/reactivate" element={<Reactivation />} />
           <Route
             path="/activate-account"
-            element={thisToken ? <ActivateAccount /> : <LogIn />}
+            element={<ActivateAccount />}
           />
           <Route
             path="/moderator"
