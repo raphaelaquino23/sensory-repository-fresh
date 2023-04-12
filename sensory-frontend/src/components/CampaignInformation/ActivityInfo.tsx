@@ -11,7 +11,7 @@ import Axios from 'axios';
 const ActivityInfo = ({activity, joined}: {activity : any, joined: any}) => {
   const {deleteActivity} = useContext(ActivityContext)
   const [show, setShow] = useState(false);
-  const [disableButton, setDisableButton] = useState<boolean>(true);
+  const [showButton, setShowButton] = useState<boolean>(true);
 
   // const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
@@ -45,11 +45,11 @@ const ActivityInfo = ({activity, joined}: {activity : any, joined: any}) => {
   // }
 
   const displayAlert = async (event: any) => {
+    event.preventDefault();
     // event.currentTarget.disabled = true;
     // setDisableButton(event.currentTarget.disabled)
   // localStorage.setItem("name", event.currentTarget.disabled );
     // setDisableButton(true);
-    // setDisableButton(false);
     // localStorage.setItem('isButtonDisabled', JSON.stringify(true));
     console.log(event);
     console.log("button clicked");
@@ -63,6 +63,7 @@ const ActivityInfo = ({activity, joined}: {activity : any, joined: any}) => {
       userid: userId
     }
     await axiosPrivate.post('http://localhost:3081/api/campaignsignup', registerObject);
+    setShowButton(false);
   };
 
   // useEffect(() => {
@@ -102,7 +103,7 @@ const ActivityInfo = ({activity, joined}: {activity : any, joined: any}) => {
         <td><Button onClick={displayAlert} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>
       )}  */}
       {/* <td><Button onClick={displayAlert} disabled={disableButton} style={{cursor: 'pointer', color: 'white'}}>{disableButton ? 'Join Event' : 'Join Event'}</Button></td> */}
-      {!joined && <td><Button onClick={displayAlert} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>}
+      {showButton === false ? <td></td> : <td><Button onClick={(event) => displayAlert(event)} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>}
     
       
 

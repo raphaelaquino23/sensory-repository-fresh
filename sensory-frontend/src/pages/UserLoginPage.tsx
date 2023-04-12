@@ -25,7 +25,7 @@ const Login2 = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [captchaSuccess, setCaptchaSuccess] = useState(false);
-  const navigate = useNavigate();
+  const reCaptchaKey = process.env.REACT_APP_RECAPTCHA_API_KEY!;
 
   const centered = {
     display: "flex",
