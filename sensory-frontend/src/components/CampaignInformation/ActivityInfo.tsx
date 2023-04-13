@@ -47,6 +47,7 @@ const ActivityInfo = ({activity}: {activity : any}) => {
   //   localStorage.setItem('isButtonDisabled', JSON.stringify(true));
   // }
 
+
   const displayAlert = async (event: any) => {
     event.preventDefault();
     // event.currentTarget.disabled = true;
@@ -56,27 +57,27 @@ const ActivityInfo = ({activity}: {activity : any}) => {
     // localStorage.setItem('isButtonDisabled', JSON.stringify(true));
     console.log(event);
     console.log("button clicked");
-    alert("You have successfully joined this campaign! Please check the poster for more details.")
-    const resUser = await axiosPrivate.get(`http://localhost:3081/api/getuserid/${localStorage.getItem("username")}`)
-    const userId = resUser.data
-    const registerObject = {
-      campaign: {
-        Campaign_Id: activity.CampaignInformation_Id
-      },
-      userid: userId
+    const checkCampaignExists = campaignList.find((element: {User_Id: number; Campaign_Id: number}) => 
+    element.User_Id === userId && element.Campaign_Id === activity.CampaignInformation_Id)
+    console.log("checkcampaignlist", checkCampaignExists);
+    if (checkCampaignExists) {
+      alert("You have already joined this campaign")
+    } else {
+      alert("You have successfully joined this campaign! Please check the poster for more details.")
+      const resUser = await axiosPrivate.get(`http://localhost:3081/api/getuserid/${localStorage.getItem("username")}`)
+      const userId = resUser.data
+      const registerObject = {
+        campaign: {
+          Campaign_Id: activity.CampaignInformation_Id
+        },
+        userid: userId
+      }
+      await axiosPrivate.post('http://localhost:3081/api/campaignsignup', registerObject);
     }
-    await axiosPrivate.post('http://localhost:3081/api/campaignsignup', registerObject);
-    setShowButton(false);
+   window.location.reload();
+    // setShowButton(false);
   };
 
-  // useEffect(() => {
-  //   const data = window.localStorage.getItem("MY_APP_STATE");
-  //   if ( data !== null ) setDisableButton(JSON.parse(data));
-  // }, []);
-
-  // useEffect(() => {
-  //   window.localStorage.setItem("MY_APP_STATE", JSON.stringify(disableButton));
-  // }, [disableButton]);
 
   useEffect(() => {
     axios.get(`http://localhost:3081/api/campaignlist`).then((res) => {
@@ -88,10 +89,10 @@ const ActivityInfo = ({activity}: {activity : any}) => {
 }, []);
 
   // this returns an object joined events as logged user
-  const checkCampaignExists = campaignList.find((element: {User_Id: number; Campaign_Id: number}) => 
-  element.User_Id === userId && element.Campaign_Id === activity.CampaignInformation_Id)
+  // const checkCampaignExists = campaignList.find((element: {User_Id: number; Campaign_Id: number}) => 
+  // element.User_Id === userId && element.Campaign_Id === activity.CampaignInformation_Id)
   
-  console.log("cehckcampaign exists:: ", checkCampaignExists)
+  // console.log("cehckcampaign exists:: ", checkCampaignExists)
 
   const onClickChange = (e:any) => {    
       e.preventDefault();
@@ -115,13 +116,17 @@ const ActivityInfo = ({activity}: {activity : any}) => {
       </td>
       <td>{activity.CampaignInformation_Description}</td>
       <td>{date.toLocaleDateString()}</td>
+      {/* {campaignList.map((item) => {
+        <td>{item.Campaign_Id}</td>
+      })} */}
       <td><Button onClick={(e)=>onClickChange(e)}>Download</Button></td>
       {/* {disableButton ? null : (
         <td><Button onClick={displayAlert} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>
       )}  */}
       {/* <td><Button onClick={displayAlert} disabled={disableButton} style={{cursor: 'pointer', color: 'white'}}>{disableButton ? 'Join Event' : 'Join Event'}</Button></td> */}
       {/* if (checkCampaignExists) */ }
-      {!showButton ? <td></td> : <td><Button onClick={(event) => displayAlert(event)} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>}
+      {/* {!showButton ? <td></td> : <td><Button onClick={(event) => displayAlert(event)} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>} */}
+      <td><Button onClick={(event) => displayAlert(event)} style={{cursor: 'pointer', color: 'white'}}>Join Event</Button></td>
 
         <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
