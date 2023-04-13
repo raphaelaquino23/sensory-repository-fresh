@@ -129,10 +129,10 @@ const Register = () => {
         "AU_WL4qpXwe7jrxk_"
       )
       .then(
-        (result) => {
+        (result: any) => {
           console.log(result.text);
         },
-        (error) => {
+        (error: any) => {
           console.log(error.text);
         }
       );
@@ -146,7 +146,7 @@ const Register = () => {
   return (
     <>
       {success ? (
-        window.location.replace("https://www.gmail.com")
+        window.location.replace("/login")
       ) : (
         <section
           style={{
