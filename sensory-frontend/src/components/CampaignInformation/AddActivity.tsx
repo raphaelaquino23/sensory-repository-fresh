@@ -40,7 +40,34 @@ const AddActivity = () => {
       //File is selected from the form here
   const onFileChange = (e:any) => {
     setSelectedFile(e.target.files[0]);
+    console.log("efile", e.target.files[0]);
+    console.log("selectedFile", e.target.files[0]);
+    console.log("name", e.target.files[0].name);
+    const temp = e.target.files[0].name.match(/\.([^\.]+)$/)[1];
+    switch (temp) {
+      case 'jpg':
+      case 'png':
+        // alert('Allowed');
+        break;
+      default:
+        // alert('The file type you have chosen is not allowed.');
+        setSelectedFile(null);
+    }
   };
+    // const ext = e.target.files.(/\.([^\.]+)$/)[1];
+    // console.log("ext", ext)
+    // switch (ext) {
+    //   case 'jpg':
+    //   case 'png':
+    //     alert('Allowed');
+    //     break;
+    //   default:
+    //     alert('Not allowed');
+    //     this.value = '';
+    // }
+  // };
+
+  
 
   const { name, description, url, date } = newActivity;
 
@@ -65,7 +92,8 @@ const AddActivity = () => {
 
                
   const formData = new FormData();
-    formData.append("file", selectedFile);
+    try {
+      formData.append("file", selectedFile);
       const activityObject = {
         campaign: {},
         campaignInformation:{
@@ -83,6 +111,9 @@ const AddActivity = () => {
     	ArticleService.upload(formData).then((returnedThis) => console.log(returnedThis));
       ActivityService.create(activityObject).then((returnedActivity) => console.log(returnedActivity));
       window.location.reload();
+    } catch (e) {
+      alert('The file type you have chosen is not allowed.');
+    }
   };
 
 
@@ -151,6 +182,7 @@ const AddActivity = () => {
       <Form.Group>
         <Form.Control
           type="file"
+          id="idfile"
           formEncType="multipart/form-data"
           placeholder="file"
           name="file"

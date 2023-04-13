@@ -1,14 +1,12 @@
 const Reactivation = () => {
+
   return (
     <div>
-      <h5 style={{ textAlign: 'center', marginTop: '50px' }}>
-        Your account has been inactivated.
+      <h5 style={{ textAlign: "center", marginTop: "50px" }}>
+        Your account has been successfully verified!
         <br />
-        Click the{' '}
-        <a href='#' style={{ color: 'blue' }}>
-          link
-        </a>{' '}
-        to reactivate your account.
+        Click <a href={"/login"} style={{ color: 'blue' }}> here </a>
+        to login.
       </h5>
     </div>
   );
