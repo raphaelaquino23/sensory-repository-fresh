@@ -64,12 +64,6 @@ const PostList = () => {
           </div>
           <div>
             <Button className="btn btn-success" data-toggle="modal">
-              <a href="/audit-trail">
-                <span>View Audit Trail</span>
-              </a>
-            </Button>
-            &nbsp;
-            <Button className="btn btn-success" data-toggle="modal">
               <a href="/forum-manage">
                 <span>Forum Management</span>
               </a>

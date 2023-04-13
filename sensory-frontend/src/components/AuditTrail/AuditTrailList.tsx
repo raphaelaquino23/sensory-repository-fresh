@@ -78,12 +78,12 @@ const AuditTrailListComponent = () => {
         Audit Trail Loaded Successfully!
       </Alert>
 
-      <input
+      {/* <input
         className="input"
         placeholder="Search"
         style={{ border: "2px solid black" }}
         onChange={handleSearchAudit}
-      />
+      /> */}
 
       <table className="table table-striped table-hover">
         <thead>
