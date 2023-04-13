@@ -37,6 +37,7 @@ import Terms from "./pages/TermsOfService";
 import Privacy from "./pages/PrivacyPolicy";
 import ForumUser from "./pages/ForumPostPageUser";
 import ContactUs from "./pages/ContactUs";
+import PageNotFound from "./pages/PageNotFound";
 //Test
 
 function App() {
@@ -189,6 +190,7 @@ function App() {
             path="/contactus"
             element={thisToken ? <ContactUs /> : <LogIn />}
           />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </AuthProvider>
     </Router>

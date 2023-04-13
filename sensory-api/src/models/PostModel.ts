@@ -46,6 +46,9 @@ export class PostInformation extends Model {
   PostInformation_Content: string;
 
   @Column
+  PostInformation_Censor: boolean;
+
+  @Column
   PostCategory_Id: number;
 }
 

@@ -102,24 +102,28 @@ const ActivityList = () => {
       </div>
 
             {/* <div style={{display: "flex", justifyContent: "center"}}> */}
-      <div>
+            <div style={{display: "flex", justifyContent: "center"}}>
         <input 
-          className="inpt" 
-          placeholder="Search" 
-          style={{border: "2px solid black"}} 
-          value={search} 
-          onChange={handleSearchActivity}
+            className="inpt" 
+            placeholder="Search" 
+            style={{border: "2px solid black"}} 
+            value={search} 
+            onChange={handleSearchActivity}
         /> &nbsp;
         <input
-          value={ calendar }
-          readOnly
-          onClick={ () => setOpen (open => !open)}
-          style={{border: "2px solid black"}}
+            value={ calendar }
+            readOnly
+            onClick={ () => setOpen (open => !open)}
+            style={{border: "2px solid black"}}
         />
+        </div>
+        <div style={{display: "flex", justifyContent: "center"}}>
         {open &&
           <DateRangePicker
             ranges={[selectionRange]}
             onChange={handleSelect}
+            staticRanges={[]}
+            inputRanges={[]}
           />
         }
       </div>

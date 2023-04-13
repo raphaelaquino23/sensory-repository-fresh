@@ -19,6 +19,15 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,15}$/;
 const EMAIL_REGEX = /^[a-zA-Z0-9._@]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const REGISTER_URL = "/register";
 
+interface User {
+  UserType_Id: number;
+  UserInformation_Name: string;
+  UserInformation_Password: string;
+  UserInformation_Email: string;
+  UserInformation_Image: string;
+  UserInformation_Description: number;
+}
+
 const Register = () => {
   const userRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null); //go back here
@@ -88,16 +97,31 @@ const Register = () => {
       return;
     }
 
-    const userObject = {
-      user: {},
-      userinformation: {
-        UserInformation_Name: user,
-        UserInformation_Password: pwd,
-        UserInformation_Email: email,
-      },
-    };
-    setSuccess(true);
-    emailjs
+    const response = await axios.get("http://localhost:3081/api/userinformation/");
+    const users = response.data;
+    const existingEmail = users.find((element: { UserInformation_Email: string; }) => element.UserInformation_Email === email);
+    const existingUsername = users.find((element: { UserInformation_Name: string; }) => element.UserInformation_Name === user);
+    if (existingEmail) {
+      setValidEmail(false);
+      alert("User with this email already exists!");
+    }
+    if (existingUsername){
+      setValidName(false);
+      alert("User with this username already exists!");
+    }
+    if(!existingUsername && !existingEmail) {
+      setValidEmail(true);
+      setValidName(true);
+      const userObject = {
+        user: {},
+        userinformation: {
+          UserInformation_Name: user,
+          UserInformation_Password: pwd,
+          UserInformation_Email: email,
+        },
+      };
+      setSuccess(true);
+      emailjs
       .sendForm(
         "service_zvndk1m",
         "template_mxpn6n9",
@@ -116,6 +140,7 @@ const Register = () => {
     RegisterService.create(userObject).then(
       (returnedUser: any) => returnedUser
     );
+    }
   };
 
   return (

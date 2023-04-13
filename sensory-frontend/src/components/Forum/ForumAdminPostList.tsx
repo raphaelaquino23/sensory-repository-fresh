@@ -21,6 +21,9 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import CommentListView from './CommentListView'
+import Post from './ForumPostAdmin'
+import Filter from 'bad-words';
+
 
 interface Post {
   PostInformation_Id: number;
@@ -50,6 +53,9 @@ const PostList = () => {
   const [isViewCommentOpen, setIsViewCommentOpen] = useState(false);
   const onClose = () => setIsOpen(false);
   const cancelRef = React.useRef<HTMLButtonElement>(null);
+  const [uncensor, setUncensor] = useState(true);
+
+  const filter = new Filter();
 
   useEffect(() => {
     async function fetchPosts() {
@@ -62,6 +68,10 @@ const PostList = () => {
     }
     fetchPosts();
   }, []);
+
+  const handleChange = () => {
+    return setUncensor(!uncensor);
+  }
 
   const handleDelete = async (post: Post) => {
     setSelectedPost(post);
@@ -89,6 +99,16 @@ const PostList = () => {
     setSelectedPost(post);
     setIsViewCommentOpen(true);
   };
+
+  const handleUncensorTitle = (post: Post) => {
+    setSelectedPost(post);
+    handleChange();
+  }
+
+  const handleUncensorContent = (post: Post) => {
+    setSelectedPost(post);
+    
+  }
 
   return (
     <Flex justify="center" align="center" height="100%">
