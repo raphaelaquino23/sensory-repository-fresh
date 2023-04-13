@@ -9,6 +9,7 @@ import { Form, Button } from "react-bootstrap";
 import "./styles//Register.css";
 import axios from "../api/axios";
 import RegisterService from "../services/RegisterService";
+import emailjs from "@emailjs/browser";
 // import { GoogleLogin } from 'react-google-login';
 // import { gapi } from 'gapi-script';
 // import FacebookLoginComponent from '../components/User/facebooklogin.component';
@@ -90,9 +91,17 @@ const Register = () => {
     // if button enabled with JS hack
     const v1 = USER_REGEX.test(user);
     const v2 = PWD_REGEX.test(pwd);
-    const v3 = EMAIL_REGEX.test(email);
-    if (!v1 || !v2 || !v3) {
-      setErrMsg("Invalid Entry");
+    const v3 = EMAIL_REGEX.test(email) && (email.endsWith('.com') || email.endsWith('.ph') || email.endsWith('.gov'));
+    if(!v1){
+      setErrMsg("Invalid username");
+      return;
+    }
+    if(!v2){
+      setErrMsg("Invalid password");
+      return;
+    }
+    if(!v3){
+      setErrMsg("Invalid email, ensure email ends with .com, .gov or .ph");
       return;
     }
 
@@ -120,14 +129,32 @@ const Register = () => {
         },
       };
       setSuccess(true);
-      RegisterService.create(userObject).then((returnedUser) => returnedUser);
+      emailjs
+      .sendForm(
+        "service_zvndk1m",
+        "template_mxpn6n9",
+        e.target,
+        "AU_WL4qpXwe7jrxk_"
+      )
+      .then(
+        (result: any) => {
+          console.log(result.text);
+        },
+        (error: any) => {
+          console.log(error.text);
+        }
+      );
+      alert("Kindly check your email to verify your account.");
+    RegisterService.create(userObject).then(
+      (returnedUser: any) => returnedUser
+    );
     }
   };
 
   return (
     <>
       {success ? (
-        window.location.replace('http://localhost:3000/login')
+        window.location.replace("/login")
       ) : (
         <section
           style={{
@@ -162,6 +189,7 @@ const Register = () => {
                 type="text"
                 id="username"
                 placeholder="User Name"
+                name="user_name"
                 ref={userRef}
                 autoComplete="off"
                 onChange={(e) => setUser(e.target.value)}
@@ -273,6 +301,7 @@ const Register = () => {
             <Form.Control
               type="text"
               id="email"
+              name="user_email"
               placeholder="Email Address"
               ref={emailRef} //not sure if emailRef is needed
               autoComplete="off"

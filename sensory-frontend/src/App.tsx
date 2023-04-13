@@ -23,6 +23,7 @@ import Register from "./pages/UserRegistrationPage";
 import LogIn from "./pages/UserLoginPage";
 // import FacebookLoginComponent from './components/User/facebooklogin.component';
 import Reactivation from "./pages/UserReactivationPage";
+import ActivateAccount from "./pages/ActivateAccount";
 import ModeratorApplication from "./pages/UserModerationApplicationPage";
 import TherapistApplication from "./pages/UserTherapistApplication";
 import Message from "./pages/UserMessagingPage";
@@ -157,9 +158,10 @@ function App() {
             element={thisToken ? <Home /> : <Register />}
           />
           <Route path="/login" element={thisToken ? <Home /> : <LogIn />} />
+          <Route path="/reactivate" element={<Reactivation />} />
           <Route
-            path="/reactivate"
-            element={thisToken ? <Reactivation /> : <LogIn />}
+            path="/activate-account"
+            element={<ActivateAccount />}
           />
           <Route
             path="/moderator"
