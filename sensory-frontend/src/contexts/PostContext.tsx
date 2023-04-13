@@ -3,11 +3,11 @@ import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 type PostContextType = {
-  createPostInformation?: any;
-  createCommentInformation?: any;
-  deletePost?: any;
-  sortedPosts?: any;
-  updatePost?: any;
+  createPostInformation?: any
+  createCommentInformation?: any
+  deletePost?: any
+  sortedPosts?: any
+  updatePost?: any
 };
 
 export const PostContext = createContext<PostContextType>({}); //https://stackoverflow.com/questions/72316650/reactjs-with-typescript-template-usecontext-property-does-not-exists-on-type
@@ -30,12 +30,17 @@ const PostContextProvider = (props: any) => {
 
   const createPostInformation = (
     PostInformation_Title: string,
-    PostInformation_Content: string
+    PostInformation_Content: string,
+    PostInformation_Censor: boolean
   ) => {
-    setPosts([...posts, { PostInformation_Title, PostInformation_Content }]);
+    setPosts([...posts, 
+      { PostInformation_Title, 
+        PostInformation_Content,
+        PostInformation_Censor }]);
     window.location.reload();
     history('/post');
   };
+
   const createCommentInformation = (CommentInformation_Content: string) => {
     setPosts([...posts, { CommentInformation_Content }]);
     window.location.reload();
@@ -53,11 +58,17 @@ const PostContextProvider = (props: any) => {
     history('/post');
   };
 
-  const updatePost = (PostInformation_Id: number, updatedPost: string) => {
+  const updatePost = (
+    PostInformation_Id: number, 
+    updatedPost: string
+  ) => {
     setPosts(
       posts.map((post) =>
         post.PostInformation_Id === PostInformation_Id ? updatedPost : post
       )
+    );
+    axios.put(
+      `http://localhost:3081/api/postinformation/${PostInformation_Id}`
     );
     window.location.reload();
     history('/post');

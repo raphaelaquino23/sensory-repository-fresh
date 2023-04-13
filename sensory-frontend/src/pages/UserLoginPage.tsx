@@ -1,6 +1,9 @@
-import { Form, Button } from "react-bootstrap";
-import { useRef, useCallback, useState, useEffect } from "react";
+import { Form, Button, Card, Image } from "react-bootstrap";
+import { UserContext } from "../contexts/UserContext";
+import { useRef, useCallback, useContext, useState, useEffect } from "react";
 import { axiosPrivate } from "../api/axios";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "../contexts/AuthProvider";
 import ReCAPTCHA from "react-google-recaptcha";
 import FacebookLogin from "react-facebook-login";
 import FBRegisterService from "../services/FBRegisterService";
@@ -16,11 +19,13 @@ const Login2 = () => {
     email: "",
   };
 
+  const { setAuth } = useContext(AuthContext);
+  // const userRef = useRef<HTMLInputElement>(null);
   const errRef = useRef<HTMLParagraphElement>(null);
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [captchaSuccess, setCaptchaSuccess] = useState(false);
-  const reCaptchaKey = process.env.REACT_APP_API_KEY!;
+  const reCaptchaKey = process.env.REACT_APP_RECAPTCHA_API_KEY!;
 
   const centered = {
     display: "flex",
@@ -105,7 +110,7 @@ const Login2 = () => {
   return (
     <>
       {success && captchaSuccess === true ? (
-        window.location.replace("http://localhost:3000/home")
+        window.location.replace('http://localhost:3000/home')
       ) : (
         <section
           style={{
@@ -154,7 +159,7 @@ const Login2 = () => {
                 <div style={centered}>
                   <ReCAPTCHA
                     onSubmit={verify}
-                    sitekey={reCaptchaKey}
+                    sitekey="6Lehx-8iAAAAALhAhjl6R1wnedHo0XNtS2IhFUdn"
                     data-theme="dark"
                     onChange={verify}
                     style={{ marginTop: "10px" }}
@@ -211,3 +216,4 @@ const Login2 = () => {
 };
 
 export default Login2;
+
