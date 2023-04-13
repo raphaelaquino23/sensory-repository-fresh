@@ -20,7 +20,7 @@ const Login2 = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [captchaSuccess, setCaptchaSuccess] = useState(false);
-  const reCaptchaKey = process.env.REACT_APP_API_KEY!;
+  const sitekey = process.env.REACT_APP_RECAPTCHA_API_KEY!;
 
   const centered = {
     display: "flex",
@@ -154,7 +154,7 @@ const Login2 = () => {
                 <div style={centered}>
                   <ReCAPTCHA
                     onSubmit={verify}
-                    sitekey={reCaptchaKey}
+                    sitekey={sitekey}
                     data-theme="dark"
                     onChange={verify}
                     style={{ marginTop: "10px" }}
