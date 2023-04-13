@@ -90,9 +90,17 @@ const Register = () => {
     // if button enabled with JS hack
     const v1 = USER_REGEX.test(user);
     const v2 = PWD_REGEX.test(pwd);
-    const v3 = EMAIL_REGEX.test(email);
-    if (!v1 || !v2 || !v3) {
-      setErrMsg("Invalid Entry");
+    const v3 = EMAIL_REGEX.test(email) && (email.endsWith('.com') || email.endsWith('.ph') || email.endsWith('.gov'));
+    if(!v1){
+      setErrMsg("Invalid username");
+      return;
+    }
+    if(!v2){
+      setErrMsg("Invalid password");
+      return;
+    }
+    if(!v3){
+      setErrMsg("Invalid email, ensure email ends with .com, .gov or .ph");
       return;
     }
 
