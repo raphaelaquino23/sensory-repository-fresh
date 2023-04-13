@@ -159,7 +159,7 @@ const Login2 = () => {
                 <div style={centered}>
                   <ReCAPTCHA
                     onSubmit={verify}
-                    sitekey={reCaptchaKey}
+                    sitekey={sitekey}
                     data-theme="dark"
                     onChange={verify}
                     style={{ marginTop: "10px" }}
