@@ -8,6 +8,7 @@ import axios from 'axios';
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
+import { axiosPrivate } from '../../api/axios';
 
 const ActivityList = () => {
     const {sortedActivities} = useContext(ActivityContext);
@@ -16,20 +17,38 @@ const ActivityList = () => {
     const [showAlert, setShowAlert] = useState(false);
     const [listActivities, setListActivities] = useState([]);
     const [search, setSearch] = useState('');
+    const [userId, setUserId] = useState<number>(0);
     const [show, setShow] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [activitiesPerPage] = useState(5)
 
     const [allListActivities, setAllListActivities] = useState([]);
+    const [campaignList, setCampaignList] = useState([]);
+    const [campaign, setCampaign] = useState([]);
 	const [startDate,setStartDate]= useState(new Date());
 	const [endDate,setEndDate]= useState(new Date());
     const [open, setOpen] = useState(false)
     const [calendar, setCalendar] = useState("Select a date")
+    // const [joined, setJoined] = useState(true)
 
 
     const handleShow = () => setShow(true);
     const handleClose = () => setShow(false);
 
+    // useEffect(() => {
+    //     setJoined(true)
+    // }, [joined])
+
+    // useEffect(() => {
+    //     const data = window.localStorage.getItem('MY_APP_STATE');
+    //     if ( data !== null ) setJoined(JSON.parse(data));
+    //   }, []);
+    
+    //   useEffect(() => {
+    //     window.localStorage.setItem('MY_APP_STATE', JSON.stringify(joined));
+    //   }, [joined]);
+
+    const joined = true;
 
     const handleSearchActivity = (event: React.ChangeEvent<any>) => {
         setSearch(event.target.value)
@@ -59,6 +78,15 @@ const ActivityList = () => {
             setListActivities(response.data);
             setAllListActivities(response.data);
         });
+        axios.get(`http://localhost:3081/api/campaignlist`).then((res) => {
+            setCampaignList(res.data);
+        })
+        axios.get(`http://localhost:3081/api/campaign`).then((res) => {
+            setCampaign(res.data);
+        })
+        axiosPrivate.get(`http://localhost:3081/api/getuserid/${localStorage.getItem("username")}`).then((res) => {
+            setUserId(res.data);
+        })
     }, []);
 
 
@@ -84,6 +112,9 @@ const ActivityList = () => {
 		// dateFormat: "yyyy-mm-dd",
         key: 'selection',
     }
+
+    const checkCampaignExists = campaignList.find((element: {User_Id: number}) => 
+    element.User_Id === userId)
 
     return (
     <>
@@ -111,10 +142,14 @@ const ActivityList = () => {
             onClick={ () => setOpen (open => !open)}
             style={{border: "2px solid black"}}
         />
+        </div>
+        <div style={{display: "flex", justifyContent: "center"}}>
         {open &&
             <DateRangePicker
                 ranges={[selectionRange]}
                 onChange={handleSelect}
+                staticRanges={[]}
+                inputRanges={[]}
             />
         }
         </div>
@@ -130,16 +165,21 @@ const ActivityList = () => {
                 </thead>
                 <tbody>
                 {
-                        listActivities.filter((activity: { CampaignInformation_Name: string; CampaignInformation_Description: string; }) => { //quick fix
-                            if (search === "") {
-                                return activity
-                        } else if (activity.CampaignInformation_Name.toLowerCase().includes(search.toLowerCase()) ||
-                                    activity.CampaignInformation_Description.toLowerCase().includes(search.toLowerCase())){
-                                return activity
-                        }
-                        }).map((activity: { CampaignInformation_Id: Key | null | undefined; }) => ( //quick fix
-                            <tr key={activity.CampaignInformation_Id}>
-                <ActivityInfo activity={activity} />
+                  listActivities.filter((activity: { CampaignInformation_Name: string; CampaignInformation_Description: string; }) => { //quick fix
+                    if (search === "") {
+                      return activity
+                } else if (activity.CampaignInformation_Name.toLowerCase().includes(search.toLowerCase()) ||
+                  activity.CampaignInformation_Description.toLowerCase().includes(search.toLowerCase())){
+                    return activity
+                }
+                  }).map((activity: { CampaignInformation_Id: Key | null | undefined; }) => ( //quick fix
+                  //forEach CampaignList\
+                  // If CampaignInformation_Id === CampaignList.CampaignInformation_Id
+                  //  if User_Id === CampaignList.User_Id
+                  // const existingUserNameOrEmail = users.find((element: { UserInformation_Email: string; UserInformation_Name: string }) => 
+                  //if(element.UserInformation_Email === email || element.UserInformation_Name === user));
+                    <tr key={activity.CampaignInformation_Id}>
+                <ActivityInfo activity={activity}/>
                 </tr>
                         ))
                     }
@@ -174,5 +214,3 @@ const ActivityList = () => {
 
 
 export default ActivityList;
-
-

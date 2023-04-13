@@ -13,6 +13,7 @@ const AddPost = () => {
     PostInformation_Title: "",
     PostInformation_Content: "",
     PostCategory_Title: "Select Category",
+    PostInformation_Censor: true
   });
   const [selectedItem, setSelectedItem] = useState("");
 
@@ -34,7 +35,7 @@ const AddPost = () => {
     setErrMsg("");
   }, [postinformation]);
 
-  const { PostInformation_Title, PostInformation_Content, PostCategory_Title } =
+  const { PostInformation_Title, PostInformation_Content, PostCategory_Title, PostInformation_Censor } =
     postinformation;
 
   useEffect(() => {
@@ -85,6 +86,7 @@ const AddPost = () => {
         PostInformation_Title: PostInformation_Title,
         PostInformation_Content: PostInformation_Content,
         PostCategory_Id: getCategoryId(selectedItem),
+        PostInformation_Censor: PostInformation_Censor
       },
       postStats: {
         PostStats_Upvotes: 0,

@@ -100,114 +100,126 @@ const PostUser = ({post} : { post: any}) => {
   
   return (
     <>
-    <Flex m={2} mb={8}>
-          <VStack
-            p={4}
-            bg="white"
-            textAlign="center"
-            fontSize="x-large"
-            w="6%"
-            borderRadius={6}
-            shadow="2px 2px 6px #bababa"
-          >
-            <Box>
-              <Box
-                _hover={{ color: "#00c73f", cursor: "pointer" }}
-                color="black"
-                onClick={handleUpvote}
-              >
-                <BsCaretUpFill />
-              </Box>
-                {postUpvotes}
-              <Box
-                _hover={{ color: "red", cursor: "pointer" }}
-                color="black"
-                onClick={handleDownvote}
-              >
-                <BsCaretDownFill />
-              </Box>
+      <Flex m={2} mb={8}>
+        <VStack
+          p={4}
+          bg="white"
+          textAlign="center"
+          fontSize="x-large"
+          w="6%"
+          borderRadius={6}
+          shadow="2px 2px 6px #bababa"
+        >
+          <Box>
+            <Box
+              _hover={{ color: "#00c73f", cursor: "pointer" }}
+              color="black"
+              onClick={handleUpvote}
+            >
+              <BsCaretUpFill />
             </Box>
-            <Spacer />
-            <Box>
+            {postUpvotes}
+            <Box
+              _hover={{ color: "red", cursor: "pointer" }}
+              color="black"
+              onClick={handleDownvote}
+            >
+              <BsCaretDownFill />
             </Box>
-          </VStack>
-          <Box
-            p={4}
-            w="100%"
-            shadow="2px 2px 6px #bababa"
-            borderRadius={6}
-            bg="white"
-            position="relative"
-          >
-            <SimpleGrid columns={1} spacing={10}>
-              <Box>
-                <HStack mb={2} spacing={4}>
-                  <NextLink href={`/category/`}>
-                    <Badge
-                      fontSize="sm"
-                      colorScheme="yellow"
-                      shadow="md"
-                      _hover={{ shadow: "1px 1px 8px #888888", cursor: "pointer" }}
-                    >
-                      {getCategoryTitle(post.PostCategory_Id)}
-                    </Badge>
-                  </NextLink>
-                  <Badge
-                      fontSize="sm"
-                      colorScheme={getUserTypeColor(posterUserType)}
-                      shadow="md"
-                    >
-                      {poster}
-                  </Badge>
-                  <Tag color="grey" shadow="md">
-                    {getUserType(posterUserType)}
-                  </Tag>
-                </HStack>
-                <Box fontSize="xl">
-                  <strong>{post.PostInformation_Title ? filter.clean(post.PostInformation_Title) : ''}</strong>
-                </Box>
-                <Box>{post.PostInformation_Content ? filter.clean(post.PostInformation_Content) : ''}</Box>
-              </Box>
-              <Box>
-                <Box fontSize="sm" fontStyle="italic" color="gray.600" mt={3}>
-                  <HStack spacing={10}>
-                    <Box>{post.Post_DateCreated}</Box>
-                  </HStack>
-                </Box>
-                <Box position="absolute" bottom={0} right={0} mr={4} mb={4}>
-                  <HStack spacing={4}>
-                        <IconButton
-                          colorScheme="gray"
-                          aria-label="detail"
-                          size="md"
-                          shadow="md"
-                          title="Detail"
-                          icon={<BiDetail />}
-                          onClick={handlePostDetail}
-                        />
-                  </HStack>
-                </Box>
-              </Box>
-            </SimpleGrid>
           </Box>
-        </Flex>
-        <Modal show={show} onHide={handleClose}>
-				<Modal.Header closeButton>
-					<Modal.Title>
-						Add Comment
-					</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>
-					<CreateComment />
-				</Modal.Body>
-				<Modal.Footer>
-					<Button variant="secondary" onClick={handleClose}>
-						Close Button
-					</Button>
-				</Modal.Footer>
-			</Modal>
+          <Spacer />
+          <Box></Box>
+        </VStack>
+        <Box
+          p={4}
+          w="100%"
+          shadow="2px 2px 6px #bababa"
+          borderRadius={6}
+          bg="white"
+          position="relative"
+        >
+          <SimpleGrid columns={1} spacing={10}>
+            <Box>
+              <HStack mb={2} spacing={4}>
+                <NextLink href={`/category/`}>
+                  <Badge
+                    fontSize="sm"
+                    colorScheme="yellow"
+                    shadow="md"
+                    _hover={{
+                      shadow: "1px 1px 8px #888888",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {getCategoryTitle(post.PostCategory_Id)}
+                  </Badge>
+                </NextLink>
+                <Badge
+                  fontSize="sm"
+                  colorScheme={getUserTypeColor(posterUserType)}
+                  shadow="md"
+                >
+                  {poster}
+                </Badge>
+                <Tag color="grey" shadow="md">
+                  {getUserType(posterUserType)}
+                </Tag>
+              </HStack>
+              <Box fontSize="xl">
+                <strong>
+                  {post.PostInformation_Censor
+                    ? post.PostInformation_Title
+                      ? filter.clean(post.PostInformation_Title)
+                      : ""
+                    : post.PostInformation_Title}
+                </strong>
+              </Box>
+              <Box>
+                {post.PostInformation_Censor
+                  ? post.PostInformation_Content
+                    ? filter.clean(post.PostInformation_Content)
+                    : ""
+                  : post.PostInformation_Content}
+              </Box>
+            </Box>
+            <Box>
+              <Box fontSize="sm" fontStyle="italic" color="gray.600" mt={3}>
+                <HStack spacing={10}>
+                  <Box>{post.Post_DateCreated}</Box>
+                </HStack>
+              </Box>
+              <Box position="absolute" bottom={0} right={0} mr={4} mb={4}>
+                <HStack spacing={4}>
+                  <IconButton
+                    colorScheme="gray"
+                    aria-label="detail"
+                    size="md"
+                    shadow="md"
+                    title="Detail"
+                    icon={<BiDetail />}
+                    onClick={handlePostDetail}
+                  />
+                </HStack>
+              </Box>
+            </Box>
+          </SimpleGrid>
+        </Box>
+      </Flex>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Comment</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <CreateComment />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close Button
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
-  )
+  );
 }
 
 const getUserTypeColor = (userTypeId: number) => {
